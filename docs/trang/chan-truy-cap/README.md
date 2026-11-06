@@ -56,11 +56,18 @@ Request /api/*
 
 Super admin mở **Tổng quan** → thấy IP/device lạ → bấm **Chặn** → POST blocked-* → middleware refresh cache.
 
+## API (spec đầy đủ trong Map)
+
+Mỗi module có bảng endpoint + **body/response/mã lỗi** từng route:
+
+- `module-api/chan-ip-api/README.md` — blocked-ips
+- `module-api/chan-thiet-bi-api/README.md` — blocked-devices
+- `module-api/quan-sat-truy-cap/README.md` — access-observations
+
 ## Đọc tiếp
 
-- Nghiệp vụ: `nghiep-vu/10-truy-cap-an-ninh/README.md`
-- API: `module-api/chan-ip-api/README.md`, `blocked-devices.md`, `access-observations.md`
-- Lib: `thu-vien/ip-denylist/README.md`, `device-denylist.md`, `api-access-observations.md`
+- Nghiệp vu: `nghiep-vu/10-truy-cap-an-ninh/README.md`
+- Lib: `thu-vien/ip-denylist/README.md`, `thu-vien/device-denylist/README.md`, `thu-vien/api-access-observations/README.md`
 - Schema: `co-so-du-lieu/ip-bi-chan/README.md`, `co-so-du-lieu/thiet-bi-bi-chan/README.md`
 
 **Đọc tiếp:** [Hướng dẫn đọc Map](../../huong-dan-doc/)

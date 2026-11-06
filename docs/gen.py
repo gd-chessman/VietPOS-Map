@@ -275,15 +275,191 @@ API_MODULE_SHORT_VI: dict[str, str] = {
     "widget": "API cho app widget Android.",
 }
 
-ACCESS_ENDPOINT_NOTES: dict[str, str] = {
-    "GET /blocked-ips": "Liệt kê `blocked_ips` + nhãn người tạo; kèm cờ env denylist và IP client hiện tại.",
-    "POST /blocked-ips": "Thêm IP (normalize IPv4/IPv6); body `{ ip, note? }`; refresh denylist cache.",
-    "DELETE /blocked-ips/:id": "Xóa một dòng; refresh denylist cache.",
-    "GET /blocked-devices": "Liệt kê thiết bị bị chặn (tương tự IP).",
-    "POST /blocked-devices": "Thêm device id; validate qua `isValidBlockedDeviceId`.",
-    "DELETE /blocked-devices/:id": "Bỏ chặn thiết bị.",
-    "GET /access-observations": "Query `?limit=` (mặc định 200); trả `items`, thống kê `today`, `ttlHours`, `storage: memory`.",
+# Spec đầy đủ module an ninh (summary = 1 dòng bảng; detail = markdown dưới mục endpoint)
+ACCESS_ENDPOINT_SPEC: dict[str, dict[str, str]] = {
+    "GET /blocked-ips": {
+        "summary": "Liệt kê IP bị chặn; kèm IP client đang xem và cờ denylist từ env.",
+        "detail": """
+**URL:** `GET /api/blocked-ips`
+
+**Quyền:** Cookie/JWT qua `requireAuth` → trong handler bắt buộc `req.auth.role === "super_admin"`.
+
+| HTTP | Khi nào | Body lỗi (JSON) |
+|------|---------|-----------------|
+| **403** | Không phải super_admin | `{ "error": "Chỉ quản trị hệ thống được quản lý IP bị chặn" }` |
+| **500** | Lỗi DB / chưa có bảng | `{ "error": "Không tải được danh sách IP. Cập nhật cơ sở dữ liệu (pnpm --filter @workspace/db push) rồi thử lại." }` |
+
+**Response 200:**
+
+| Trường | Kiểu | Ý nghĩa |
+|--------|------|---------|
+| `items[]` | array | Mỗi phần tử: `id`, `ip`, `note`, `createdAt` (ISO), `createdByLabel` (tên hoặc email người tạo) |
+| `envDenylistEnabled` | boolean | `true` nếu có `IP_DENYLIST` hoặc `BLOCKED_IPS` trong env (chặn thêm ngoài DB) |
+| `seenClientIp` | string | IP đã dùng để đối chiếu denylist (proxy-aware) |
+| `socketIp` | string | IP socket trực tiếp |
+| `trustProxy` | boolean | Express trust proxy |
+| `xForwardedFor` | string \\| null | Header X-Forwarded-For nếu có |
+
+**Side effect:** không đổi DB (chỉ đọc). Sau POST/DELETE module khác gọi `refreshIpDenylistFromDb()`.
+""",
+    },
+    "POST /blocked-ips": {
+        "summary": "Thêm một IP vào `blocked_ips`; refresh cache denylist.",
+        "detail": """
+**URL:** `POST /api/blocked-ips`
+
+**Quyền:** `requireAuth` + **super_admin** (403 giống GET).
+
+**Request body** (`application/json`):
+
+| Trường | Bắt buộc | Mô tả |
+|--------|----------|--------|
+| `ip` | có | Chuỗi IPv4/IPv6; server `normalizeClientIp` + `isValidBlockedIp` |
+| `note` | không | Ghi chú, tối đa 500 ký tự |
+
+**Response 201:** `{ id, ip, note, createdAt, createdByLabel: null }`
+
+| HTTP | Khi nào | `error` |
+|------|---------|---------|
+| **400** | Thiếu/sai `ip` | `"Cần địa chỉ IP"` hoặc `"Địa chỉ IP không hợp lệ"` |
+| **409** | Trùng IP (unique) | `"IP này đã có trong danh sách chặn"` |
+| **500** | Lỗi insert | `"Không thêm được IP vào danh sách chặn"` |
+
+**Side effect:** insert `blocked_ips`; gọi `refreshIpDenylistFromDb()` — middleware chặn IP ngay trên mọi `/api/*`.
+""",
+    },
+    "DELETE /blocked-ips/:id": {
+        "summary": "Xóa một dòng `blocked_ips` theo id; refresh cache.",
+        "detail": """
+**URL:** `DELETE /api/blocked-ips/:id`
+
+**Quyền:** `requireAuth` + **super_admin**.
+
+**Path:** `id` — số nguyên dương (PK bảng `blocked_ips`).
+
+| HTTP | Khi nào | Body |
+|------|---------|------|
+| **400** | `id` không hợp lệ | `{ "error": "ID không hợp lệ" }` |
+| **404** | Không có dòng | `{ "error": "Không tìm thấy IP trong danh sách" }` |
+| **200** | OK | `{ "ok": true }` |
+| **500** | Lỗi xóa | `{ "error": "Không xóa được IP khỏi danh sách" }` |
+
+**Side effect:** `refreshIpDenylistFromDb()`.
+""",
+    },
+    "GET /blocked-devices": {
+        "summary": "Liệt kê thiết bị bị chặn + Device ID request hiện tại.",
+        "detail": """
+**URL:** `GET /api/blocked-devices`
+
+**Quyền:** `requireAuth` + **super_admin** (403: `"Chỉ quản trị hệ thống được quản lý thiết bị bị chặn"`).
+
+**Response 200:**
+
+| Trường | Ý nghĩa |
+|--------|---------|
+| `items[]` | `id`, `deviceId`, `deviceName` (từ `allowed_devices` nếu có), `note`, `createdAt`, `createdByLabel` |
+| `thisDeviceId` | Device ID client gửi lên request (header/cookie — xem `device-denylist.ts`) |
+
+**500:** `{ "error": "Không tải được danh sách. Chạy pnpm --filter @workspace/db run apply:blocked-devices rồi thử lại." }`
+""",
+    },
+    "POST /blocked-devices": {
+        "summary": "Thêm Device ID vào denylist; refresh cache.",
+        "detail": """
+**URL:** `POST /api/blocked-devices`
+
+**Quyền:** super_admin.
+
+**Body JSON:**
+
+| Trường | Bắt buộc | Mô tả |
+|--------|----------|--------|
+| `deviceId` hoặc `device_id` | có | Chuỗi 8–128 ký tự sau `normalizeDeviceId` |
+| `note` | không | ≤ 500 ký tự |
+
+**201:** `{ id, deviceId, deviceName, note, createdAt, createdByLabel: null }`
+
+| HTTP | `error` |
+|------|---------|
+| **400** | `"Cần Device ID"` / `"Device ID không hợp lệ (8–128 ký tự)"` |
+| **409** | `"Thiết bị này đã có trong danh sách chặn"` |
+| **500** | `"Không thêm được thiết bị vào danh sách chặn"` |
+
+**Side effect:** `refreshDeviceDenylistFromDb()`.
+""",
+    },
+    "DELETE /blocked-devices/:id": {
+        "summary": "Bỏ chặn thiết bị theo id bảng `blocked_devices`.",
+        "detail": """
+**URL:** `DELETE /api/blocked-devices/:id`
+
+**Quyền:** super_admin. Path `id` — integer > 0.
+
+| HTTP | Body |
+|------|------|
+| **400** | `{ "error": "ID không hợp lệ" }` |
+| **404** | `{ "error": "Không tìm thấy thiết bị trong danh sách" }` |
+| **200** | `{ "ok": true }` |
+| **500** | `{ "error": "Không xóa được thiết bị khỏi danh sách" }` |
+
+**Side effect:** `refreshDeviceDenylistFromDb()`.
+""",
+    },
+    "GET /access-observations": {
+        "summary": "Bảng quan sát cặp deviceId+IP (RAM, TTL ~48h).",
+        "detail": """
+**URL:** `GET /api/access-observations`
+
+**Quyền:** super_admin (403: `"Chỉ quản trị hệ thống được xem tổng quan truy cập"`).
+
+**Query:**
+
+| Param | Mặc định | Mô tả |
+|-------|----------|--------|
+| `limit` | `200` | Số dòng trả về (parse number; NaN → 200) |
+
+**Response 200:**
+
+| Trường | Ý nghĩa |
+|--------|---------|
+| `items[]` | Mỗi dòng: `deviceId`, `ip`, `hitCount`, `todayHitCount`, `firstSeen`, `lastSeen` (ISO), `deviceName` |
+| `today` | `{ calendarDay, totalHits, uniqueDevices, uniqueIps, activePairs }` — theo lịch VN |
+| `ttlHours` | TTL store (lib: 48h) |
+| `storage` | Luôn `"memory"` — **mất khi restart API** |
+
+**Ghi nhận dữ liệu:** middleware `accessObservationMiddleware` trên mọi `/api` (không chặn).
+
+**500:** `{ "error": "Không tải được tổng quan truy cập" }`
+""",
+    },
 }
+
+
+def access_endpoint_key(method: str, path: str) -> str:
+    return f"{method} {path}"
+
+
+def endpoint_summary(module_key: str, method: str, path: str, middleware: list[str]) -> str:
+    key = access_endpoint_key(method, path)
+    if key in ACCESS_ENDPOINT_SPEC:
+        base = ACCESS_ENDPOINT_SPEC[key]["summary"]
+        mw = ", ".join(middleware) if middleware else "requireAuth"
+        return f"{base} Route: `{mw}` + **super_admin** trong handler."
+    if module_key == "vat-inbound" and key in VAT_INBOUND_ENDPOINT_NOTES:
+        note = VAT_INBOUND_ENDPOINT_NOTES[key]
+        if middleware:
+            note += f" Lớp kiểm tra: `{', '.join(middleware)}`."
+        return note
+    api = path if path.startswith("/") else f"/{path}"
+    mw = ", ".join(middleware) if middleware else "requireAuth (mặc định — xem file)"
+    return f"Đường dẫn đầy đủ `/api{api}`. Lớp kiểm tra: `{mw}`."
+
+
+def endpoint_detail_body(method: str, path: str) -> str:
+    key = access_endpoint_key(method, path)
+    spec = ACCESS_ENDPOINT_SPEC.get(key)
+    return spec.get("detail", "").strip() if spec else ""
 
 PAGE_DOCS: dict[str, str] = {
     "pos.tsx": """
@@ -419,12 +595,19 @@ Request /api/*
 
 Super admin mở **Tổng quan** → thấy IP/device lạ → bấm **Chặn** → POST blocked-* → middleware refresh cache.
 
+## API (spec đầy đủ trong Map)
+
+Mỗi module có bảng endpoint + **body/response/mã lỗi** từng route:
+
+- `module-api/chan-ip-api/README.md` — blocked-ips
+- `module-api/chan-thiet-bi-api/README.md` — blocked-devices
+- `module-api/quan-sat-truy-cap/README.md` — access-observations
+
 ## Đọc tiếp
 
-- Nghiệp vụ: `nghiep-vu/10-truy-cap-an-ninh.md`
-- API: `api-modules/blocked-ips.md`, `blocked-devices.md`, `access-observations.md`
-- Lib: `lib-modules/ip-denylist.md`, `device-denylist.md`, `api-access-observations.md`
-- Schema: `schema/blockedIps.md`, `schema/blockedDevices.md`
+- Nghiệp vu: `nghiep-vu/10-truy-cap-an-ninh/README.md`
+- Lib: `thu-vien/ip-denylist/README.md`, `thu-vien/device-denylist/README.md`, `thu-vien/api-access-observations/README.md`
+- Schema: `co-so-du-lieu/ip-bi-chan/README.md`, `co-so-du-lieu/thiet-bi-bi-chan/README.md`
 """,
     "access-overview-section.tsx": """
 **Không có route riêng** — embed trong tab **Tổng quan** của `/access-block`.
@@ -1292,6 +1475,8 @@ def prepend_mo_ta_block(lines: list[str], desc: str) -> list[str]:
 def endpoint_index_blurb(mod: str, method: str, api_path: str) -> str:
     p = api_path if api_path.startswith("/") else f"/{api_path}"
     key = f"{method} {p}"
+    if key in ACCESS_ENDPOINT_SPEC:
+        return one_line(ACCESS_ENDPOINT_SPEC[key]["summary"], 140)
     if mod == "vat-inbound" and key in VAT_INBOUND_ENDPOINT_NOTES:
         return one_line(VAT_INBOUND_ENDPOINT_NOTES[key], 140)
     intro = API_MODULE_INTRO.get(mod, "")
@@ -1736,20 +1921,7 @@ def endpoint_anchor(method: str, path: str) -> str:
 
 
 def endpoint_note(module_key: str, method: str, path: str, middleware: list[str]) -> str:
-    key = f"{method} {path}"
-    if module_key == "vat-inbound" and key in VAT_INBOUND_ENDPOINT_NOTES:
-        note = VAT_INBOUND_ENDPOINT_NOTES[key]
-        if middleware:
-            note += f" Lớp kiểm tra: `{', '.join(middleware)}`."
-        return note
-    if key in ACCESS_ENDPOINT_NOTES:
-        note = ACCESS_ENDPOINT_NOTES[key]
-        if middleware:
-            note += f" Lớp kiểm tra: `{', '.join(middleware)}`."
-        return note
-    api = path if path.startswith("/") else f"/{path}"
-    mw = ", ".join(middleware) if middleware else "requireAuth (mặc định — xem file)"
-    return f"Đường dẫn đầy đủ `/api{api}`. Lớp kiểm tra: `{mw}`."
+    return endpoint_summary(module_key, method, path, middleware)
 
 
 def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
@@ -1813,7 +1985,11 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
             lines.append("")
             lines.append(note)
             lines.append("")
-            if mw:
+            detail = endpoint_detail_body(method, path)
+            if detail:
+                lines.append(detail)
+                lines.append("")
+            elif mw:
                 lines.append(f"- **Lớp kiểm tra (middleware):** {', '.join(f'`{x}`' for x in mw)}")
                 lines.append("")
         lines.extend(

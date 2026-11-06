@@ -6,7 +6,7 @@
 
 ---
 
-1. `GET` `/api/access-observations` — Tổng hợp cặp (deviceId, IP) đã gọi API — lưu in-memory (TTL giờ, xem accessObservationTtlHours). -… → [`access-observations`](../../module-api/quan-sat-truy-cap/)
+1. `GET` `/api/access-observations` — Bảng quan sát cặp deviceId+IP (RAM, TTL ~48h). → [`access-observations`](../../module-api/quan-sat-truy-cap/)
 2. `GET` `/api/agent/assistant-access` — Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud, shop online), cấp quyền agent_assistant_ena… → [`agent`](../../module-api/tro-ly-ai-api/)
 3. `PATCH` `/api/agent/assistant-access` — Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud, shop online), cấp quyền agent_assistant_ena… → [`agent`](../../module-api/tro-ly-ai-api/)
 4. `POST` `/api/agent/chat` — Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud, shop online), cấp quyền agent_assistant_ena… → [`agent`](../../module-api/tro-ly-ai-api/)
@@ -25,12 +25,12 @@
 17. `POST` `/api/auth/pin/set` — HTTP POST trong module auth. → [`auth`](../../module-api/xac-thuc/)
 18. `POST` `/api/auth/pin/setup` — HTTP POST trong module auth. → [`auth`](../../module-api/xac-thuc/)
 19. `POST` `/api/auth/pin/verify` — HTTP POST trong module auth. → [`auth`](../../module-api/xac-thuc/)
-20. `GET` `/api/blocked-devices` — Danh sách Device ID (header client) bị chặn mọi /api/*. - Quyền: super_admin (giống blocked-ips). -… → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
-21. `POST` `/api/blocked-devices` — Danh sách Device ID (header client) bị chặn mọi /api/*. - Quyền: super_admin (giống blocked-ips). -… → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
-22. `DELETE` `/api/blocked-devices/:id` — Danh sách Device ID (header client) bị chặn mọi /api/*. - Quyền: super_admin (giống blocked-ips). -… → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
-23. `GET` `/api/blocked-ips` — Danh sách IP bị chặn toàn cục trên mọi request /api/*. - Quyền: requireAuth + role super_admin (403… → [`blocked-ips`](../../module-api/chan-ip-api/)
-24. `POST` `/api/blocked-ips` — Danh sách IP bị chặn toàn cục trên mọi request /api/*. - Quyền: requireAuth + role super_admin (403… → [`blocked-ips`](../../module-api/chan-ip-api/)
-25. `DELETE` `/api/blocked-ips/:id` — Danh sách IP bị chặn toàn cục trên mọi request /api/*. - Quyền: requireAuth + role super_admin (403… → [`blocked-ips`](../../module-api/chan-ip-api/)
+20. `GET` `/api/blocked-devices` — Liệt kê thiết bị bị chặn + Device ID request hiện tại. → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
+21. `POST` `/api/blocked-devices` — Thêm Device ID vào denylist; refresh cache. → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
+22. `DELETE` `/api/blocked-devices/:id` — Bỏ chặn thiết bị theo id bảng blocked_devices. → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
+23. `GET` `/api/blocked-ips` — Liệt kê IP bị chặn; kèm IP client đang xem và cờ denylist từ env. → [`blocked-ips`](../../module-api/chan-ip-api/)
+24. `POST` `/api/blocked-ips` — Thêm một IP vào blocked_ips; refresh cache denylist. → [`blocked-ips`](../../module-api/chan-ip-api/)
+25. `DELETE` `/api/blocked-ips/:id` — Xóa một dòng blocked_ips theo id; refresh cache. → [`blocked-ips`](../../module-api/chan-ip-api/)
 26. `GET` `/api/chain-dashboard` — HTTP GET trong module dashboard. → [`dashboard`](../../module-api/bang-dieu-khiem-api/)
 27. `GET` `/api/chain-dashboard/low-stock` — HTTP GET trong module dashboard. → [`dashboard`](../../module-api/bang-dieu-khiem-api/)
 28. `GET` `/api/chain-dashboard/orders-today` — HTTP GET trong module dashboard. → [`dashboard`](../../module-api/bang-dieu-khiem-api/)

@@ -20,29 +20,81 @@ Danh sách IP bị chặn toàn cục trên **mọi** request `/api/*`.
 
 | Method | Path | Mô tả ngắn |
 |--------|------|------------|
-| GET | `/blocked-ips` | Liệt kê `blocked_ips` + nhãn người tạo; kèm cờ env denylist và IP client hiện tại |
-| POST | `/blocked-ips` | Thêm IP (normalize IPv4/IPv6); body `{ ip, note? }`; refresh denylist cache |
-| DELETE | `/blocked-ips/:id` | Xóa một dòng; refresh denylist cache |
+| GET | `/blocked-ips` | Liệt kê IP bị chặn; kèm IP client đang xem và cờ denylist từ env |
+| POST | `/blocked-ips` | Thêm một IP vào `blocked_ips`; refresh cache denylist |
+| DELETE | `/blocked-ips/:id` | Xóa một dòng `blocked_ips` theo id; refresh cache |
 
 ## Chi tiết từng endpoint
 
 ### `GET /blocked-ips` {#get-blocked-ips}
 
-Liệt kê `blocked_ips` + nhãn người tạo; kèm cờ env denylist và IP client hiện tại. Lớp kiểm tra: `requireAuth`.
+Liệt kê IP bị chặn; kèm IP client đang xem và cờ denylist từ env. Route: `requireAuth` + **super_admin** trong handler.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/blocked-ips`
+
+**Quyền:** Cookie/JWT qua `requireAuth` → trong handler bắt buộc `req.auth.role === "super_admin"`.
+
+| HTTP | Khi nào | Body lỗi (JSON) |
+|------|---------|-----------------|
+| **403** | Không phải super_admin | `{ "error": "Chỉ quản trị hệ thống được quản lý IP bị chặn" }` |
+| **500** | Lỗi DB / chưa có bảng | `{ "error": "Không tải được danh sách IP. Cập nhật cơ sở dữ liệu (pnpm --filter @workspace/db push) rồi thử lại." }` |
+
+**Response 200:**
+
+| Trường | Kiểu | Ý nghĩa |
+|--------|------|---------|
+| `items[]` | array | Mỗi phần tử: `id`, `ip`, `note`, `createdAt` (ISO), `createdByLabel` (tên hoặc email người tạo) |
+| `envDenylistEnabled` | boolean | `true` nếu có `IP_DENYLIST` hoặc `BLOCKED_IPS` trong env (chặn thêm ngoài DB) |
+| `seenClientIp` | string | IP đã dùng để đối chiếu denylist (proxy-aware) |
+| `socketIp` | string | IP socket trực tiếp |
+| `trustProxy` | boolean | Express trust proxy |
+| `xForwardedFor` | string \| null | Header X-Forwarded-For nếu có |
+
+**Side effect:** không đổi DB (chỉ đọc). Sau POST/DELETE module khác gọi `refreshIpDenylistFromDb()`.
 
 ### `POST /blocked-ips` {#post-blocked-ips}
 
-Thêm IP (normalize IPv4/IPv6); body `{ ip, note? }`; refresh denylist cache. Lớp kiểm tra: `requireAuth`.
+Thêm một IP vào `blocked_ips`; refresh cache denylist. Route: `requireAuth` + **super_admin** trong handler.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `POST /api/blocked-ips`
+
+**Quyền:** `requireAuth` + **super_admin** (403 giống GET).
+
+**Request body** (`application/json`):
+
+| Trường | Bắt buộc | Mô tả |
+|--------|----------|--------|
+| `ip` | có | Chuỗi IPv4/IPv6; server `normalizeClientIp` + `isValidBlockedIp` |
+| `note` | không | Ghi chú, tối đa 500 ký tự |
+
+**Response 201:** `{ id, ip, note, createdAt, createdByLabel: null }`
+
+| HTTP | Khi nào | `error` |
+|------|---------|---------|
+| **400** | Thiếu/sai `ip` | `"Cần địa chỉ IP"` hoặc `"Địa chỉ IP không hợp lệ"` |
+| **409** | Trùng IP (unique) | `"IP này đã có trong danh sách chặn"` |
+| **500** | Lỗi insert | `"Không thêm được IP vào danh sách chặn"` |
+
+**Side effect:** insert `blocked_ips`; gọi `refreshIpDenylistFromDb()` — middleware chặn IP ngay trên mọi `/api/*`.
 
 ### `DELETE /blocked-ips/:id` {#delete-blocked-ips--id}
 
-Xóa một dòng; refresh denylist cache. Lớp kiểm tra: `requireAuth`.
+Xóa một dòng `blocked_ips` theo id; refresh cache. Route: `requireAuth` + **super_admin** trong handler.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `DELETE /api/blocked-ips/:id`
+
+**Quyền:** `requireAuth` + **super_admin**.
+
+**Path:** `id` — số nguyên dương (PK bảng `blocked_ips`).
+
+| HTTP | Khi nào | Body |
+|------|---------|------|
+| **400** | `id` không hợp lệ | `{ "error": "ID không hợp lệ" }` |
+| **404** | Không có dòng | `{ "error": "Không tìm thấy IP trong danh sách" }` |
+| **200** | OK | `{ "ok": true }` |
+| **500** | Lỗi xóa | `{ "error": "Không xóa được IP khỏi danh sách" }` |
+
+**Side effect:** `refreshIpDenylistFromDb()`.
 
 ## Ghi chú đọc mã
 

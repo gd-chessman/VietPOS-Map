@@ -17,15 +17,36 @@ Tổng hợp **cặp (deviceId, IP)** đã gọi API — lưu **in-memory** (TTL
 
 | Method | Path | Mô tả ngắn |
 |--------|------|------------|
-| GET | `/access-observations` | Query `?limit=` (mặc định 200); trả `items`, thống kê `today`, `ttlHours`, `storage: memory`… |
+| GET | `/access-observations` | Bảng quan sát cặp deviceId+IP (RAM, TTL ~48h) |
 
 ## Chi tiết từng endpoint
 
 ### `GET /access-observations` {#get-access-observations}
 
-Query `?limit=` (mặc định 200); trả `items`, thống kê `today`, `ttlHours`, `storage: memory`. Lớp kiểm tra: `requireAuth`.
+Bảng quan sát cặp deviceId+IP (RAM, TTL ~48h). Route: `requireAuth` + **super_admin** trong handler.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/access-observations`
+
+**Quyền:** super_admin (403: `"Chỉ quản trị hệ thống được xem tổng quan truy cập"`).
+
+**Query:**
+
+| Param | Mặc định | Mô tả |
+|-------|----------|--------|
+| `limit` | `200` | Số dòng trả về (parse number; NaN → 200) |
+
+**Response 200:**
+
+| Trường | Ý nghĩa |
+|--------|---------|
+| `items[]` | Mỗi dòng: `deviceId`, `ip`, `hitCount`, `todayHitCount`, `firstSeen`, `lastSeen` (ISO), `deviceName` |
+| `today` | `{ calendarDay, totalHits, uniqueDevices, uniqueIps, activePairs }` — theo lịch VN |
+| `ttlHours` | TTL store (lib: 48h) |
+| `storage` | Luôn `"memory"` — **mất khi restart API** |
+
+**Ghi nhận dữ liệu:** middleware `accessObservationMiddleware` trên mọi `/api` (không chặn).
+
+**500:** `{ "error": "Không tải được tổng quan truy cập" }`
 
 ## Ghi chú đọc mã
 
