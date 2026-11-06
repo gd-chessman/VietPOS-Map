@@ -6,6 +6,27 @@ import re
 import shutil
 from pathlib import Path
 
+from doc_paths import (
+    README,
+    ban_do_path,
+    chi_muc_path,
+    chuyen_de_path,
+    co_so_du_lieu_path,
+    he_thong_path,
+    huong_dan_doc_path,
+    legacy_desc_key,
+    map_index_path,
+    module_api_path,
+    nghiep_vu_path,
+    rewrite_legacy_links,
+    resolve_doc_link,
+    tham_chieu_path,
+    thu_vien_path,
+    trang_path,
+    md_href,
+    md_relpath,
+)
+
 ROOT = Path(__file__).resolve().parent
 SHOP = ROOT.parent.parent / "Shop-Manager-System-Offline"
 ROUTES_DIR = SHOP / "artifacts/api-server/src/routes"
@@ -18,17 +39,17 @@ COMPONENTS_DIR = SHOP / "artifacts/pos-app/src/components"
 
 # Route → file nghiệp vụ (gợi ý đọc thêm)
 ROUTE_NGHIEP_VU: dict[str, str] = {
-    "/login": "nghiep-vu/01-dang-nhap-va-shop-context.md",
-    "/dashboard": "nghiep-vu/01-dang-nhap-va-shop-context.md",
-    "/pos": "nghiep-vu/02-pos-ban-hang.md",
-    "/orders": "nghiep-vu/02-pos-ban-hang.md",
-    "/products": "nghiep-vu/03-san-pham-va-ton.md",
-    "/inventory": "nghiep-vu/03-san-pham-va-ton.md",
-    "/stock-requests": "nghiep-vu/04-phieu-nhap-xuat-chuyen-kho.md",
-    "/purchase-orders": "nghiep-vu/04-phieu-nhap-xuat-chuyen-kho.md",
-    "/vat-invoices": "nghiep-vu/05-hoa-don-vat-xuat.md",
-    "/vat-inbound": "nghiep-vu/06-hoa-don-dau-vao-tong-quan.md",
-    "/access-block": "nghiep-vu/10-truy-cap-an-ninh.md",
+    "/login": nghiep_vu_path("01-dang-nhap-va-shop-context"),
+    "/dashboard": nghiep_vu_path("01-dang-nhap-va-shop-context"),
+    "/pos": nghiep_vu_path("02-pos-ban-hang"),
+    "/orders": nghiep_vu_path("02-pos-ban-hang"),
+    "/products": nghiep_vu_path("03-san-pham-va-ton"),
+    "/inventory": nghiep_vu_path("03-san-pham-va-ton"),
+    "/stock-requests": nghiep_vu_path("04-phieu-nhap-xuat-chuyen-kho"),
+    "/purchase-orders": nghiep_vu_path("04-phieu-nhap-xuat-chuyen-kho"),
+    "/vat-invoices": nghiep_vu_path("05-hoa-don-vat-xuat"),
+    "/vat-inbound": nghiep_vu_path("06-hoa-don-dau-vao-tong-quan"),
+    "/access-block": nghiep_vu_path("10-truy-cap-an-ninh"),
 }
 
 _MENU_BY_HREF: dict[str, dict[str, str]] | None = None
@@ -83,8 +104,10 @@ VAT_INBOUND_ENDPOINT_NOTES: dict[str, str] = {
 
 # Mô tả một dòng cho mục lục (he-thong / nghiep-vu)
 HE_THONG_DESC: dict[str, str] = {
+    "00-huong-dan-doc-tai-lieu.md": "Cách đọc VietPOS-Map: ba tầng tài liệu, lộ trình theo việc cần làm, tránh lạc trong ~250 file.",
+    "ban-do-kien-truc.md": "Bản đồ hình (ASCII): kiến trúc VietPOS + cách đi trong tài liệu Map — xem được mọi trình đọc markdown.",
     "he-thong/01-kien-truc-runtime.md": "Sơ đồ runtime: client React → Express API → PostgreSQL; tùy chọn cloud-sync Railway.",
-    "he-thong/02-workspace-luu-niem.md": "Các repo trong LuuNiem (Shop, Deploy, Widget, Map, ESP32) và vai trò từng thư mục.",
+    "he-thong/02-workspace-luu-niem.md": "Các repo trong LuuNiem (Shop, Widget, Map, ESP32, HDSD) và vai trò từng thư mục.",
     "he-thong/03-monorepo-packages.md": "Cấu trúc pnpm workspace: artifacts, lib, scripts trong Shop-Manager.",
     "he-thong/04-docker-va-cloud-sync.md": "Docker Compose local, biến CLOUD_DATABASE_URL, worker cloud-sync và Trợ lý AI.",
 }
@@ -92,7 +115,7 @@ HE_THONG_DESC: dict[str, str] = {
 NGHIEP_VU_DESC: dict[str, str] = {
     "nghiep-vu/01-dang-nhap-va-shop-context.md": "Đăng nhập, JWT gắn shop/role, hub shop và ngữ cảnh vận hành API.",
     "nghiep-vu/02-pos-ban-hang.md": "Luồng POS: ca làm việc, giỏ hàng, thanh toán, in bill, hủy đơn và audit.",
-    "nghiep-vu/03-san-pham-va-ton.md": "CRUD sản phẩm, import Excel, tồn shop và điều chỉnh inventory.",
+    "nghiep-vu/03-san-pham-va-ton.md": "Quản lý sản phẩm, import Excel, tồn shop và điều chỉnh inventory.",
     "nghiep-vu/04-phieu-nhap-xuat-chuyen-kho.md": "Phiếu stock-request, chuyển kho chuỗi, PO và liên kết nhập hàng.",
     "nghiep-vu/05-hoa-don-vat-xuat.md": "Hóa đơn VAT bán ra qua Viettel SInvoice và cấu hình org.",
     "nghiep-vu/06-hoa-don-dau-vao-tong-quan.md": "Vòng đời HĐ mua vào: import, ghép SP, nhập kho, trạng thái stockStatus.",
@@ -133,34 +156,34 @@ lưu trữ, MST lọc (tab Khác), audit, hoàn tác nhập kho / bỏ ghép dò
 **Lib quan trọng:** `lib/vat-inbound-tax-sync.ts`, `lib/gdt-portal/*`, `lib/vat-inbound-auto-archive-mst.ts`,
 `lib/viettel-sinvoice/*`, `lib/inbound-stock-receive.ts`.
 
-**Frontend:** `pages/vat-inbound.tsx`, `lib/vat-inbound-api.ts`, IndexedDB `@workspace/local-db`.
+**Giao diện:** `pages/vat-inbound.tsx`, `lib/vat-inbound-api.ts`, IndexedDB `@workspace/local-db`.
 
 **Quyền:** hub shop + `requireVatInboundAccess` (admin, manager, accountant, warehouse_keeper tại CN chính).
 """,
     "orders": """
 Đơn hàng POS: tạo, hủy, duyệt hủy, in lại, thông báo reprint. Gắn ca (`shift-sessions`), audit cart.
 
-**Frontend:** `pages/pos.tsx`, `pages/orders.tsx`, `lib/offline/checkout.ts` (offline).
+**Giao diện:** `pages/pos.tsx`, `pages/orders.tsx`, `lib/offline/checkout.ts` (offline).
 """,
     "chain": """
 Tổ chức, shop, kho, điều chuyển (`transfers`). Cấu hình org (Viettel, CQT, feedback URL, agent LLM).
 
-**Frontend:** `pages/chain.tsx`, `chain-dashboard.tsx`.
+**Giao diện:** `pages/chain.tsx`, `chain-dashboard.tsx`.
 """,
     "stock-requests": """
 Phiếu yêu cầu nhập/xuất nội bộ: tạo → duyệt → hoàn tất → cập nhật tồn.
 
-**Frontend:** `pages/stock-requests.tsx`.
+**Giao diện:** `pages/stock-requests.tsx`.
 """,
     "products": """
-CRUD sản phẩm, import Excel, variant, ẩn/hiện SP, giá/giá vốn theo role.
+Quản lý sản phẩm (thêm/sửa/xóa), import Excel, biến thể, ẩn/hiện SP, giá/giá vốn theo role.
 
-**Frontend:** `pages/products.tsx`.
+**Giao diện:** `pages/products.tsx`.
 """,
     "agent": """
-Trợ lý AI: chat, system info (DB, cloud sync, shops online), cấp quyền `agent_assistant_enabled`.
+Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud, shop online), cấp quyền `agent_assistant_enabled`.
 
-**Frontend:** `pages/agent-assistant.tsx`, `agent-chat-audit.tsx`.
+**Giao diện:** `pages/agent-assistant.tsx`, `agent-chat-audit.tsx`.
 """,
     "widget": """
 API phục vụ app Android widget: thống kê quầy (JWT / shop context).
@@ -170,13 +193,13 @@ API phục vụ app Android widget: thống kê quầy (JWT / shop context).
     "shop-api-keys": """
 API key cho widget / thiết bị (ESP32 visitor-counts).
 
-**Frontend:** `pages/chain-api-keys.tsx` (nếu có).
+**Giao diện:** `pages/chain-api-keys.tsx` (nếu có).
 """,
     "org-gdt-portal": """
 Session CQT trực tiếp (captcha, connect) — dùng chung org với HĐ đầu vào.
 """,
     "sync": """
-Endpoint đồng bộ client (pull/push) cho offline IndexedDB.
+API đồng bộ client (kéo/đẩy) cho IndexedDB offline.
 """,
     "blocked-ips": """
 Danh sách IP bị chặn toàn cục trên **mọi** request `/api/*`.
@@ -209,6 +232,49 @@ Tổng hợp **cặp (deviceId, IP)** đã gọi API — lưu **in-memory** (TTL
 """,
 }
 
+# Một dòng tiếng Việt cho module API chưa có intro dài
+API_MODULE_SHORT_VI: dict[str, str] = {
+    "access-observations": "Quan sát cặp thiết bị + IP gọi API (RAM, TTL).",
+    "agent": "Trợ lý AI: chat và công cụ đọc dữ liệu kinh doanh.",
+    "auth": "Đăng nhập, JWT, PIN, phiên người dùng.",
+    "blocked-devices": "Quản lý danh sách thiết bị bị chặn mọi `/api`.",
+    "blocked-ips": "Quản lý IP bị chặn mọi `/api`.",
+    "chain": "Tổ chức, shop, kho, điều chuyển hàng.",
+    "dashboard": "Số liệu tổng quan: doanh thu, đơn, tồn thấp.",
+    "feedback": "Phản hồi khách và form công khai.",
+    "health": "Kiểm tra service còn sống (`healthz`).",
+    "inventory": "Tồn kho cấp shop (số lượng POS).",
+    "media": "Upload và quản lý file media.",
+    "notification-settings": "Cấu hình thông báo platform/org.",
+    "notifications": "Thông báo in-app cho user.",
+    "order-audit-reports": "Báo cáo audit đơn hàng.",
+    "orders": "Đơn POS: tạo, hủy, duyệt, in lại.",
+    "org-gdt-portal": "Phiên đăng nhập CQT (captcha).",
+    "org-viettel-settings": "Cấu hình Viettel SInvoice theo org.",
+    "pos-cart-audit": "Audit thao tác giỏ hàng POS.",
+    "product-audit-reports": "Báo cáo thay đổi sản phẩm.",
+    "product-categories": "Danh mục sản phẩm.",
+    "products": "Sản phẩm: thêm/sửa/xóa, import Excel, biến thể.",
+    "public-vat-invoice": "API/form HĐ VAT công khai.",
+    "purchase-order-audit-reports": "Báo cáo audit phiếu mua.",
+    "purchase-orders": "Phiếu đặt mua (PO).",
+    "reports": "Báo cáo nhân viên, in lại bill.",
+    "sales-staff": "Nhân viên bán hàng gắn quầy.",
+    "shift-sessions": "Ca làm việc mở/đóng.",
+    "shop-api-keys": "API key shop (widget, ESP32).",
+    "shops": "Danh sách shop user được truy cập.",
+    "staff": "Quản lý tài khoản nhân viên (admin).",
+    "statistics": "Thống kê bán theo sản phẩm.",
+    "stock-request-audit-reports": "Báo cáo audit phiếu nhập/xuất.",
+    "stock-requests": "Phiếu yêu cầu nhập/xuất nội bộ.",
+    "suppliers": "Nhà cung cấp.",
+    "sync": "Đồng bộ offline IndexedDB ↔ server.",
+    "system-events": "Sự kiện / lỗi hệ thống.",
+    "vat-inbound": "Hóa đơn mua vào VAT (lớn nhất).",
+    "walk-in-customers": "Khách vãng lai (walk-in).",
+    "widget": "API cho app widget Android.",
+}
+
 ACCESS_ENDPOINT_NOTES: dict[str, str] = {
     "GET /blocked-ips": "Liệt kê `blocked_ips` + nhãn người tạo; kèm cờ env denylist và IP client hiện tại.",
     "POST /blocked-ips": "Thêm IP (normalize IPv4/IPv6); body `{ ip, note? }`; refresh denylist cache.",
@@ -221,7 +287,7 @@ ACCESS_ENDPOINT_NOTES: dict[str, str] = {
 
 PAGE_DOCS: dict[str, str] = {
     "pos.tsx": """
-**Route:** `/pos`
+**Đường dẫn:** `/pos`
 
 Màn hình bán hàng chính: tìm SP, giỏ hàng, thanh toán, yêu cầu HĐ VAT, mở/đóng ca.
 Offline: ghi Dexie qua `checkoutOffline()`; sync sau khi có mạng.
@@ -230,7 +296,7 @@ Offline: ghi Dexie qua `checkoutOffline()`; sync sau khi có mạng.
 **Quyền:** `userCanUsePos`, NV bán hàng / thu ngân.
 """,
     "vat-inbound.tsx": """
-**Route:** `/vat-inbound`
+**Đường dẫn:** `/vat-inbound`
 
 ## Cấu trúc UI
 
@@ -260,52 +326,52 @@ Offline: ghi Dexie qua `checkoutOffline()`; sync sau khi có mạng.
 - `canEditMarkedMst`: admin/manager — MST lọc modal.
 """,
     "stock-requests.tsx": """
-**Route:** `/stock-requests`
+**Đường dẫn:** `/stock-requests`
 
 Phiếu nhập/xuất: trạng thái chờ duyệt, vận chuyển, nhận hàng, huỷ.
 """,
     "chain.tsx": """
-**Route:** `/chain`
+**Đường dẫn:** `/chain`
 
 Sửa tổ chức: thông tin, shop, Viettel inbound/outbound, CQT, Trợ lý AI, URL feedback công khai.
 """,
     "products.tsx": """
-**Route:** `/products`
+**Đường dẫn:** `/products`
 
 Danh mục SP: grid/table, import Excel, variant, giá, ảnh.
 """,
     "inventory.tsx": """
-**Route:** `/inventory`
+**Đường dẫn:** `/inventory`
 
 Tồn kho shop: số lượng, tạo phiếu nhập từ SP sắp hết (thủ kho).
 """,
     "vat-invoices.tsx": """
-**Route:** `/vat-invoices`
+**Đường dẫn:** `/vat-invoices`
 
 HĐ VAT **xuất** (Viettel SInvoice): phát hành, tra cứu, điều chỉnh theo tích hợp Viettel.
 """,
     "agent-assistant.tsx": """
-**Route:** `/agent-assistant`
+**Đường dẫn:** `/agent-assistant`
 
 Trợ lý AI + panel hệ thống (DB, cloud sync URL, shops online). Chat khi đã cấu hình LLM org.
 """,
     "dashboard.tsx": """
-**Route:** `/dashboard`
+**Đường dẫn:** `/dashboard`
 
 Tổng quan doanh thu, đơn, tồn thấp — theo quyền và scope shop.
 """,
     "login.tsx": """
-**Route:** `/login`
+**Đường dẫn:** `/login`
 
 Email/password, PIN máy, tài khoản đã lưu trên thiết bị. JWT → `pos_token`.
 """,
     "my-permissions.tsx": """
-**Route:** `/my-permissions`
+**Đường dẫn:** `/my-permissions`
 
 Giải thích quyền role hiện tại (đối chiếu menu thực tế).
 """,
     "access-block.tsx": """
-**Route:** `/access-block` (query `?tab=overview|ip|device`)
+**Đường dẫn:** `/access-block` (query `?tab=overview|ip|device`)
 
 ## Vai trò
 
@@ -400,7 +466,7 @@ Response GET gồm `items[]`, `envDenylistEnabled` (denylist từ biến môi tr
 - Card cảnh báo nếu `envDenylistEnabled` (IP chặn thêm từ env, không chỉ DB).
 """,
     "orders.tsx": """
-**Route:** `/orders`
+**Đường dẫn:** `/orders`
 
 Trang **vỏ mỏng** (~20 dòng): toàn bộ UI/logic nằm trong **`OrdersPanel`** (`components/OrdersPanel.tsx`, prop `variant="page"`).
 
@@ -619,8 +685,6 @@ Tự động **lưu trữ** hóa đơn mua vào có MST người bán/người m
 - Map row GDT → insert/update DB; VAT rate label 0.08 → 8%; auto archive MST.
 
 **Lib:** `gdt-portal/`, `vat-inbound-tax-sync.ts`, `map-inbound.ts`.
-
-**Tool dev:** `gdt-cqt-tester/` (ngoài monorepo).
 """,
     "nghiep-vu/09-chuoi-va-da-chi-nhanh.md": """
 # Chuỗi và đa chi nhánh
@@ -650,7 +714,7 @@ Cache denylist refresh định kỳ + ngay sau POST/DELETE từ UI admin.
 
 ## UI quản trị
 
-**Route:** `/access-block` — menu **Chặn truy cập** (chỉ `super_admin`).
+**Đường dẫn:** `/access-block` — menu **Chặn truy cập** (chỉ `super_admin`).
 
 | Tab | Component | Chức năng |
 |-----|-----------|-----------|
@@ -711,63 +775,431 @@ HE_THONG_FILES: dict[str, str] = {
     "he-thong/01-kien-truc-runtime.md": """
 # Kiến trúc runtime
 
+Trình duyệt hoặc app desktop (Tauri) chạy **pos-app** (React). Mọi thao tác nghiệp vụ gọi **api-server** (Express) qua prefix `/api`, server đọc/ghi **PostgreSQL** qua Drizzle (`@workspace/db`).
+
 ```
-Client (Browser / Tauri)
+Trình duyệt / Tauri
   → pos-app (React, Vite)
   → /api/* → api-server (Express 5)
   → @workspace/db (Drizzle) → PostgreSQL 16
-  → (optional) cloud-sync → Railway Postgres
+  → (tùy chọn) cloud-sync → Postgres trên Railway
 ```
 
-**Build prod:** web static trong container nginx; API node dist/index.mjs.
+- **Production:** web build tĩnh phục vụ nginx; API chạy `dist/index.mjs`.
+- **Xác thực:** JWT trên hầu hết route; một số route công khai (form HĐ, feedback) dùng cookie/session riêng.
 
-**Auth:** JWT middleware; cookie/session tùy endpoint public.
-
-Xem thêm: `reference/architecture.md`.
+**Đọc tiếp:** [02-workspace](02-workspace-luu-niem.md) · Tham chiếu gốc: `reference/architecture.md`
 """,
     "he-thong/02-workspace-luu-niem.md": """
 # Workspace LuuNiem
 
 | Thư mục | Vai trò |
 |---------|---------|
-| Shop-Manager-System-Offline | Source phát triển |
-| Deploy-VietPOS | Mirror deploy (`sync.sh`) |
-| HDSD-VietPOS | Hướng dẫn HTML Vercel |
-| VietPOS-Widget | Android |
-| VietPOS-Map | Tài liệu bản đồ (repo này) |
+| Shop-Manager-System-Offline | Mã nguồn phát triển chính |
+| HDSD-VietPOS | Hướng dẫn sử dụng HTML (Vercel) |
+| VietPOS-Widget | Ứng dụng widget Android |
+| VietPOS-Map | Bản đồ tài liệu (repo này) |
 | ESP32-DemKhach | Firmware đếm khách |
-| gdt-cqt-tester | Test CQT |
 
-**sync.sh:** nhánh QuyLV → Deploy; working tree sạch.
+**Đọc tiếp:** [03-monorepo-packages](03-monorepo-packages.md) · [Hướng dẫn đọc Map](../00-huong-dan-doc-tai-lieu.md)
 """,
     "he-thong/03-monorepo-packages.md": """
-# Monorepo packages
+# Gói trong monorepo Shop
 
-**artifacts:** api-server, pos-app, pos-desktop, mockup-sandbox.
+Monorepo **pnpm** — một repo chứa API, giao diện, thư viện dùng chung.
 
-**lib:** db, local-db, sync, api-zod, api-spec, api-client-react.
+| Nhóm | Thành phần |
+|------|------------|
+| **artifacts** | `api-server`, `pos-app`, `pos-desktop`, `mockup-sandbox` |
+| **lib** | `db`, `local-db`, `sync`, `api-zod`, `api-spec`, `api-client-react` |
+| **scripts** | seed DB, helper Docker |
 
-**scripts:** seed, docker helpers.
+Khai báo workspace: `Shop-Manager-System-Offline/pnpm-workspace.yaml`.
 
-File: `Shop-Manager-System-Offline/pnpm-workspace.yaml`.
+**Đọc tiếp:** [04-docker-va-cloud-sync](04-docker-va-cloud-sync.md) · Tour code: `reference/api-server.md`, `reference/pos-app.md`
 """,
     "he-thong/04-docker-va-cloud-sync.md": """
-# Docker và cloud sync
+# Docker và đồng bộ cloud
 
-Compose: postgres (5434), init, api (3002), web (8080), cloud-sync.
+Compose local thường gồm: Postgres (cổng **5434**), init schema, **api** (**3002**), **web** (**8080**), service **cloud-sync**.
 
-**cloud-sync:** `scripts/cloud-sync.sh`, khóa `_sync_lock`, CLOUD_DATABASE_URL public Railway.
+- Worker **cloud-sync** chạy `scripts/cloud-sync.sh`, khóa `_sync_lock`, cần `CLOUD_DATABASE_URL` trỏ Postgres cloud (Railway).
+- Trạng thái «đã cấu hình cloud» trên POS/Trợ lý AI đọc biến môi trường trên container **api** (không chỉ cloud-sync).
 
-POS hiển thị trạng thái: Trợ lý AI ← env trên container **api**.
-
-Mirror: `reference/docker-may-chu.md`, `reference/running-local.md`.
+**Đọc tiếp:** `reference/docker-may-chu.md`, `reference/running-local.md` · Nghiệp vụ offline: [nghiep-vu/11](../nghiep-vu/11-offline-va-sync-client.md)
 """,
 }
+
+# Hub chủ đề — điểm vào theo việc cần làm (tránh lạc trong ~250 file)
+TOPIC_HUBS: list[dict[str, object]] = [
+    {
+        "file": "00-kien-truc-he-thong.md",
+        "title": "Kiến trúc hệ thống",
+        "desc": "Sơ đồ tổng thể: pos-app, api-server, Postgres, offline, cloud-sync — đọc đầu tiên.",
+        "intro": """
+Hệ thống VietPOS gồm **giao diện web** (pos-app), **API** (api-server) và **PostgreSQL**.
+Máy quầy có thể ghi **offline** (IndexedDB) rồi đồng bộ; tùy chọn **cloud-sync** lên Postgres cloud.
+
+```mermaid
+flowchart TB
+  subgraph may["Máy người dùng"]
+    UI[pos-app React]
+    IDB[(IndexedDB offline)]
+  end
+  UI --> IDB
+  UI -->|"/api"| API[api-server Express]
+  API --> PG[(PostgreSQL)]
+  IDB -. pull/push .-> API
+  API -. cloud-sync .-> CLOUD[(Postgres cloud)]
+```
+
+| Thành phần | Vai trò |
+|------------|---------|
+| **pos-app** | Màn hình POS, kho, HĐ VAT, cấu hình chuỗi |
+| **api-server** | Xử lý nghiệp vụ, quyền JWT, gọi Viettel/CQT |
+| **@workspace/db** | Schema Drizzle → Postgres |
+| **local-db / sync** | Đơn & HĐ chờ đẩy khi mất mạng |
+| **cloud-sync** | Mirror DB lên Railway (ops) |
+
+**Bản đồ hình (ASCII, luôn hiển thị):** [ban-do-kien-truc.md](../ban-do-kien-truc.md)
+
+**Chi tiết từng phần:** [he-thong/01](../he-thong/01-kien-truc-runtime.md) · [02 workspace](../he-thong/02-workspace-luu-niem.md) · [03 monorepo](../he-thong/03-monorepo-packages.md) · [04 Docker](../he-thong/04-docker-va-cloud-sync.md)
+""",
+        "nghiep_vu": [],
+        "ui": [],
+        "api": [],
+        "schema": [],
+        "lib_prefixes": [],
+    },
+    {
+        "file": "dang-nhap-va-phien.md",
+        "title": "Đăng nhập và phiên làm việc",
+        "desc": "JWT, shop đang chọn, hub shop, quyền menu.",
+        "intro": "Mọi API gần như đều gắn **shop_id** và **role** sau khi đăng nhập.",
+        "nghiep_vu": ["nghiep-vu/01-dang-nhap-va-shop-context.md"],
+        "ui": ["frontend-pages/login.md", "frontend-pages/my-permissions.md"],
+        "api": ["api-modules/auth.md", "api-modules/shops.md"],
+        "schema": ["schema/users.md", "schema/shops.md"],
+        "lib_prefixes": ["session-cookie", "user-pin", "pin-"],
+    },
+    {
+        "file": "pos-va-don-hang.md",
+        "title": "POS và đơn hàng",
+        "desc": "Quầy bán, giỏ hàng, thanh toán, ca làm việc, hủy đơn.",
+        "intro": "Luồng doanh thu chính — từ màn POS đến bảng `orders`.",
+        "nghiep_vu": ["nghiep-vu/02-pos-ban-hang.md"],
+        "ui": ["frontend-pages/pos.md", "frontend-pages/orders.md"],
+        "api": ["api-modules/orders.md", "api-modules/shift-sessions.md", "api-modules/pos-cart-audit.md"],
+        "schema": ["schema/orders.md", "schema/orderItems.md", "schema/shiftSessions.md"],
+        "lib_prefixes": ["order-", "shift-sessions", "payment-"],
+    },
+    {
+        "file": "san-pham-va-kho.md",
+        "title": "Sản phẩm và tồn kho",
+        "desc": "Danh mục SP, tồn shop, phiếu nhập/xuất, PO.",
+        "intro": "Dữ liệu master + tồn trước khi bán hoặc nhập HĐ.",
+        "nghiep_vu": ["nghiep-vu/03-san-pham-va-ton.md", "nghiep-vu/04-phieu-nhap-xuat-chuyen-kho.md"],
+        "ui": [
+            "frontend-pages/products.md",
+            "frontend-pages/inventory.md",
+            "frontend-pages/stock-requests.md",
+            "frontend-pages/purchase-orders.md",
+            "frontend-pages/suppliers.md",
+        ],
+        "api": [
+            "api-modules/products.md",
+            "api-modules/inventory.md",
+            "api-modules/stock-requests.md",
+            "api-modules/purchase-orders.md",
+            "api-modules/suppliers.md",
+        ],
+        "schema": ["schema/products.md", "schema/inventory.md", "schema/stockRequests.md"],
+        "lib_prefixes": ["product-", "inventory", "weighted-average"],
+    },
+    {
+        "file": "hoa-don-dau-vao.md",
+        "title": "Hóa đơn đầu vào (VAT mua vào)",
+        "desc": "Import PDF/Excel, kéo CQT, MST lọc, ghép hàng, nhập kho.",
+        "intro": "Chủ đề phức tạp nhất — đọc **06 → 07 → 08** trước khi mở file API/UI.",
+        "nghiep_vu": [
+            "nghiep-vu/06-hoa-don-dau-vao-tong-quan.md",
+            "nghiep-vu/07-hd-dau-vao-mst-loc.md",
+            "nghiep-vu/08-hd-dau-vao-cqt-sync.md",
+        ],
+        "ui": ["frontend-pages/vat-inbound.md"],
+        "api": ["api-modules/vat-inbound.md", "api-modules/org-gdt-portal.md"],
+        "schema": ["schema/vatInboundInvoices.md", "schema/vatInboundAuditLogs.md", "schema/orgGdtTaxSessions.md"],
+        "lib_prefixes": ["vat-inbound", "gdt-portal", "inbound-stock", "viettel-sinvoice/search-inbound"],
+    },
+    {
+        "file": "hoa-don-ban-ra.md",
+        "title": "Hóa đơn bán ra (Viettel)",
+        "desc": "Phát hành HĐ VAT từ POS, tra cứu, form công khai.",
+        "intro": "Tích hợp Viettel SInvoice — cấu hình tại Chuỗi → Sửa tổ chức.",
+        "nghiep_vu": ["nghiep-vu/05-hoa-don-vat-xuat.md"],
+        "ui": ["frontend-pages/vat-invoices.md", "frontend-pages/vat-invoice-public.md"],
+        "api": ["api-modules/org-viettel-settings.md", "api-modules/public-vat-invoice.md"],
+        "schema": ["schema/organizations.md"],
+        "lib_prefixes": ["viettel-sinvoice", "vat-invoice", "org-viettel"],
+    },
+    {
+        "file": "chuoi-cua-hang.md",
+        "title": "Chuỗi và nhiều cửa hàng",
+        "desc": "Tổ chức, shop, kho, điều chuyển, dashboard chuỗi.",
+        "intro": "Một **organization** nhiều **shop**; hub shop cho HĐ đầu vào.",
+        "nghiep_vu": ["nghiep-vu/09-chuoi-va-da-chi-nhanh.md"],
+        "ui": ["frontend-pages/chain.md", "frontend-pages/chain-dashboard.md", "frontend-pages/chain-api-keys.md"],
+        "api": ["api-modules/chain.md", "api-modules/dashboard.md", "api-modules/shop-api-keys.md"],
+        "schema": ["schema/organizations.md", "schema/warehouses.md", "schema/stockTransfers.md"],
+        "lib_prefixes": ["chain-shop", "shop-presence", "dashboard-"],
+    },
+    {
+        "file": "an-ninh-truy-cap.md",
+        "title": "An ninh và chặn truy cập",
+        "desc": "Chặn IP/thiết bị, quan sát truy cập, super_admin.",
+        "intro": "Denylist chạy **trước** router API — 403 ngay nếu bị chặn.",
+        "nghiep_vu": ["nghiep-vu/10-truy-cap-an-ninh.md"],
+        "ui": ["frontend-pages/access-block.md"],
+        "api": [
+            "api-modules/blocked-ips.md",
+            "api-modules/blocked-devices.md",
+            "api-modules/access-observations.md",
+        ],
+        "schema": ["schema/blockedIps.md", "schema/blockedDevices.md"],
+        "lib_prefixes": ["ip-denylist", "device-denylist", "api-access-observations"],
+    },
+    {
+        "file": "offline-dong-bo.md",
+        "title": "Offline và đồng bộ",
+        "desc": "IndexedDB, checkout offline, API sync.",
+        "intro": "POS ghi local trước; worker đẩy khi có mạng.",
+        "nghiep_vu": ["nghiep-vu/11-offline-va-sync-client.md"],
+        "ui": ["frontend-pages/pos.md"],
+        "api": ["api-modules/sync.md", "api-modules/orders.md"],
+        "schema": ["schema/orderSyncKeys.md"],
+        "lib_prefixes": [],
+    },
+    {
+        "file": "tro-ly-widget.md",
+        "title": "Trợ lý AI, widget, đếm khách",
+        "desc": "Agent chat, widget Android, ESP32 visitor-counts.",
+        "intro": "Tích hợp ngoài quầy — API key shop.",
+        "nghiep_vu": ["nghiep-vu/12-widget-va-dem-khach.md"],
+        "ui": ["frontend-pages/agent-assistant.md", "frontend-pages/agent-chat-audit.md"],
+        "api": ["api-modules/agent.md", "api-modules/widget.md", "api-modules/shop-api-keys.md"],
+        "schema": ["schema/shopApiKeys.md", "schema/shopDailyVisitorCounts.md", "schema/agentChat.md"],
+        "lib_prefixes": ["agent/", "widget-home"],
+    },
+]
+
+
+def lib_topic_for_path(rel_posix: str) -> tuple[str, str]:
+    r = rel_posix.replace("\\", "/").lower()
+    if r.startswith("gdt-portal") or "vat-inbound" in r or "inbound-stock" in r:
+        return chuyen_de_path("hoa-don-dau-vao"), "Hóa đơn đầu vào"
+    if "viettel" in r or "vat-invoice" in r:
+        return chuyen_de_path("hoa-don-ban-ra"), "Hóa đơn bán ra"
+    if r.startswith("agent/") or r.startswith("agent-"):
+        return chuyen_de_path("tro-ly-widget"), "Trợ lý AI"
+    if "ip-denylist" in r or "device-denylist" in r or "access-observation" in r:
+        return chuyen_de_path("an-ninh-truy-cap"), "An ninh"
+    if "order" in r or "shift-session" in r or "payment" in r:
+        return chuyen_de_path("pos-va-don-hang"), "POS & đơn hàng"
+    if "product" in r or "inventory" in r or "weighted-average" in r:
+        return chuyen_de_path("san-pham-va-kho"), "Sản phẩm & kho"
+    if "chain" in r or "dashboard" in r or "shop-presence" in r:
+        return chuyen_de_path("chuoi-cua-hang"), "Chuỗi cửa hàng"
+    if "session" in r or "pin" in r or "user-" in r:
+        return chuyen_de_path("dang-nhap-va-phien"), "Đăng nhập & phiên"
+    return chuyen_de_path("kien-truc-he-thong"), "Kiến trúc / dùng chung"
+
+
+def lib_files_matching_prefixes(all_lib: list[str], prefixes: list[str]) -> list[str]:
+    if not prefixes:
+        return []
+    out: list[str] = []
+    for p in sorted(all_lib):
+        base = p.replace("thu-vien/", "")
+        if any(base.startswith(pr) or pr in base for pr in prefixes):
+            out.append(p)
+    return out[:25]
+
+
+def write_chuyen_de_hubs(all_paths: list[str]) -> list[str]:
+    lib_paths = [p for p in all_paths if p.startswith("thu-vien/")]
+    paths: list[str] = []
+    for hub in TOPIC_HUBS:
+        fname = str(hub["file"])
+        rel = chuyen_de_path(fname)
+        title = str(hub["title"])
+        desc = str(hub["desc"])
+        register_desc(rel, desc)
+        lines = [
+            f"# {title}",
+            "",
+            f"**Mô tả:** {desc}",
+            "",
+            f"**Về trang chủ Map:** [{README}]({md_href(rel, map_index_path())}) · "
+            f"[Hướng dẫn đọc]({md_href(rel, huong_dan_doc_path())})",
+            "",
+            rewrite_legacy_links(str(hub.get("intro", "")).strip()),
+            "",
+        ]
+        for section, key in [
+            ("## 1. Luồng nghiệp vụ (đọc trước)", "nghiep_vu"),
+            ("## 2. Màn hình (giao diện)", "ui"),
+            ("## 3. Module API", "api"),
+            ("## 4. Bảng dữ liệu (schema)", "schema"),
+        ]:
+            items = hub.get(key) or []
+            if not items:
+                continue
+            lines.append(section)
+            lines.append("")
+            for item in items:
+                target = resolve_doc_link(str(item))
+                label = Path(target).parent.name
+                d = DOC_DESCRIPTIONS.get(target, "")
+                lines.append(
+                    f"- [{label}]({md_href(rel, target)})"
+                    + (f" — {one_line(d, 100)}" if d else "")
+                )
+            lines.append("")
+        prefixes = hub.get("lib_prefixes") or []
+        lib_hits = lib_files_matching_prefixes(lib_paths, list(prefixes))
+        if lib_hits:
+            lines.append("## 5. Thư viện backend (một số file quan trọng)")
+            lines.append("")
+            idx = chi_muc_path("thu-vien-backend")
+            lines.append(f"Tra cứu đủ: [{README}]({md_href(rel, idx)})")
+            lines.append("")
+            for item in lib_hits:
+                label = Path(item).parent.name
+                d = DOC_DESCRIPTIONS.get(item, "")
+                lines.append(
+                    f"- [{label}]({md_href(rel, item)})"
+                    + (f" — {one_line(d, 90)}" if d else "")
+                )
+            lines.append("")
+        lines.append("---")
+        lines.append("")
+        lines.append("*Sinh tự động — `python3 docs/gen.py`*")
+        out = ROOT / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        paths.append(rel)
+    return paths
+
+
+def write_chi_muc(all_paths: list[str], flat_endpoints: list[tuple[str, str, str, str]]) -> list[str]:
+    out: list[str] = []
+
+    def write_one(slug: str, title: str, desc: str, body_lines: list[str]) -> None:
+        rel = chi_muc_path(slug)
+        register_desc(rel, desc)
+        hdr = [
+            f"# {title}",
+            "",
+            f"**Mô tả:** {desc}",
+            "",
+            f"← [Bản đồ chính]({md_href(rel, map_index_path())}) · "
+            f"[Hướng dẫn đọc]({md_href(rel, huong_dan_doc_path())})",
+            "",
+            "---",
+            "",
+        ]
+        p = ROOT / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("\n".join(hdr + body_lines) + "\n", encoding="utf-8")
+        out.append(rel)
+
+    api_items = sorted(p for p in all_paths if p.startswith("module-api/"))
+    chi_api = chi_muc_path("danh-sach-api")
+    body = []
+    for i, item in enumerate(api_items, 1):
+        d = one_line(DOC_DESCRIPTIONS.get(item, ""), 130)
+        label = Path(item).parent.name
+        body.append(f"{i}. [{label}]({md_href(chi_api, item)}) — {d}")
+    write_one(
+        "danh-sach-api",
+        "Chỉ mục module API",
+        f"Danh sách {len(api_items)} module routes — dùng khi đã biết cần sửa API nào.",
+        body,
+    )
+
+    ui_items = sorted(p for p in all_paths if p.startswith("trang/"))
+    chi_ui = chi_muc_path("danh-sach-trang")
+    body = []
+    for i, item in enumerate(ui_items, 1):
+        d = one_line(DOC_DESCRIPTIONS.get(item, ""), 130)
+        label = Path(item).parent.name
+        body.append(f"{i}. [{label}]({md_href(chi_ui, item)}) — {d}")
+    write_one(
+        "danh-sach-trang",
+        "Chỉ mục trang giao diện",
+        f"Danh sách {len(ui_items)} trang React — dùng sau khi đọc hub chủ đề.",
+        body,
+    )
+
+    schema_items = sorted(p for p in all_paths if p.startswith("co-so-du-lieu/"))
+    chi_schema = chi_muc_path("co-so-du-lieu")
+    body = []
+    for i, item in enumerate(schema_items, 1):
+        d = one_line(DOC_DESCRIPTIONS.get(item, ""), 130)
+        label = Path(item).parent.name
+        body.append(f"{i}. [{label}]({md_href(chi_schema, item)}) — {d}")
+    write_one(
+        "co-so-du-lieu",
+        "Chỉ mục schema Drizzle",
+        f"Danh sách {len(schema_items)} schema — tra bảng/cột Postgres.",
+        body,
+    )
+
+    lib_items = sorted(p for p in all_paths if p.startswith("thu-vien/"))
+    by_folder: dict[str, list[str]] = {}
+    for item in lib_items:
+        parts = Path(item).parts
+        folder = parts[1] if len(parts) > 2 else "(gốc lib)"
+        by_folder.setdefault(folder, []).append(item)
+    chi_lib = chi_muc_path("thu-vien-backend")
+    body = []
+    for folder in sorted(by_folder.keys()):
+        body.append(f"### `{folder}/`")
+        body.append("")
+        for item in by_folder[folder]:
+            d = one_line(DOC_DESCRIPTIONS.get(item, ""), 100)
+            label = Path(item).parent.name
+            body.append(f"- [{label}]({md_href(chi_lib, item)}) — {d}")
+        body.append("")
+    write_one(
+        "thu-vien-backend",
+        "Chỉ mục thư viện backend",
+        f"Danh sách {len(lib_items)} file lib — nhóm theo thư mục, không đọc tuần tự hết.",
+        body,
+    )
+
+    chi_ep = chi_muc_path("endpoint-http")
+    body = []
+    for i, (mod, method, api_path, doc_path) in enumerate(
+        sorted(flat_endpoints, key=lambda x: (x[2], x[1])), start=1
+    ):
+        blurb = one_line(endpoint_index_blurb(mod, method, api_path), 100)
+        body.append(
+            f"{i}. `{method}` `/api{api_path}` — {blurb} → "
+            f"[`{mod}`]({md_href(chi_ep, doc_path)})"
+        )
+    write_one(
+        "endpoint-http",
+        "Chỉ mục endpoint HTTP",
+        f"Danh sách {len(flat_endpoints)} endpoint — tra cứu nhanh URL API.",
+        body,
+    )
+    return out
 
 
 def clean_generated() -> None:
     for p in list(ROOT.iterdir()):
-        if p.name in ("gen.py", "reference"):
+        if p.name in ("gen.py", "doc_paths.py"):
             continue
         if p.is_dir():
             shutil.rmtree(p)
@@ -775,24 +1207,29 @@ def clean_generated() -> None:
             p.unlink()
 
 
-def mirror_shop() -> None:
-    REF = ROOT / "reference"
-    REF.mkdir(parents=True, exist_ok=True)
+def mirror_shop() -> list[str]:
+    paths: list[str] = []
     for rel in MIRROR_FROM_SHOP:
         src = SHOP / rel
         if not src.is_file():
             continue
-        dst = REF / Path(rel).name
+        fname = Path(rel).name
+        rel_doc = tham_chieu_path(fname)
+        dst = ROOT / rel_doc
+        dst.parent.mkdir(parents=True, exist_ok=True)
         body = src.read_text(encoding="utf-8")
         hdr = f"<!-- Mirror: Shop-Manager-System-Offline/{rel} -->\n\n"
-        rel_doc = f"reference/{Path(rel).name}"
         title_m = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
         title = title_m.group(1).strip() if title_m else Path(rel).stem
         register_desc(
             rel_doc,
-            f"Bản mirror doc Shop `{rel}` — {one_line(title, 120)}.",
+            f"Tài liệu tham chiếu gốc Shop `{rel}` — {one_line(title, 120)} (nội dung dưới thường tiếng Anh).",
         )
-        mo_ta = f"**Mô tả:** {DOC_DESCRIPTIONS[rel_doc]}\n\n"
+        mo_ta = (
+            f"**Mô tả:** {DOC_DESCRIPTIONS[rel_doc]}\n\n"
+            "> **Ghi chú:** Phần dưới giữ nguyên tiếng Anh từ repo Shop (tham chiếu kỹ thuật). "
+            "Luồng tiếng Việt ưu tiên đọc `nghiep-vu/` và `he-thong/`.\n\n"
+        )
         if body.lstrip().startswith("#"):
             first_nl = body.find("\n")
             if first_nl != -1:
@@ -802,6 +1239,8 @@ def mirror_shop() -> None:
         else:
             body = mo_ta + body
         dst.write_text(hdr + body, encoding="utf-8")
+        paths.append(rel_doc)
+    return paths
 
 
 def extract_routes(text: str) -> list[tuple[str, str]]:
@@ -858,7 +1297,204 @@ def endpoint_index_blurb(mod: str, method: str, api_path: str) -> str:
     intro = API_MODULE_INTRO.get(mod, "")
     if intro:
         return one_line(intro, 100)
-    return f"REST `{method}` trên module `{mod}`."
+    return f"HTTP `{method}` trong module `{mod}`."
+
+
+def api_module_intro_text(key: str) -> str:
+    if key in API_MODULE_INTRO:
+        return API_MODULE_INTRO[key]
+    return API_MODULE_SHORT_VI.get(key, f"Module HTTP `/api/...` cho nhóm **{key}**.")
+
+
+def write_huong_dan_doc() -> str:
+    rel = huong_dan_doc_path()
+    body = f"""
+# Hướng dẫn đọc VietPOS-Map
+
+**Mô tả:** Ba bước đọc Map — không cần lướt ~250 file trên một trang.
+
+---
+
+## Cách đọc (3 bước)
+
+| Bước | Làm gì | Mở thư mục |
+|------|--------|------------|
+| **1** | Xem **bản đồ hình** + kiến trúc | [{README}]({md_href(rel, ban_do_path())}) (ASCII) · [kien-truc-he-thong]({md_href(rel, chuyen_de_path("kien-truc-he-thong"))}) (Mermaid) |
+| **2** | Chọn **một chủ đề** gần việc bạn làm | [Danh sách chủ đề]({md_href(rel, map_index_path())}#chủ-đề-chuyen-de) |
+| **3** | Sửa code → tra **chỉ mục kỹ thuật** | [chi-muc/danh-sach-api]({md_href(rel, chi_muc_path("danh-sach-api"))}) và các chỉ mục cùng cấp |
+
+**Không nên:** mở `thu-vien/` và đọc lần lượt mọi README — mỗi hub chủ đề chỉ liệt kê lib **liên quan**.
+
+---
+
+## Trong mỗi hub chủ đề (`chuyen-de/…/README.md`)
+
+Thứ tự gợi ý:
+
+1. **Luồng nghiệp vụ** (`nghiep-vu/…`) — *tại sao / quy trình*
+2. **Màn hình** (`trang/…`) — *người dùng thao tác ở đâu*
+3. **Module API** (`module-api/…`) — *endpoint nào*
+4. **Schema** (`co-so-du-lieu/…`) — *bảng Postgres*
+5. **Thư viện** (`thu-vien/…`) — *logic phức tạp* (subset)
+
+---
+
+## Tài liệu gốc tiếng Anh
+
+`tham-chieu/…/README.md` = bản sao doc Shop. Dùng khi cần RBAC, database tổng thể, Docker — xem mục tham chiếu trên [bản đồ chính]({md_href(rel, map_index_path())}).
+
+---
+
+## Tạo lại Map
+
+```bash
+python3 docs/gen.py
+```
+
+→ [Bản đồ chính]({md_href(rel, map_index_path())})
+"""
+    register_desc(rel, HE_THONG_DESC[legacy_desc_key(rel)])
+    p = ROOT / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(body.strip() + "\n", encoding="utf-8")
+    return rel
+
+
+def write_ban_do_hinh() -> str:
+    rel = ban_do_path()
+    register_desc(rel, HE_THONG_DESC[legacy_desc_key(rel)])
+    body = """
+# Bản đồ kiến trúc (hình)
+
+**Mô tả:** Sơ đồ **vẽ bằng ký tự** — hiển thị trực tiếp trong Cursor/GitHub, không cần plugin Mermaid.
+
+← [Trang chủ Map](00-muc-luc-va-kien-truc.md) · [Hướng dẫn đọc](00-huong-dan-doc-tai-lieu.md)
+
+---
+
+## 1. Hệ thống VietPOS (runtime)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     MÁY NGƯỜI DÙNG                            │
+│  ┌──────────────┐      ┌──────────────────┐                     │
+│  │ Trình duyệt  │      │ IndexedDB        │                     │
+│  │ hoặc Tauri   │─────▶│ (offline: đơn,   │                     │
+│  │              │      │  HĐ chờ sync)    │                     │
+│  └──────┬───────┘      └────────▲─────────┘                     │
+│         │                       │ pull / push                   │
+│         │  HTTPS  /api/*        │                               │
+│         ▼                       │                               │
+└─────────┼───────────────────────┼───────────────────────────────┘
+          │                       │
+          ▼                       │
+┌─────────────────────────────────┴───────────────────────────────┐
+│                      api-server (Express)                        │
+│   JWT · quyền shop · Viettel/CQT · nghiệp vụ POS/kho/HĐ VAT      │
+└─────────┬───────────────────────────────┬───────────────────────┘
+          │ Drizzle                         │ cloud-sync (tùy chọn)
+          ▼                                 ▼
+┌──────────────────┐              ┌──────────────────┐
+│ PostgreSQL       │              │ Postgres cloud   │
+│ (máy chủ shop)   │─────────────▶│ (Railway, ops)   │
+└──────────────────┘   mirror     └──────────────────┘
+
+     Widget Android / ESP32 ──API key──▶ visitor-counts, widget/home
+```
+
+| Thành phần | Ghi chú |
+|------------|---------|
+| **pos-app** | React — POS, kho, HĐ, cấu hình chuỗi |
+| **api-server** | Một cửa `/api` cho mọi nghiệp vụ |
+| **local-db + sync** | Quầy vẫn bán khi mất mạng |
+| **cloud-sync** | Sao chép DB lên cloud (không thay thế DB local) |
+
+*Phiên bản Mermaid (nếu IDE hỗ trợ):* [chuyen-de/00-kien-truc-he-thong.md](chuyen-de/00-kien-truc-he-thong.md)
+
+---
+
+## 2. Bản đồ tài liệu VietPOS-Map (cách đi)
+
+```
+                    ┌─────────────────────────────┐
+                    │  ban-do-kien-truc.md (đây)  │
+                    │  sơ đồ hình + hướng dẫn     │
+                    └──────────────┬──────────────┘
+                                   │
+         ┌─────────────────────────┼─────────────────────────┐
+         ▼                         ▼                         ▼
+┌─────────────────┐    ┌──────────────────────┐    ┌─────────────────┐
+│ 00-huong-dan    │    │ 00-muc-luc (trang    │    │ chuyen-de/      │
+│ (3 bước đọc)    │    │ chủ Map)             │    │ 10 hub chủ đề   │
+└────────┬────────┘    └──────────┬───────────┘    └────────┬────────┘
+         │                        │                         │
+         │            chọn 1 chủ đề (POS, HĐ đầu vào…)     │
+         │                        └────────────┬────────────┘
+         │                                     ▼
+         │              ┌──────────────────────────────────────────┐
+         │              │  Trên mỗi hub, đọc theo thứ tự:           │
+         │              │  ① nghiep-vu/  →  ② frontend-pages/      │
+         │              │  →  ③ api-modules/  →  ④ schema/        │
+         │              │  →  ⑤ lib-modules/ (một phần)             │
+         │              └────────────────────┬─────────────────────┘
+         │                                   │
+         │         cần tra hết URL / file    ▼
+         │              ┌──────────────────────────────────────────┐
+         └─────────────▶│  chi-muc/  (danh sách dài, tách riêng)   │
+                        │  · api-modules · trang-giao-dien          │
+                        │  · thu-vien-backend · schema · endpoint   │
+                        └──────────────────────────────────────────┘
+
+   reference/  = doc gốc Shop (tiếng Anh) — RBAC, database, Docker
+```
+
+---
+
+## 3. Hub chủ đề (chọn một nhánh)
+
+```
+                    [00-muc-luc / chuyen-de]
+                              │
+    ┌────────────┬────────────┼────────────┬────────────┐
+    ▼            ▼            ▼            ▼            ▼
+ Đăng nhập     POS &       Sản phẩm    HĐ đầu vào   HĐ bán ra
+ & phiên       đơn hàng    & kho       (VAT mua)    (Viettel)
+    │            │            │            │            │
+    └────────────┴────────────┴────────────┴────────────┘
+                              │
+         Chuỗi shop · An ninh · Offline · Trợ lý/widget
+```
+
+Danh sách link: [00-muc-luc → Chủ đề](00-muc-luc-va-kien-truc.md)
+
+---
+
+## 4. Luồng dữ liệu HĐ đầu vào (tóm tắt)
+
+```
+ PDF / Excel / CQT sync
+         │
+         ▼
+  vat_inbound_invoices (Postgres)
+         │
+         ├── MST lọc? ──▶ archived → tab "Khác"
+         │
+         ▼
+  Ghép dòng SP (stock-receipt) → nhập kho (receive-stock) → tồn + giá vốn
+```
+
+Chi tiết: [hoa-don-dau-vao](../chuyen-de/hoa-don-dau-vao/README.md)
+"""
+    text = rewrite_legacy_links(body.strip()) + "\n"
+    text = text.replace(
+        "← [Trang chủ Map](00-muc-luc-va-kien-truc.md) · [Hướng dẫn đọc](00-huong-dan-doc-tai-lieu.md)",
+        f"← [Trang chủ Map]({md_href(rel, map_index_path())}) · "
+        f"[Hướng dẫn đọc]({md_href(rel, huong_dan_doc_path())})",
+    )
+    p = ROOT / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(text, encoding="utf-8")
+    return rel
 
 
 def menu_by_href() -> dict[str, dict[str, str]]:
@@ -917,11 +1553,12 @@ def default_page_doc(
     one_line: str,
     api_hits: list[str],
     embedded: list[tuple[str, Path]],
+    from_doc: str = "",
 ) -> str:
     slug = name.replace(".tsx", "")
     menu = menu_by_href().get(route, {})
     lines = [
-        f"**Route:** `{route}`",
+        f"**Đường dẫn:** `{route}`",
         "",
         one_line or f"Màn hình **{slug}** trong POS hoặc admin.",
         "",
@@ -964,10 +1601,12 @@ def default_page_doc(
         }
     )
     if modules:
-        lines.append("## API modules (map sang docs)")
+        lines.append("## Module API liên quan (trong Map)")
         lines.append("")
         for m in modules:
-            lines.append(f"- [`api-modules/{m}.md`](../api-modules/{m}.md) — prefix `/api/{m}`")
+            target = module_api_path(m)
+            href = md_href(from_doc, target) if from_doc else target
+            lines.append(f"- [`{m}`]({href}) — nhóm `/api/{m}`")
         lines.append("")
     return "\n".join(lines)
 
@@ -976,7 +1615,7 @@ def append_page_analysis(lines: list[str], name: str, text: str) -> None:
     """Bổ sung mục phân tích tự động từ source TSX."""
     sub_exports = re.findall(r"export function (\w+)", text)
     if sub_exports:
-        lines.append("## Section / component export trong file")
+        lines.append("## Component con export trong file")
         lines.append("")
         for e in sub_exports:
             lines.append(f"- `{e}`")
@@ -1101,21 +1740,19 @@ def endpoint_note(module_key: str, method: str, path: str, middleware: list[str]
     if module_key == "vat-inbound" and key in VAT_INBOUND_ENDPOINT_NOTES:
         note = VAT_INBOUND_ENDPOINT_NOTES[key]
         if middleware:
-            note += f" Middleware: `{', '.join(middleware)}`."
+            note += f" Lớp kiểm tra: `{', '.join(middleware)}`."
         return note
     if key in ACCESS_ENDPOINT_NOTES:
         note = ACCESS_ENDPOINT_NOTES[key]
         if middleware:
-            note += f" Middleware: `{', '.join(middleware)}`."
+            note += f" Lớp kiểm tra: `{', '.join(middleware)}`."
         return note
     api = path if path.startswith("/") else f"/{path}"
-    mw = ", ".join(middleware) if middleware else "requireAuth (mặc định — kiểm tra file)"
-    return f"`/api{api}`. Middleware: `{mw}`."
+    mw = ", ".join(middleware) if middleware else "requireAuth (mặc định — xem file)"
+    return f"Đường dẫn đầy đủ `/api{api}`. Lớp kiểm tra: `{mw}`."
 
 
 def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
-    out_dir = ROOT / "api-modules"
-    out_dir.mkdir(parents=True, exist_ok=True)
     paths: list[str] = []
     flat_endpoints: list[tuple[str, str, str, str]] = []
     for f in sorted(ROUTES_DIR.glob("*.ts")):
@@ -1129,24 +1766,24 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
         ]
         routes = extract_routes(text)
         rel_shop = f"artifacts/api-server/src/routes/{f.name}"
-        intro = API_MODULE_INTRO.get(key, f"REST handlers cho domain **{key}**.")
-        rel = f"api-modules/{key}.md"
+        intro = api_module_intro_text(key)
+        rel = module_api_path(key)
         desc = register_desc(
             rel,
-            f"File routes `{key}.ts` — {len(routes)} endpoint HTTP cho `/api/...`. {one_line(intro, 120)}",
+            f"Module API `{key}.ts` — {len(routes)} endpoint. {one_line(intro, 120)}",
         )
         lines = [
-            f"# API module: `{key}`",
+            f"# Module API: `{key}`",
             "",
             f"**Mô tả:** {desc}",
             "",
-            f"**Source Shop:** `{rel_shop}`",
+            f"**Mã nguồn Shop:** `{rel_shop}`",
             "",
             intro.strip(),
             "",
-            f"**Số endpoint trong file:** {len(routes)}",
+            f"**Số endpoint:** {len(routes)}",
             "",
-            "## Danh sách endpoint (tóm tắt)",
+            "## Bảng endpoint (tóm tắt)",
             "",
             "| Method | Path | Mô tả ngắn |",
             "|--------|------|------------|",
@@ -1159,7 +1796,7 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
             note = endpoint_note(key, method, path, mw)
             short = note.split(".")[0][:120] + ("…" if len(note) > 120 else "")
             lines.append(f"| {method} | `{api_path}` | {short} |")
-            flat_endpoints.append((key, method, api_path, f"api-modules/{key}.md"))
+            flat_endpoints.append((key, method, api_path, rel))
         lines.extend(
             [
                 "",
@@ -1177,15 +1814,18 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
             lines.append(note)
             lines.append("")
             if mw:
-                lines.append(f"- **Middleware:** {', '.join(f'`{x}`' for x in mw)}")
+                lines.append(f"- **Lớp kiểm tra (middleware):** {', '.join(f'`{x}`' for x in mw)}")
                 lines.append("")
         lines.extend(
             [
-                "## Ghi chú đọc code",
+                "## Ghi chú đọc mã",
                 "",
-                f"- Mount prefix `/api` qua `app.ts`; file này: `routes/index.ts` → `./{f.name}`.",
-                "- Handler đầy đủ: mở file TypeScript tại Shop (search theo path string).",
-                "- Quyền role: xem `reference/rbac.md` và middleware trong từng block.",
+                f"- Gắn prefix `/api` trong `app.ts`; file route: `routes/index.ts` → `./{f.name}`.",
+                "- Handler đầy đủ: mở file TypeScript tại Shop (tìm theo chuỗi path).",
+                f"- Quyền role: `{tham_chieu_path('rbac.md')}` (tiếng Anh gốc) + các `require*` trong từng endpoint.",
+                "",
+                f"**Đọc tiếp:** [Hướng dẫn Map]({md_href(rel, huong_dan_doc_path())}) · "
+                f"[Mục lục]({md_href(rel, map_index_path())})",
                 "",
             ]
         )
@@ -1194,11 +1834,11 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
                 [
                     "## Luồng nghiệp vụ liên quan",
                     "",
-                    "- `nghiep-vu/06-hoa-don-dau-vao-tong-quan.md`",
-                    "- `nghiep-vu/07-hd-dau-vao-mst-loc.md`",
-                    "- `nghiep-vu/08-hd-dau-vao-cqt-sync.md`",
-                    "- UI: `frontend-pages/vat-inbound.md`",
-                    "- Lib: `lib-modules/vat-inbound-tax-sync.md`, `lib-modules/gdt-portal/`…",
+                    f"- `{nghiep_vu_path('06-hoa-don-dau-vao-tong-quan')}`",
+                    f"- `{nghiep_vu_path('07-hd-dau-vao-mst-loc')}`",
+                    f"- `{nghiep_vu_path('08-hd-dau-vao-cqt-sync')}`",
+                    f"- UI: `{trang_path('vat-inbound')}`",
+                    f"- Lib: `{thu_vien_path('vat-inbound-tax-sync')}`, `{thu_vien_path('gdt-portal')}`…",
                     "",
                 ]
             )
@@ -1207,21 +1847,21 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
                 [
                     "## Luồng nghiệp vụ liên quan",
                     "",
-                    "- `nghiep-vu/10-truy-cap-an-ninh.md`",
-                    "- UI: `frontend-pages/access-block.md`",
-                    "- Middleware: `lib-modules/ip-denylist.md`, `lib-modules/device-denylist.md`, "
-                    "`lib-modules/api-access-observations.md`",
+                    f"- `{nghiep_vu_path('10-truy-cap-an-ninh')}`",
+                    f"- UI: `{trang_path('access-block')}`",
+                    f"- Middleware: `{thu_vien_path('ip-denylist')}`, `{thu_vien_path('device-denylist')}`, "
+                    f"`{thu_vien_path('api-access-observations')}`",
                     "",
                 ]
             )
-        (ROOT / rel).write_text("\n".join(lines), encoding="utf-8")
+        out = ROOT / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text("\n".join(lines), encoding="utf-8")
         paths.append(rel)
     return paths, flat_endpoints
 
 
 def write_pages() -> list[str]:
-    out_dir = ROOT / "frontend-pages"
-    out_dir.mkdir(parents=True, exist_ok=True)
     paths: list[str] = []
     page_routes = parse_page_routes()
     for f in sorted(PAGES_DIR.glob("*.tsx")):
@@ -1231,16 +1871,18 @@ def write_pages() -> list[str]:
         route = page_routes.get(name, "*(public hoặc redirect — xem App.tsx)*")
         one = PAGE_ONE_LINE.get(name, "")
         api_hits, embedded = collect_page_api_hits(f, text)
-        doc = PAGE_DOCS.get(
-            name,
-            default_page_doc(name, route, one, api_hits, embedded),
+        rel = trang_path(name.replace(".tsx", ""))
+        doc = rewrite_legacy_links(
+            PAGE_DOCS.get(
+                name,
+                default_page_doc(name, route, one, api_hits, embedded, rel),
+            )
         )
         lib_api = sorted(set(re.findall(r"from ['\"]@/lib/([\w/-]+)['\"]", text)))[:20]
         perm_hits = sorted(set(re.findall(r"(userCan\w+|canAccess\w+|require\w+)", text)))[:15]
         comp_match = re.search(r"export default function (\w+)", text)
         comp_name = comp_match.group(1) if comp_match else "*(default export)*"
         imports = [ln.strip() for ln in text.splitlines()[:55] if ln.strip().startswith("import ")]
-        rel = f"frontend-pages/{name.replace('.tsx', '')}.md"
         desc = register_desc(
             rel,
             f"{one} (URL `{route}`, `{comp_name}`, ~{line_count} dòng)."
@@ -1248,17 +1890,19 @@ def write_pages() -> list[str]:
             else f"Trang React `{route}` — `{comp_name}`, ~{line_count} dòng.",
         )
         lines = [
-            f"# Frontend: `{name}`",
+            f"# Trang giao diện: `{name}`",
             "",
             f"**Mô tả:** {desc}",
             "",
-            f"**Source Shop:** `artifacts/pos-app/src/pages/{name}`",
+            f"**Mã nguồn Shop:** `artifacts/pos-app/src/pages/{name}`",
             "",
-            f"**URL (wouter):** `{route}`",
-            f"**Component:** `{comp_name}`",
-            f"**Độ lớn:** ~{line_count} dòng.",
+            f"**Đường dẫn URL:** `{route}`",
+            f"**Tên component React:** `{comp_name}`",
+            f"**Quy mô:** ~{line_count} dòng.",
             "",
             doc.strip(),
+            "",
+            f"**Đọc tiếp:** [Hướng dẫn đọc Map]({md_href(rel, huong_dan_doc_path())})",
             "",
         ]
         append_page_analysis(lines, name, text)
@@ -1295,8 +1939,9 @@ def write_pages() -> list[str]:
             lines.append("")
             for h in api_hits:
                 mod = h.split("/")[2] if h.startswith("/api/") and len(h.split("/")) > 2 else ""
-                if mod and (ROOT / "api-modules" / f"{mod}.md").is_file():
-                    lines.append(f"- `{h}` → [`api-modules/{mod}.md`](../api-modules/{mod}.md)")
+                api_doc = module_api_path(mod)
+                if mod and (ROOT / api_doc).is_file():
+                    lines.append(f"- `{h}` → [`{mod}`]({md_href(rel, api_doc)})")
                 else:
                     lines.append(f"- `{h}`")
             lines.append("")
@@ -1306,28 +1951,28 @@ def write_pages() -> list[str]:
                 [
                     "## Luồng nghiệp vụ (doc)",
                     "",
-                    f"- `{nv}`",
+                    f"- [{Path(nv).parent.name}]({md_href(rel, nv)})",
                     "",
                 ]
             )
         lines.extend(
             [
-                "## File liên quan",
+                "## Liên kết mã",
                 "",
-                "- Route khai báo: `artifacts/pos-app/src/App.tsx`",
-                "- Layout/menu: `components/layout/app-layout.tsx`",
-                "- Session: `lib/session-cache.ts`, `lib/use-session-user.ts`",
+                "- Khai báo URL: `artifacts/pos-app/src/App.tsx`",
+                "- Menu/layout: `components/layout/app-layout.tsx`",
+                "- Phiên đăng nhập: `lib/session-cache.ts`, `lib/use-session-user.ts`",
                 "",
             ]
         )
-        (ROOT / rel).write_text("\n".join(lines), encoding="utf-8")
+        out = ROOT / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text("\n".join(lines), encoding="utf-8")
         paths.append(rel)
     return paths
 
 
 def write_schemas() -> list[str]:
-    out_dir = ROOT / "schema"
-    out_dir.mkdir(parents=True, exist_ok=True)
     paths: list[str] = []
     for f in sorted(SCHEMA_DIR.glob("*.ts")):
         if f.name in ("index.ts",):
@@ -1339,7 +1984,7 @@ def write_schemas() -> list[str]:
             cols.append(f"- `{m.group(2)}` ({m.group(1)})")
         if not tables and not cols:
             continue
-        rel = f"schema/{f.stem}.md"
+        rel = co_so_du_lieu_path(f.stem)
         tbl = ", ".join(f"`{t}`" for t in tables[:3])
         if len(tables) > 3:
             tbl += f" (+{len(tables) - 3} bảng)"
@@ -1352,7 +1997,7 @@ def write_schemas() -> list[str]:
             "",
             f"**Mô tả:** {desc}",
             "",
-            f"**Source Shop:** `lib/db/src/schema/{f.name}`",
+            f"**Mã nguồn Shop:** `lib/db/src/schema/{f.name}`",
             "",
         ]
         if tables:
@@ -1373,21 +2018,22 @@ def write_schemas() -> list[str]:
             for fk in fks:
                 lines.append(f"- `{fk}`")
             lines.append("")
-        lines.append("Tổng quan quan hệ: `reference/database.md`.")
+        lines.append(f"Tổng quan quan hệ: `{tham_chieu_path('database.md')}`.")
         lines.append("")
-        (ROOT / rel).write_text("\n".join(lines), encoding="utf-8")
+        out = ROOT / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text("\n".join(lines), encoding="utf-8")
         paths.append(rel)
     return paths
 
 
 def write_lib_modules() -> list[str]:
-    out_base = ROOT / "lib-modules"
     paths: list[str] = []
     if not LIB_ROOT.is_dir():
         return paths
     for f in sorted(LIB_ROOT.rglob("*.ts")):
         rel_from_lib = f.relative_to(LIB_ROOT)
-        rel = f"lib-modules/{rel_from_lib.with_suffix('').as_posix()}.md"
+        rel = thu_vien_path(rel_from_lib.with_suffix("").as_posix())
         text = f.read_text(encoding="utf-8", errors="replace")
         line_count = text.count("\n") + 1
         exports = [a or b for a, b in EXPORT_RE.findall(text)]
@@ -1396,24 +2042,26 @@ def write_lib_modules() -> list[str]:
         ex_preview = ", ".join(exports[:5]) if exports else "(không export tên rõ)"
         if exports and len(exports) > 5:
             ex_preview += ", …"
+        hub, topic = lib_topic_for_path(rel_from_lib.as_posix())
         desc = register_desc(
             rel,
-            f"Logic backend `{rel_from_lib.as_posix()}` (~{line_count} dòng) — export: {ex_preview}.",
+            f"[{topic}] `{rel_from_lib.as_posix()}` — {ex_preview}.",
         )
         lines = [
-            f"# Lib: `{rel_from_lib.as_posix()}`",
+            f"# Thư viện: `{rel_from_lib.as_posix()}`",
             "",
             f"**Mô tả:** {desc}",
             "",
-            f"**Source Shop:** `{rel_shop}`",
+            f"**Chủ đề:** [{topic}]({md_href(rel, hub)})",
             "",
-            f"**Độ lớn:** ~{line_count} dòng.",
+            f"**Mã nguồn Shop:** `{rel_shop}` · **Quy mô:** ~{line_count} dòng",
             "",
-            "Thư viện backend dùng chung giữa nhiều route handler — đọc file gốc để biết thuật toán đầy đủ.",
+            "File này là **tra cứu** khi đã đọc hub chủ đề và module API tương ứng. "
+            "Thuật toán đầy đủ nằm trong mã TypeScript gốc.",
             "",
         ]
         if exports:
-            lines.append(f"## Export ({len(exports)} symbol)")
+            lines.append(f"## Hàm/hằng export ({len(exports)})")
             lines.append("")
             for ex in exports[:40]:
                 lines.append(f"- `{ex}`")
@@ -1421,19 +2069,27 @@ def write_lib_modules() -> list[str]:
                 lines.append(f"- … {len(exports) - 40} export khác")
             lines.append("")
         if imports_db:
-            lines.append("## Import DB / schema")
+            lines.append("## Import cơ sở dữ liệu")
             lines.append("")
             for imp in imports_db:
                 lines.append(f"- `{imp}`")
             lines.append("")
-        preview = "\n".join(text.splitlines()[:35])
+        if line_count <= 80:
+            preview = "\n".join(text.splitlines()[: min(line_count, 45)])
+            lines.extend(
+                [
+                    "## Trích mã (tham khảo)",
+                    "",
+                    "```typescript",
+                    preview,
+                    "```",
+                    "",
+                ]
+            )
         lines.extend(
             [
-                "## Xem trước đầu file",
-                "",
-                "```typescript",
-                preview,
-                "```",
+                f"← [Chỉ mục lib]({md_href(rel, chi_muc_path('thu-vien-backend'))}) · "
+                f"[Hub {topic}]({md_href(rel, hub)})",
                 "",
             ]
         )
@@ -1447,30 +2103,34 @@ def write_lib_modules() -> list[str]:
 def write_dict_files(mapping: dict[str, str]) -> list[str]:
     paths: list[str] = []
     for rel, body in mapping.items():
-        p = ROOT / rel
-        p.parent.mkdir(parents=True, exist_ok=True)
-        b = body.strip()
+        rel_out = resolve_doc_link(rel)
+        b = rewrite_legacy_links(body.strip())
+        leg = legacy_desc_key(rel_out)
         desc = (
-            HE_THONG_DESC.get(rel)
+            HE_THONG_DESC.get(leg)
+            or HE_THONG_DESC.get(rel)
+            or NGHIEP_VU_DESC.get(leg)
             or NGHIEP_VU_DESC.get(rel)
             or summary_from_markdown_body(b)
-            or Path(rel).stem.replace("-", " ")
+            or Path(rel_out).parent.name.replace("-", " ")
         )
-        register_desc(rel, desc)
+        register_desc(rel_out, desc)
+        p = ROOT / rel_out
+        p.parent.mkdir(parents=True, exist_ok=True)
         if b.startswith("#"):
-            lines = prepend_mo_ta_block(b.splitlines(), DOC_DESCRIPTIONS[rel])
+            lines = prepend_mo_ta_block(b.splitlines(), DOC_DESCRIPTIONS[rel_out])
             p.write_text("\n".join(lines) + "\n", encoding="utf-8")
         else:
-            title = Path(rel).stem.replace("-", " ").title()
+            title = Path(rel_out).parent.name.replace("-", " ").title()
             lines = [
                 f"# {title}",
                 "",
-                f"**Mô tả:** {DOC_DESCRIPTIONS[rel]}",
+                f"**Mô tả:** {DOC_DESCRIPTIONS[rel_out]}",
                 "",
                 b,
             ]
             p.write_text("\n".join(lines) + "\n", encoding="utf-8")
-        paths.append(rel)
+        paths.append(rel_out)
     return paths
 
 
@@ -1478,113 +2138,96 @@ def write_index(
     all_paths: list[str],
     flat_endpoints: list[tuple[str, str, str, str]],
 ) -> None:
-    groups: dict[str, list[str]] = {
-        "Hệ thống & workspace": [],
-        "Nghiệp vụ (luồng chi tiết)": [],
-        "API modules (từng file routes/*.ts)": [],
-        "Thư viện backend (lib-modules, từng file lib/*.ts)": [],
-        "Frontend pages (từng pages/*.tsx)": [],
-        "Database schema (từng file schema/*.ts)": [],
-        "Reference mirror Shop": [],
-    }
-    for p in sorted(all_paths):
-        if p.startswith("he-thong/"):
-            groups["Hệ thống & workspace"].append(p)
-        elif p.startswith("nghiep-vu/"):
-            groups["Nghiệp vụ (luồng chi tiết)"].append(p)
-        elif p.startswith("api-modules/"):
-            groups["API modules (từng file routes/*.ts)"].append(p)
-        elif p.startswith("lib-modules/"):
-            groups["Thư viện backend (lib-modules, từng file lib/*.ts)"].append(p)
-        elif p.startswith("frontend-pages/"):
-            groups["Frontend pages (từng pages/*.tsx)"].append(p)
-        elif p.startswith("schema/"):
-            groups["Database schema (từng file schema/*.ts)"].append(p)
-        elif p.startswith("reference/"):
-            groups["Reference mirror Shop"].append(p)
-
-    ref_files = sorted((ROOT / "reference").glob("*.md")) if (ROOT / "reference").is_dir() else []
-    for f in ref_files:
-        groups["Reference mirror Shop"].append(f"reference/{f.name}")
+    nghiep = sorted(p for p in all_paths if p.startswith("nghiep-vu/"))
+    he_thong = sorted(p for p in all_paths if p.startswith("he-thong/"))
+    ref_files = sorted(p for p in all_paths if p.startswith("tham-chieu/"))
 
     lines = [
-        "# VietPOS-Map — Mục lục đầy đủ",
+        "# VietPOS-Map — Bản đồ tài liệu",
         "",
-        "Tài liệu **chi tiết theo file code** trong Shop-Manager-System-Offline, "
-        "cộng **luồng nghiệp vụ** và **mirror** doc gốc Shop.",
+        "**Mô tả:** Trang chủ Map — mỗi chủ đề nằm trong **một thư mục**, file **`README.md`**.",
         "",
-        "**Regenerate:** `python3 docs/gen.py` (sau khi đổi routes/pages/schema ở Shop).",
+        f"**Bản đồ hình (ASCII):** [{README}]({ban_do_path()})",
         "",
-        "Mỗi file doc có dòng **Mô tả:** ở đầu; mục lục bên dưới lặp lại mô tả sau tên file.",
+        f"1. [Hướng dẫn đọc (3 bước)]({huong_dan_doc_path()})",
+        f"2. [Kiến trúc — Mermaid]({chuyen_de_path('kien-truc-he-thong')})",
         "",
-        "---",
-        "",
-        "## Sơ đồ kiến trúc",
-        "",
-        "```",
-        "pos-app (React) ──/api──► api-server (Express) ──► PostgreSQL",
-        "     │                         ▲",
-        "  local-db/sync               cloud-sync → Railway",
-        " Widget / ESP32 ──API key──► visitor-counts, widget",
-        "```",
+        "**Tạo lại:** `python3 docs/gen.py`",
         "",
         "---",
+        "",
+        "## Chủ đề (chuyen-de)",
+        "",
+        "Mỗi thư mục gom link **nghiệp vụ → màn hình → API → schema → lib** theo một việc.",
         "",
     ]
-    n = 0
-    for group, items in groups.items():
-        if not items:
-            continue
-        lines.append(f"## {group} ({len(items)} mục)")
-        lines.append("")
-        for item in sorted(set(items)):
-            n += 1
-            label = Path(item).name
-            desc = DOC_DESCRIPTIONS.get(item, "")
-            if desc:
-                lines.append(f"{n}. [{label}]({item}) — {desc}")
-            else:
-                lines.append(f"{n}. [{label}]({item})")
-        lines.append("")
-
-    lines.extend(
-        [
-            "---",
-            "",
-            f"## Chỉ mục API đầy đủ ({len(flat_endpoints)} endpoint)",
-            "",
-            "Mỗi dòng trỏ tới file module; chi tiết handler nằm ở mục **Chi tiết từng endpoint** trong file đó.",
-            "",
-        ]
-    )
-    for i, (mod, method, api_path, doc_path) in enumerate(
-        sorted(flat_endpoints, key=lambda x: (x[2], x[1])), start=1
-    ):
-        blurb = endpoint_index_blurb(mod, method, api_path)
-        lines.append(
-            f"{i}. `{method}` `/api{api_path}` — {blurb} — [`{mod}`]({doc_path})"
-        )
-
+    for hub in TOPIC_HUBS:
+        rel = chuyen_de_path(str(hub["file"]))
+        lines.append(f"- [{hub['title']}]({rel}) — {hub['desc']}")
+    lines.extend(["", "---", "", "## Mười hai chương nghiệp vụ", ""])
+    for i, item in enumerate(nghiep, 1):
+        d = one_line(DOC_DESCRIPTIONS.get(item, ""), 120)
+        label = Path(item).parent.name
+        lines.append(f"{i}. [{label}]({item}) — {d}")
     lines.extend(
         [
             "",
             "---",
             "",
-            "## Lộ trình đọc gợi ý",
-            "",
-            "1. `he-thong/01-kien-truc-runtime.md` → `he-thong/04-docker-va-cloud-sync.md`",
-            "2. `nghiep-vu/01-dang-nhap-va-shop-context.md` → … → `12-widget-va-dem-khach.md`",
-            "3. Sửa API: `api-modules/<ten>.md` + `lib-modules/...` nếu logic nằm lib",
-            "4. Sửa UI: `frontend-pages/<ten>.md`",
-            "5. DB: `schema/<ten>.md` + `reference/database.md`",
-            "6. HĐ đầu vào: `nghiep-vu/06`–`08`, `api-modules/vat-inbound.md`, `frontend-pages/vat-inbound.md`",
-            "",
-            f"**Tổng số mục file trong mục lục:** {n}",
-            f"**Tổng endpoint REST (trích routes):** {len(flat_endpoints)}",
+            "## Hệ thống (chi tiết kỹ thuật)",
             "",
         ]
     )
-    (ROOT / "00-muc-luc-va-kien-truc.md").write_text("\n".join(lines), encoding="utf-8")
+    for item in he_thong:
+        d = one_line(DOC_DESCRIPTIONS.get(item, ""), 120)
+        label = Path(item).parent.name
+        lines.append(f"- [{label}]({item}) — {d}")
+    lines.extend(
+        [
+            "",
+            "---",
+            "",
+            "## Tra cứu kỹ thuật (chi-muc)",
+            "",
+            "Dùng **sau** hub chủ đề — danh sách dài, không đọc từ đầu đến cuối.",
+            "",
+            "| Chỉ mục | Nội dung |",
+            "|---------|----------|",
+            f"| [danh-sach-api]({chi_muc_path('danh-sach-api')}) | {sum(1 for p in all_paths if p.startswith('module-api/'))} module API |",
+            f"| [danh-sach-trang]({chi_muc_path('danh-sach-trang')}) | {sum(1 for p in all_paths if p.startswith('trang/'))} trang UI |",
+            f"| [thu-vien-backend]({chi_muc_path('thu-vien-backend')}) | {sum(1 for p in all_paths if p.startswith('thu-vien/'))} file lib |",
+            f"| [co-so-du-lieu]({chi_muc_path('co-so-du-lieu')}) | {sum(1 for p in all_paths if p.startswith('co-so-du-lieu/'))} schema |",
+            f"| [endpoint-http]({chi_muc_path('endpoint-http')}) | {len(flat_endpoints)} endpoint HTTP |",
+            "",
+            "---",
+            "",
+            "## Tài liệu tham chiếu gốc Shop (tiếng Anh)",
+            "",
+        ]
+    )
+    for rel in ref_files:
+        label = Path(rel).parent.name
+        d = one_line(DOC_DESCRIPTIONS.get(rel, ""), 100)
+        lines.append(f"- [{label}]({rel}) — {d}")
+    lines.extend(
+        [
+            "",
+            "---",
+            "",
+            "## Thống kê",
+            "",
+            f"- Hub chủ đề: {len(TOPIC_HUBS)}",
+            f"- README sinh tự động: ~{len(all_paths)}",
+            f"- Endpoint HTTP: {len(flat_endpoints)}",
+            "",
+        ]
+    )
+    rel_index = map_index_path()
+    register_desc(
+        rel_index,
+        "Trang chủ Map — hub chủ đề, 12 chương nghiệp vụ, link chỉ mục kỹ thuật.",
+    )
+    (ROOT / rel_index).write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> None:
@@ -1592,8 +2235,10 @@ def main() -> None:
         raise SystemExit(f"Missing Shop: {SHOP}")
     DOC_DESCRIPTIONS.clear()
     clean_generated()
-    mirror_shop()
     all_paths: list[str] = []
+    all_paths.extend(mirror_shop())
+    all_paths.append(write_huong_dan_doc())
+    all_paths.append(write_ban_do_hinh())
     all_paths.extend(write_dict_files(HE_THONG_FILES))
     all_paths.extend(write_dict_files(NGHIEP_VU_FILES))
     api_paths, flat_endpoints = write_api_modules()
@@ -1601,11 +2246,14 @@ def main() -> None:
     all_paths.extend(write_lib_modules())
     all_paths.extend(write_pages())
     all_paths.extend(write_schemas())
+    all_paths.extend(write_chuyen_de_hubs(all_paths))
+    chi_muc = write_chi_muc(all_paths, flat_endpoints)
+    all_paths.extend(chi_muc)
     write_index(all_paths, flat_endpoints)
     print(
         f"Built {len(all_paths)} topic files + index; "
         f"endpoints: {len(flat_endpoints)}; "
-        f"reference: {len(list((ROOT/'reference').glob('*.md')))}"
+        f"tham-chieu: {sum(1 for _ in (ROOT / 'tham-chieu').rglob('README.md')) if (ROOT / 'tham-chieu').is_dir() else 0}"
     )
 
 

@@ -1,17 +1,29 @@
 # VietPOS-Map
 
-Bản đồ tài liệu **VietPOS** — mục lục dài (gồm **chỉ mục ~235 endpoint**), **~250+ file** chi tiết theo code Shop.
+Bản đồ tài liệu **VietPOS** (tiếng Việt) — mỗi chủ đề một **thư mục**, nội dung trong **`README.md`**.
 
-**Bắt đầu:** [docs/00-muc-luc-va-kien-truc.md](docs/00-muc-luc-va-kien-truc.md) (~200 dòng mục lục)
+## Đọc theo thứ tự
 
-| Thư mục | Nội dung |
-|---------|----------|
-| `docs/he-thong/` | Kiến trúc, workspace, Docker |
-| `docs/nghiep-vu/` | Luồng POS, kho, HĐ VAT (12 chương) |
-| `docs/api-modules/` | **Từng file** `routes/*.ts` + bảng endpoint |
-| `docs/frontend-pages/` | **Từng file** `pages/*.tsx` + import/API trích |
-| `docs/lib-modules/` | **Từng file** `api-server/src/lib/**/*.ts` |
-| `docs/schema/` | **Từng file** Drizzle schema + cột + FK |
-| `docs/reference/` | Mirror doc gốc Shop (architecture, rbac, …) |
+1. **[Bản đồ chính](docs/README.md)** — mục lục và hub chủ đề
+2. [Bản đồ hình ASCII](docs/ban-do-kien-truc/README.md)
+3. [Hướng dẫn 3 bước](docs/huong-dan-doc/README.md)
+4. [Kiến trúc Mermaid](docs/chuyen-de/kien-truc-he-thong/README.md)
+5. Chọn **hub** trong `docs/chuyen-de/…/` (POS, HĐ đầu vào, chuỗi…)
+6. Tra cứu sâu: [chi-muc/danh-sach-api](docs/chi-muc/danh-sach-api/README.md) và các chỉ mục cùng cấp
 
-Sau khi đổi code Shop: `python3 docs/gen.py`
+| Thư mục | Ý nghĩa |
+|---------|---------|
+| `docs/chuyen-de/` | Hub theo chủ đề |
+| `docs/nghiep-vu/` | Luồng nghiệp vụ 01→12 |
+| `docs/trang/` | Màn hình POS/admin |
+| `docs/module-api/` | Module HTTP `/api` |
+| `docs/co-so-du-lieu/` | Schema Postgres |
+| `docs/thu-vien/` | Thư viện backend |
+| `docs/chi-muc/` | Chỉ mục dài |
+| `docs/tham-chieu/` | Doc gốc Shop (tiếng Anh) |
+
+```bash
+python3 docs/gen.py
+```
+
+Tạo lại toàn bộ README sau khi sửa code Shop.
