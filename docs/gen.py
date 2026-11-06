@@ -6,6 +6,8 @@ import re
 import shutil
 from pathlib import Path
 
+from api_extract import build_endpoint_detail_auto, iter_route_handlers, load_zod_schemas
+
 from doc_paths import (
     README,
     ban_do_path,
@@ -1382,7 +1384,7 @@ def write_chi_muc(all_paths: list[str], flat_endpoints: list[tuple[str, str, str
 
 def clean_generated() -> None:
     for p in list(ROOT.iterdir()):
-        if p.name in ("gen.py", "doc_paths.py"):
+        if p.name in ("gen.py", "doc_paths.py", "api_extract.py"):
             continue
         if p.is_dir():
             shutil.rmtree(p)
@@ -1927,6 +1929,7 @@ def endpoint_note(module_key: str, method: str, path: str, middleware: list[str]
 def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
     paths: list[str] = []
     flat_endpoints: list[tuple[str, str, str, str]] = []
+    zod_schemas = load_zod_schemas(SHOP)
     for f in sorted(ROUTES_DIR.glob("*.ts")):
         if f.name == "index.ts":
             continue
@@ -1937,6 +1940,9 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
             for m in ROUTE_BLOCK_RE.finditer(text)
         ]
         routes = extract_routes(text)
+        handlers_by_route = {
+            (meth, pth): chunk for meth, pth, chunk in iter_route_handlers(text)
+        }
         rel_shop = f"artifacts/api-server/src/routes/{f.name}"
         intro = api_module_intro_text(key)
         rel = module_api_path(key)
@@ -1954,6 +1960,9 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
             intro.strip(),
             "",
             f"**Số endpoint:** {len(routes)}",
+            "",
+            "**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), "
+            "bảng lỗi `error`, và response (Zod hoặc trường `res.json`).",
             "",
             "## Bảng endpoint (tóm tắt)",
             "",
@@ -1978,7 +1987,8 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
         )
         for method, path, mid in blocks:
             api_path = path if path.startswith("/") else f"/{path}"
-            mw = middleware_from_block(mid)
+            chunk = handlers_by_route.get((method, path), "")
+            mw = middleware_from_block(mid or chunk[:600])
             anchor = endpoint_anchor(method, path)
             note = endpoint_note(key, method, path, mw)
             lines.append(f"### `{method} {api_path}` {{#{anchor}}}")
@@ -1986,6 +1996,10 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
             lines.append(note)
             lines.append("")
             detail = endpoint_detail_body(method, path)
+            if not detail:
+                detail = build_endpoint_detail_auto(
+                    method, path, chunk, mw, zod_schemas
+                )
             if detail:
                 lines.append(detail)
                 lines.append("")

@@ -8,6 +8,8 @@ Cấu hình Viettel SInvoice theo org.
 
 **Số endpoint:** 2
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -21,13 +23,41 @@ Cấu hình Viettel SInvoice theo org.
 
 Đường dẫn đầy đủ `/api/viettel-invoice/settings`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/viettel-invoice/settings`
+
+**Lớp route:** `requireAuth`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **404** | `Tài khoản chưa gắn tổ chức` |
+| **404** | `Không tìm thấy tổ chức` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`gdtPortalPasswordConfigured`, `gdtPortalUsername`, `gdtSession`, `inboundApiReady`, `inboundSyncReady`, `inboundTaxPortalReady`, `outboundReady`, `vatInboundProvider`
 
 ### `PATCH /viettel-invoice/settings` {#patch-viettel-invoice-settings}
 
 Đường dẫn đầy đủ `/api/viettel-invoice/settings`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `PATCH /api/viettel-invoice/settings`
+
+**Lớp route:** `requireAuth`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Chỉ admin tổng hoặc quản trị hệ thống được cấu hình Viettel` |
+| **400** | `Tài khoản hệ thống cần đăng nhập theo chi nhánh để cấu hình Viettel` |
+| **400** | `Không có dữ liệu để cập nhật` |
+| **404** | `Không tìm thấy tổ chức` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`gdtPortalPasswordConfigured`, `gdtPortalUsername`, `gdtSession`, `inboundApiReady`, `inboundSyncReady`, `inboundTaxPortalReady`, `outboundReady`, `vatInboundProvider`
 
 ## Ghi chú đọc mã
 

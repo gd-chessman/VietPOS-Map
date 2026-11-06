@@ -8,6 +8,8 @@ Cấu hình thông báo platform/org.
 
 **Số endpoint:** 2
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -21,13 +23,41 @@ Cấu hình thông báo platform/org.
 
 Đường dẫn đầy đủ `/api/notification-settings`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/notification-settings`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **500** | `Không tải được cài đặt thông báo. Thử khởi động lại máy chủ và cập nhật cơ sở dữ liệu.` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`Chuỗi`, `Email`, `app`, `overview`, `recipientRoleOptions`
 
 ### `PATCH /notification-settings` {#patch-notification-settings}
 
 Đường dẫn đầy đủ `/api/notification-settings`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `PATCH /api/notification-settings`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Cần mảng updates` |
+| **400** | `Không có cập nhật hợp lệ` |
+| **500** | `Không lưu được cài đặt. Thử khởi động lại máy chủ.` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`ok`, `recipientRoleOptions`
 
 ## Ghi chú đọc mã
 

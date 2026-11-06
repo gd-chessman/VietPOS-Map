@@ -8,6 +8,8 @@ Danh mục sản phẩm.
 
 **Số endpoint:** 3
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -22,19 +24,46 @@ Danh mục sản phẩm.
 
 Đường dẫn đầy đủ `/api/product-categories`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/product-categories`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Query:** `limit`, `page`
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`activeCount`, `inactiveCount`, `items`, `total`
 
 ### `POST /product-categories` {#post-product-categories}
 
 Đường dẫn đầy đủ `/api/product-categories`. Lớp kiểm tra: `requireAuth, requireManagerOrAdmin, requireOperationalContext`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`, `requireManagerOrAdmin`, `requireOperationalContext`
+**URL:** `POST /api/product-categories`
+
+**Lớp route:** `requireAuth`, `requireManagerOrAdmin`, `requireOperationalContext`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Đã có loại sản phẩm cùng tên` |
 
 ### `PATCH /product-categories/:id` {#patch-product-categories--id}
 
 Đường dẫn đầy đủ `/api/product-categories/:id`. Lớp kiểm tra: `requireAuth, requireManagerOrAdmin, requireOperationalContext`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`, `requireManagerOrAdmin`, `requireOperationalContext`
+**URL:** `PATCH /api/product-categories/:id`
+
+**Lớp route:** `requireAuth`, `requireManagerOrAdmin`, `requireOperationalContext`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Invalid ID` |
+| **404** | `Không tìm thấy loại sản phẩm` |
+| **400** | `Đã có loại sản phẩm cùng tên` |
 
 ## Ghi chú đọc mã
 

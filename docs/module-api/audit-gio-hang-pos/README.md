@@ -8,6 +8,8 @@ Audit thao tác giỏ hàng POS.
 
 **Số endpoint:** 3
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -22,19 +24,56 @@ Audit thao tác giỏ hàng POS.
 
 Đường dẫn đầy đủ `/api/pos/cart-audit`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `POST /api/pos/cart-audit`
+
+**Lớp route:** `requireAuth`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `No events provided` |
+| **403** | `Forbidden` |
+
+**Response 201** — trường top-level (trích `res.json`):
+
+`count`, `ok`
 
 ### `GET /reports/pos-cart-audit/summary` {#get-reports-pos-cart-audit-summary}
 
 Đường dẫn đầy đủ `/api/reports/pos-cart-audit/summary`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/pos-cart-audit/summary`
+
+**Lớp route:** `requireAuth`
+
+**Query:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Không có quyền xem chi nhánh này` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`clearedValueTotal`, `totalEvents`
 
 ### `GET /reports/pos-cart-audit` {#get-reports-pos-cart-audit}
 
 Đường dẫn đầy đủ `/api/reports/pos-cart-audit`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/pos-cart-audit`
+
+**Lớp route:** `requireAuth`
+
+**Query:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Không có quyền xem chi nhánh này` |
 
 ## Ghi chú đọc mã
 

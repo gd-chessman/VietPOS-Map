@@ -8,6 +8,8 @@ Session CQT trực tiếp (captcha, connect) — dùng chung org với HĐ đầ
 
 **Số endpoint:** 4
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -23,25 +25,63 @@ Session CQT trực tiếp (captcha, connect) — dùng chung org với HĐ đầ
 
 Đường dẫn đầy đủ `/api/organizations/:orgId/gdt/status`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/organizations/:orgId/gdt/status`
+
+**Lớp route:** `requireAuth`
+
+**Path params:** `orgId`
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`ok`
 
 ### `POST /organizations/:orgId/gdt/captcha` {#post-organizations--orgId-gdt-captcha}
 
 Đường dẫn đầy đủ `/api/organizations/:orgId/gdt/captcha`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `POST /api/organizations/:orgId/gdt/captcha`
+
+**Lớp route:** `requireAuth`
+
+**Path params:** `orgId`
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`ok`
 
 ### `POST /organizations/:orgId/gdt/test-connect` {#post-organizations--orgId-gdt-test-connect}
 
 Đường dẫn đầy đủ `/api/organizations/:orgId/gdt/test-connect`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `POST /api/organizations/:orgId/gdt/test-connect`
+
+**Lớp route:** `requireAuth`
+
+**Path params:** `orgId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Nhập mã captcha` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`message`, `ok`, `probeWarning`, `sampleCount`, `session`
 
 ### `POST /organizations/:orgId/gdt/disconnect` {#post-organizations--orgId-gdt-disconnect}
 
 Đường dẫn đầy đủ `/api/organizations/:orgId/gdt/disconnect`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `POST /api/organizations/:orgId/gdt/disconnect`
+
+**Lớp route:** `requireAuth`
+
+**Path params:** `orgId`
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`ok`
 
 ## Ghi chú đọc mã
 

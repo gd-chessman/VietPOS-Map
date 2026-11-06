@@ -8,6 +8,8 @@ Danh sách shop user được truy cập.
 
 **Số endpoint:** 3
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -22,19 +24,56 @@ Danh sách shop user được truy cập.
 
 Đường dẫn đầy đủ `/api/shops`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/shops`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Không có quyền xem danh sách chi nhánh` |
 
 ### `POST /shops/heartbeat` {#post-shops-heartbeat}
 
 Đường dẫn đầy đủ `/api/shops/heartbeat`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `POST /api/shops/heartbeat`
+
+**Lớp route:** `requireAuth`
+
+**Request body** (`application/json`, trích từ code):
+
+| Trường | Ghi chú |
+|--------|---------|
+| `deviceTime` | xem handler |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`ok`, `recorded`
 
 ### `GET /shops/operational-events` {#get-shops-operational-events}
 
 Đường dẫn đầy đủ `/api/shops/operational-events`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/shops/operational-events`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Query:** `from`, `limit`, `page`, `shopId`, `to`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Không có quyền xem nhật ký trạng thái chi nhánh` |
+| **403** | `Không có quyền xem chi nhánh này` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`items`, `total`
 
 ## Ghi chú đọc mã
 

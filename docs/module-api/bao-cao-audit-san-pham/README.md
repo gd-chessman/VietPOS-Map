@@ -8,6 +8,8 @@ Báo cáo thay đổi sản phẩm.
 
 **Số endpoint:** 2
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -21,13 +23,37 @@ Báo cáo thay đổi sản phẩm.
 
 Đường dẫn đầy đủ `/api/reports/product-audit/summary`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/product-audit/summary`
+
+**Lớp route:** `requireAuth`
+
+**Query:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Không có quyền xem chi nhánh này` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`totalEvents`
 
 ### `GET /reports/product-audit` {#get-reports-product-audit}
 
 Đường dẫn đầy đủ `/api/reports/product-audit`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/product-audit`
+
+**Lớp route:** `requireAuth`
+
+**Query:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Không có quyền xem chi nhánh này` |
 
 ## Ghi chú đọc mã
 

@@ -8,6 +8,8 @@ Khách vãng lai (walk-in).
 
 **Số endpoint:** 2
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -21,13 +23,52 @@ Khách vãng lai (walk-in).
 
 Đường dẫn đầy đủ `/api/shops/:shopId/walk-in-customers/today`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/shops/:shopId/walk-in-customers/today`
+
+**Lớp route:** `requireAuth`
+
+**Path params:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Invalid shop id` |
+| **403** | `Forbidden` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`beams`, `count`
 
 ### `POST /shops/:shopId/walk-in-customers` {#post-shops--shopId-walk-in-customers}
 
 Đường dẫn đầy đủ `/api/shops/:shopId/walk-in-customers`. Lớp kiểm tra: `requireAuth, requireOperationalContext`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`, `requireOperationalContext`
+**URL:** `POST /api/shops/:shopId/walk-in-customers`
+
+**Lớp route:** `requireAuth`, `requireOperationalContext`
+
+**Request body** (`application/json`, trích từ code):
+
+| Trường | Ghi chú |
+|--------|---------|
+| `add` | xem handler |
+| `quantity` | xem handler |
+
+**Path params:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Invalid shop id` |
+| **403** | `Forbidden` |
+| **403** | `Cửa hàng đã tắt nhập khách thủ công` |
+| **400** | `Số khách phải >= 1` |
+
+**Response 201** — trường top-level (trích `res.json`):
+
+`count`
 
 ## Ghi chú đọc mã
 

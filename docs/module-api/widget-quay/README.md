@@ -10,6 +10,8 @@ API phục vụ app Android widget: thống kê quầy (JWT / shop context).
 
 **Số endpoint:** 1
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -22,7 +24,11 @@ API phục vụ app Android widget: thống kê quầy (JWT / shop context).
 
 Đường dẫn đầy đủ `/api/widget/home`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/widget/home`
+
+**Lớp route:** `requireAuth`
+
+*Handler không trích được contract tự động — mở file route TypeScript.*
 
 ## Ghi chú đọc mã
 

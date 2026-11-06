@@ -8,6 +8,8 @@ Nhà cung cấp.
 
 **Số endpoint:** 4
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -23,25 +25,56 @@ Nhà cung cấp.
 
 Đường dẫn đầy đủ `/api/suppliers`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/suppliers`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Query:** `limit`, `page`, `q`
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`total`
 
 ### `GET /suppliers/:id` {#get-suppliers--id}
 
 Đường dẫn đầy đủ `/api/suppliers/:id`. Lớp kiểm tra: `requireAuth, requireHubShop, requireManagerOrAdmin`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`, `requireHubShop`, `requireManagerOrAdmin`
+**URL:** `GET /api/suppliers/:id`
+
+**Lớp route:** `requireAuth`, `requireHubShop`, `requireManagerOrAdmin`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Invalid ID` |
+| **404** | `Không tìm thấy nhà cung cấp` |
 
 ### `POST /suppliers` {#post-suppliers}
 
 Đường dẫn đầy đủ `/api/suppliers`. Lớp kiểm tra: `requireAuth, requireHubShop, requireManagerOrAdmin, requireOperationalContext`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`, `requireHubShop`, `requireManagerOrAdmin`, `requireOperationalContext`
+**URL:** `POST /api/suppliers`
+
+**Lớp route:** `requireAuth`, `requireHubShop`, `requireManagerOrAdmin`, `requireOperationalContext`
+
+*Handler không trích được contract tự động — mở file route TypeScript.*
 
 ### `PATCH /suppliers/:id` {#patch-suppliers--id}
 
 Đường dẫn đầy đủ `/api/suppliers/:id`. Lớp kiểm tra: `requireAuth, requireHubShop, requireManagerOrAdmin, requireOperationalContext`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`, `requireHubShop`, `requireManagerOrAdmin`, `requireOperationalContext`
+**URL:** `PATCH /api/suppliers/:id`
+
+**Lớp route:** `requireAuth`, `requireHubShop`, `requireManagerOrAdmin`, `requireOperationalContext`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Invalid ID` |
+| **404** | `Không tìm thấy nhà cung cấp` |
 
 ## Ghi chú đọc mã
 

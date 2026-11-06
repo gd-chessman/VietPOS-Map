@@ -8,6 +8,8 @@ Sự kiện / lỗi hệ thống.
 
 **Số endpoint:** 1
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -20,7 +22,18 @@ Sự kiện / lỗi hệ thống.
 
 Đường dẫn đầy đủ `/api/system-events`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/system-events`
+
+**Lớp route:** `requireAuth`
+- **Thêm trong handler:** role **`super_admin`** (403 nếu không đủ).
+
+**Query:** `category`, `from`, `limit`, `page`, `severity`, `shopId`, `to`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **403** | `Chỉ super admin mới xem Báo cáo hệ thống` |
 
 ## Ghi chú đọc mã
 

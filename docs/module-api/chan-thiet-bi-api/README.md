@@ -15,6 +15,8 @@ Danh sách **Device ID** (header client) bị chặn mọi `/api/*`.
 
 **Số endpoint:** 3
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |

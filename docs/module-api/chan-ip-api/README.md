@@ -16,6 +16,8 @@ Danh sách IP bị chặn toàn cục trên **mọi** request `/api/*`.
 
 **Số endpoint:** 3
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |

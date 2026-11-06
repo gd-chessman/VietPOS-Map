@@ -8,6 +8,8 @@ Báo cáo nhân viên, in lại bill.
 
 **Số endpoint:** 4
 
+**Contract API:** Mỗi endpoint có mục **URL**, body/query (từ code + schema Zod orval khi có), bảng lỗi `error`, và response (Zod hoặc trường `res.json`).
+
 ## Bảng endpoint (tóm tắt)
 
 | Method | Path | Mô tả ngắn |
@@ -23,25 +25,56 @@ Báo cáo nhân viên, in lại bill.
 
 Đường dẫn đầy đủ `/api/reports/staff`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/staff`
+
+**Lớp route:** `requireAuth`
+
+*Handler không trích được contract tự động — mở file route TypeScript.*
 
 ### `GET /reports/sales-staff` {#get-reports-sales-staff}
 
 Đường dẫn đầy đủ `/api/reports/sales-staff`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/sales-staff`
+
+**Lớp route:** `requireAuth`
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`orderCount`, `revenue`, `staff`, `unassigned`
 
 ### `GET /reports/reprints` {#get-reports-reprints}
 
 Đường dẫn đầy đủ `/api/reports/reprints`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/reprints`
+
+**Lớp route:** `requireAuth`
+
+*Handler không trích được contract tự động — mở file route TypeScript.*
 
 ### `GET /reports/staff/:userId/detail` {#get-reports-staff--userId-detail}
 
 Đường dẫn đầy đủ `/api/reports/staff/:userId/detail`. Lớp kiểm tra: `requireAuth`.
 
-- **Lớp kiểm tra (middleware):** `requireAuth`
+**URL:** `GET /api/reports/staff/:userId/detail`
+
+**Lớp route:** `requireAuth`
+
+**Query:** `shopId`
+
+**Lỗi JSON** (`error` string):
+
+| HTTP | Message |
+|------|---------|
+| **400** | `Invalid userId` |
+| **404** | `User not found` |
+| **403** | `Không có quyền xem chi nhánh này` |
+| **403** | `Nhân viên không thuộc chi nhánh này` |
+
+**Response 200** — trường top-level (trích `res.json`):
+
+`cancelledOrders`, `orderTotalAmount`, `reprints`, `totalAmount`
 
 ## Ghi chú đọc mã
 
