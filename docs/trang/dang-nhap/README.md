@@ -8,6 +8,24 @@
 **Tên component React:** `Login`
 **Quy mô:** ~1080 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `login.tsx`
+
+**Thẻ / chỉ số (CardTitle):**
+- VietPOS
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: admin@pos.com
+**Tooltip / mô tả ngắn (title=):**
+- Nhập mã PIN
+- Thiết lập mã PIN
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
 **Đường dẫn:** `/login`
 
 Email/password, PIN máy, tài khoản đã lưu trên thiết bị. JWT → `pos_token`.

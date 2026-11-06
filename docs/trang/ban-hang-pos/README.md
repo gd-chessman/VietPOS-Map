@@ -8,6 +8,122 @@
 **Tên component React:** `POS`
 **Quy mô:** ~1988 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `pos.tsx`
+
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: VD: bớt giá, tặng kèm...
+**Tooltip / mô tả ngắn (title=):**
+- Ghi chú / giảm giá
+- Quét QR bằng camera
+- Duyệt sản phẩm dạng lưới
+- Tra cứu và thao tác đơn hàng
+
+### `@/components/VatInvoiceCheckoutSection`
+
+**Nhãn lọc / preset / placeholder:**
+- Tên công ty *
+- Mã số thuế (tuỳ chọn)
+- SĐT (tuỳ chọn)
+- Email nhận hóa đơn (tuỳ chọn)
+- Địa chỉ công ty (tuỳ chọn)
+- Ô nhập: Công ty TNHH ...
+- Ô nhập: ketoan@congty.vn
+- Ô nhập: Số nhà, phường, quận, tỉnh...
+
+### `@/components/OrdersPanel`
+
+**Tiêu đề trang:** “Đơn hàng”
+**Cột bảng:**
+- STT
+- Số HĐ
+- Chi nhánh
+- Ngày giờ
+- Thu ngân
+- NV ca
+- Thanh toán
+- CT thanh toán
+- CT sản phẩm
+- Số món
+- Ghi chú
+- Tổng tiền
+- Trạng thái
+- Lý do
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Thêm ghi chú nếu cần...
+- Hoàn thành
+- Đề nghị huỷ
+- Đơn huỷ
+- Đơn ghi chú
+- Chờ xuất VAT
+- Đã xuất VAT
+- CT thanh toán
+- CT sản phẩm
+**Tooltip / mô tả ngắn (title=):**
+- Chứng từ thanh toán
+- Chứng từ sản phẩm
+- Xem chi tiết
+- Đổi thanh toán
+- Sửa hoá đơn VAT
+- In lại
+- Duyệt huỷ
+- Từ chối
+- Khôi phục
+- Chụp ảnh chứng từ sản phẩm
+- In lại hoá đơn
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `pos.tsx`
+
+**Thao tác:**
+- setEditOpen(!editOpen)} title="Ghi chú / giảm giá">
+- onRemove(sellKey)}>
+- onUpdate(sellKey, -1)}>
+- onUpdate(sellKey, 1)} disabled= >
+- setEditOpen(false)}>Huỷ
+- Lưu
+- Total / Tổng tiền )}
+- setLocation("/media?type=payment_proof")} > CT TT
+- setLocation("/media?type=product_proof")} > CT SP
+- setOrderHistoryOpen(true)} title="Tra cứu và thao tác đơn hàng" > Lịch sử )}
+- Xoá tất cả
+- Xóa
+- Huỷ
+- Số lượng
+
+### `@/components/OrdersPanel`
+
+**Thao tác:**
+- onRequestModerate("approve-cancel")} >
+- onRequestModerate("reject-cancel")} >
+- onRequestModerate("uncancel")} >
+- Huỷ bỏ
+- Không, huỷ bỏ
+- } className="bg-amber-500 hover:bg-amber-600"> Có, in lại
+- } > Chụp ảnh
+- openModerateConfirm("approve-cancel")} disabled= > Duyệt huỷ đơn
+- openModerateConfirm("reject-cancel")} disabled= > Từ chối
+- openModerateConfirm("uncancel")} disabled= > Khôi phục đơn hàng
+- setChangePaymentOpen(true)}> Đổi phương thức thanh toán
+- setProductCameraOpen(true)} > Thêm chứng từ sản phẩm
+- onReprint(displayOrder)}> In lại hoá đơn
+- setEditInvoiceOpen(true)}>
+- void handleExportExcel()} >
+- void handleExportPdf()} >
+- setSelectedOrder(order)} >
+- setEditInvoiceOrder(order)} >
+- setReprintWarningOrder(order)} >
+- setCancelOrder(order)} >
+- openModerateConfirm(order, "approve-cancel")}>
+- openModerateConfirm(order, "reject-cancel")}>
+- openModerateConfirm(order, "uncancel")}>
+
 **Đường dẫn:** `/pos`
 
 Màn hình bán hàng chính: tìm SP, giỏ hàng, thanh toán, yêu cầu HĐ VAT, mở/đóng ca.

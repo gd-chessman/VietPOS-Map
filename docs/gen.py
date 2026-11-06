@@ -7,6 +7,7 @@ import shutil
 from pathlib import Path
 
 from api_extract import build_endpoint_detail_auto, iter_route_handlers, load_zod_schemas
+from page_extract import extract_page_ui, is_shell_page, render_page_ui_markdown
 from schema_extract import (
     build_var_to_pg_map,
     parse_schema_file,
@@ -1878,15 +1879,62 @@ def embedded_shop_components(text: str) -> list[tuple[str, Path]]:
     return found
 
 
+def embedded_page_sections(text: str) -> list[tuple[str, Path]]:
+    """Section/page con import từ @/pages/... (vd. access-block → ip-ban)."""
+    found: list[tuple[str, Path]] = []
+    for mod in re.findall(r'from ["\']@/pages/([^"\']+)["\']', text):
+        p = PAGES_DIR / f"{mod}.tsx"
+        if p.is_file():
+            found.append((f"pages/{mod}", p))
+    return found
+
+
+def page_embedded_modules(text: str) -> list[tuple[str, Path]]:
+    seen: set[Path] = set()
+    out: list[tuple[str, Path]] = []
+    for mod, p in embedded_shop_components(text) + embedded_page_sections(text):
+        if p in seen:
+            continue
+        seen.add(p)
+        out.append((mod, p))
+    return out
+
+
 def collect_page_api_hits(page_file: Path, text: str, depth: int = 0) -> tuple[list[str], list[tuple[str, Path]]]:
     """API trong page + 1 lớp component @/components (shell pages)."""
     hits = set(api_paths_in_source(text))
-    embedded = embedded_shop_components(text)
+    embedded = page_embedded_modules(text)
     if depth < 1 and len(hits) < 3 and embedded:
         for _mod, path in embedded:
             child = path.read_text(encoding="utf-8", errors="replace")
             hits.update(api_paths_in_source(child))
     return sorted(hits), embedded
+
+
+def ui_scan_components(
+    text: str, embedded: list[tuple[str, Path]]
+) -> list[tuple[str, Path]]:
+    """Component/section con cần quét nhãn UI."""
+    if is_shell_page(text):
+        return embedded
+    picked = [
+        (mod, p)
+        for mod, p in embedded
+        if re.search(r"(Section|Panel|BanSection)$", mod.split("/")[-1])
+        or mod.startswith("pages/")
+    ]
+    return picked
+
+
+def build_page_ui_markdown(
+    name: str, text: str, embedded: list[tuple[str, Path]]
+) -> str:
+    page_ui = extract_page_ui(text)
+    child_blocks: list[tuple[str, object]] = []
+    for mod, path in ui_scan_components(text, embedded):
+        child_text = path.read_text(encoding="utf-8", errors="replace")
+        child_blocks.append((mod, extract_page_ui(child_text)))
+    return render_page_ui_markdown(name, page_ui, child_blocks)
 
 
 def default_page_doc(
@@ -2234,6 +2282,7 @@ def write_pages() -> list[str]:
             if one
             else f"Trang React `{route}` — `{comp_name}`, ~{line_count} dòng.",
         )
+        ui_md = build_page_ui_markdown(name, text, embedded)
         lines = [
             f"# Trang giao diện: `{name}`",
             "",
@@ -2245,11 +2294,17 @@ def write_pages() -> list[str]:
             f"**Tên component React:** `{comp_name}`",
             f"**Quy mô:** ~{line_count} dòng.",
             "",
-            doc.strip(),
-            "",
-            f"**Đọc tiếp:** [Hướng dẫn đọc Map]({md_href(rel, huong_dan_doc_path())})",
-            "",
         ]
+        if ui_md:
+            lines.append(ui_md)
+        lines.extend(
+            [
+                doc.strip(),
+                "",
+                f"**Đọc tiếp:** [Hướng dẫn đọc Map]({md_href(rel, huong_dan_doc_path())})",
+                "",
+            ]
+        )
         append_page_analysis(lines, name, text)
         if perm_hits:
             lines.append("## Biểu thức quyền / guard trong file")

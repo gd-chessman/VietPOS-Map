@@ -8,6 +8,111 @@
 **Tên component React:** `PurchaseOrdersPage`
 **Quy mô:** ~2359 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `purchase-orders.tsx`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Đặt hàng”
+**Thẻ / chỉ số (CardTitle):**
+- Chưa gán nhà cung cấp
+**Cột bảng:**
+- Ảnh
+- Nhà cung cấp
+- Giá nhập
+- Tồn kho
+- Số lượng đặt
+- Mã phiếu
+- Trạng thái
+- Số mặt hàng
+- Tổng số lượng
+- Người lập
+- Ngày tạo
+- Thao tác
+- Sản phẩm
+- Mã sản phẩm
+- Tồn
+- SL đặt
+- Giá bán
+**Tab / khu vực:**
+- Tạo phiếu
+- Danh sách phiếu )}
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Tìm tên, mã sản phẩm, nhà cung cấp…
+- Ô nhập: Nhà cung cấp
+- Ô nhập: Tồn kho
+- Ô nhập: Ghi chú chung trên phiếu đặt hàng (tuỳ chọn)
+- Ô nhập: Tìm mã phiếu, nhà cung cấp, người lập…
+- Ô nhập: Ghi chú sản phẩm…
+- Ô nhập: Nhập lý do huỷ phiếu…
+- Chờ gửi
+- Đã gửi nhà cung cấp
+- Nhận còn thiếu
+- Đã nhận (thiếu)
+- Đã nhận (đủ)
+- Đã huỷ
+- Tất cả
+- Đã gửi
+
+### `@/pages/suppliers`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Nhà cung cấp”
+**Cột bảng:**
+- Tên nhà cung cấp
+- Liên hệ
+- MST
+- Trạng thái
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Làng nghề Bát Tràng
+- Ô nhập: Nguyễn Văn A
+- Ô nhập: ncc@example.com
+- Ô nhập: Số nhà, phường, quận...
+- Ô nhập: Ghi chú thêm...
+- Ô nhập: Tìm tên, MST, SĐT, người liên hệ...
+- Đang hợp tác
+- Ngừng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `purchase-orders.tsx`
+
+**Thao tác:**
+- Gợi ý SL (bán 30 ngày)
+- void openDetail(o.id)}> Chi tiết
+- void runStatusAction(o.id, "send")} > Đã gửi
+- ); setCancelReason(""); }} > Huỷ
+- setPreviewOpen(false)}> Đóng
+- void saveEditingOrder()}>
+- void printActivePreview()} >
+- void downloadAllPreviewFiles()} > Xuất tất cả ( )
+- setDetailOpen(false)}> Đóng
+- ); setCancelReason(""); }} > Huỷ phiếu
+- void openUpdatePdf(detail)} > Cập nhật
+- void previewSavedOrder(detail)} > Xem phiếu đặt hàng
+- } > Đóng
+- void confirmCancelOrder()} >
+- Chọn tất cả trên trang này
+
+**Hộp thoại (tiêu đề):**
+- Chi tiết phiếu {detail?.code ?? ""}
+- Huỷ phiếu đặt hàng?
+
+### `@/pages/suppliers`
+
+**Thao tác:**
+- Thêm nhà cung cấp
+- } > Sửa
+- setViewRow(s)} title="Xem" >
+- setEditRow(s)} title="Sửa" >
+
+**Hộp thoại (tiêu đề):**
+- Thêm nhà cung cấp
+- Chỉnh sửa nhà cung cấp
+- Chi tiết nhà cung cấp
+
 **Đường dẫn:** `/purchase-orders`
 
 Phiếu đặt mua (PO) và trạng thái nhận hàng.
@@ -37,6 +142,7 @@ Phiếu đặt mua (PO) và trạng thái nhận hàng.
 - `@/components/ZoomableThumb` → `artifacts/pos-app/src/components/ZoomableThumb.tsx`
 - `@/components/PdfPreview` → `artifacts/pos-app/src/components/PdfPreview.tsx`
 - `@/components/PurchaseOrderPrint` → `artifacts/pos-app/src/components/PurchaseOrderPrint.tsx`
+- `@/components/pages/suppliers` → `artifacts/pos-app/src/pages/suppliers.tsx`
 
 ## Cách đọc code
 
@@ -149,6 +255,7 @@ Phiếu đặt mua (PO) và trạng thái nhận hàng.
 - `ZoomableThumb` → `artifacts/pos-app/src/components/ZoomableThumb.tsx`
 - `PdfPreview` → `artifacts/pos-app/src/components/PdfPreview.tsx`
 - `PurchaseOrderPrint` → `artifacts/pos-app/src/components/PurchaseOrderPrint.tsx`
+- `pages/suppliers` → `artifacts/pos-app/src/pages/suppliers.tsx`
 
 ## Chuỗi `/api/...` (page + component con, 8 mục)
 

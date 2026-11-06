@@ -8,6 +8,75 @@
 **Tên component React:** `StockRequestsPage`
 **Quy mô:** ~1874 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `stock-requests.tsx`
+
+**Tiêu đề trang:** “Phiếu nhập/xuất kho”
+**Cột bảng:**
+- Sản phẩm
+- Mã
+- SL
+- Tồn kho chính
+- Tồn chi nhánh gửi
+- Tồn chi nhánh nhận
+- Số lượng
+- Ghi chú
+- Mã phiếu
+- Loại
+- Trạng thái
+- Từ CN
+- Đến CN
+- Người yêu cầu
+- Ngày tạo
+- Thao tác
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Tìm sản phẩm theo tên hoặc mã...
+- Ô nhập: Lý do huỷ...
+- Ô nhập: Lý do từ chối...
+- Ô nhập: Họ tên người nhận...
+- Ô nhập: Ghi chú...
+- Ô nhập: Lý do, ghi chú thêm...
+- Chờ duyệt
+- Đã duyệt
+- Đang vận chuyển
+- Hoàn thành
+- Từ chối
+- Đã huỷ
+- Tạo phiếu
+- Duyệt
+- Huỷ
+- Tất cả
+- Tất cả loại
+- Phiếu nhập
+- Phiếu xuất
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `stock-requests.tsx`
+
+**Thao tác:**
+- Đóng
+- Xác nhận huỷ
+- Huỷ
+- Xác nhận từ chối
+- onConfirm(trimmedReceiver)} disabled= > Xác nhận nhận hàng
+- } > Tạo phiếu nhập
+- } > Tạo phiếu xuất
+- printStockRequest( )), })} > In
+- doAction(req.id, "approve")} > Duyệt
+- setRejectTarget(req.id)} > Từ chối
+- doAction(req.id, "ship")} > Vận chuyển
+- setCompleteTarget(req)} title= >
+- setCancelTarget(req.id)} > Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Huỷ phiếu
+
 **Đường dẫn:** `/stock-requests`
 
 Phiếu nhập/xuất: trạng thái chờ duyệt, vận chuyển, nhận hàng, huỷ.

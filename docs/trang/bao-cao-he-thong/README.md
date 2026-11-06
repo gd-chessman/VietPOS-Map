@@ -8,6 +8,26 @@
 **Tên component React:** `SystemReportsPage`
 **Quy mô:** ~269 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `system-reports.tsx`
+
+**Tiêu đề trang:** “Báo cáo hệ thống”
+**Thẻ / chỉ số (CardTitle):**
+- Tổng sự kiện (kỳ)
+- Trên trang — cảnh báo
+- Chi tiết
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Chi nhánh
+- Ô nhập: Loại
+- Ô nhập: Mức
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
 **Đường dẫn:** `/system-reports`
 
 Báo cáo hệ thống, sự kiện, lỗi.

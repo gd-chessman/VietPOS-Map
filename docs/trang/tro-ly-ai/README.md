@@ -8,6 +8,47 @@
 **Tên component React:** `AgentAssistantPage`
 **Quy mô:** ~419 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `agent-assistant.tsx`
+
+**Tiêu đề trang:** “Trợ lý AI &amp; hệ thống”
+**Thẻ / chỉ số (CardTitle):**
+- Gợi ý nhanh
+- Chat phân tích
+**Tooltip / mô tả ngắn (title=):**
+- Lịch sử chat (audit)
+- Thiết lập trợ lý AI
+
+### `@/components/AgentChatPanel`
+
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Nhập câu hỏi… (Enter gửi, Shift+Enter xuống dòng)
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `agent-assistant.tsx`
+
+**Thao tác:**
+- Lịch sử chat
+- setSettingsOpen(true)} > Thiết lập trợ lý AI
+- void chat.sendText(p.text)} >
+- void systemQuery.refetch()} > Làm mới trạng thái
+- } > Xóa hội thoại
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Ẩn hội thoại trên màn hình?
+
+### `@/components/AgentChatPanel`
+
+**Thao tác:**
+- Gửi
+
 **Đường dẫn:** `/agent-assistant`
 
 Trợ lý AI + panel hệ thống (DB, cloud sync URL, shops online). Chat khi đã cấu hình LLM org.

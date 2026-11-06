@@ -8,6 +8,18 @@
 **Tên component React:** `NotFound`
 **Quy mô:** ~22 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `not-found.tsx`
+
+**Tiêu đề trang:** “404 Page Not Found”
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
 **Đường dẫn:** `*(public hoặc redirect — xem App.tsx)*`
 
 Trang 404 SPA.

@@ -8,6 +8,36 @@
 **Tên component React:** `VatInvoicePublicForm`
 **Quy mô:** ~689 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `vat-invoice-public.tsx`
+
+**Thẻ / chỉ số (CardTitle):**
+- Không tìm thấy hóa đơn
+- Thiếu mã truy cập
+**Tooltip / mô tả ngắn (title=):**
+- Vui lòng nhập tên công ty / Company name required
+- MST: 10 số hoặc 10-3 / Tax code: 10 digits or 10-3
+- Vui lòng nhập email hợp lệ / Valid email required
+- Vui lòng nhập địa chỉ / Address required
+- Số điện thoại không hợp lệ / Invalid phone
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `vat-invoice-public.tsx`
+
+**Thao tác:**
+- setReceiptOpen(true)} > Hóa đơn mua hàng
+- Tải PDF HĐĐT
+- Xem trước hóa đơn mua hàng
+
+**Hộp thoại (tiêu đề):**
+- Hóa đơn mua hàng
+
 **Đường dẫn:** `/vat-invoice`
 
 Form công khai tra cứu/xem HĐ VAT `/vat-invoice`.

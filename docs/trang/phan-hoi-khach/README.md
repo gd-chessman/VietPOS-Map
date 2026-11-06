@@ -8,6 +8,25 @@
 **Tên component React:** `CustomerFeedbackPage`
 **Quy mô:** ~369 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `customer-feedback.tsx`
+
+**Tiêu đề trang:** “Góp ý khách hàng”, “Danh sách góp ý”
+**Thẻ / chỉ số (CardTitle):**
+- Tổng quan
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Cửa hàng
+**Tooltip / mô tả ngắn (title=):**
+- Sao chép liên kết
+- Ảnh góp ý
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
 **Đường dẫn:** `/customer-feedback`
 
 Quản lý phản hồi khách đã gửi từ form công khai.

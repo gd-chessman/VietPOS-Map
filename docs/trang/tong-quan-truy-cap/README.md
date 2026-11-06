@@ -8,6 +8,37 @@
 **Tên component React:** `*(default export)*`
 **Quy mô:** ~453 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `access-overview-section.tsx`
+
+**Thẻ / chỉ số (CardTitle):**
+- Thiết bị & IP gần đây
+**Cột bảng:**
+- Tên thiết bị
+- Device ID
+- IP
+- Hôm nay
+- 48h
+- Lần cuối
+- Thao tác
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `access-overview-section.tsx`
+
+**Thao tác:**
+- void refetch()} > Làm mới
+- Đã chặn IP
+- setConfirmBlock( ) } > Chặn IP
+- Đã chặn thiết bị
+- setConfirmBlock( ) } > Chặn thiết bị
+- Huỷ
+
 **Không có route riêng** — embed trong tab **Tổng quan** của `/access-block`.
 
 ## API

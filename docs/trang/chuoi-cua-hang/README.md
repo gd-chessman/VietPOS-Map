@@ -8,6 +8,171 @@
 **Tên component React:** `Chain`
 **Quy mô:** ~4155 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `chain.tsx`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Quản lý chuỗi cửa hàng”
+**Cột bảng:**
+- ID
+- Mã
+- Tên tổ chức
+- MST
+- Ngân hàng
+- Điện thoại
+- Email
+- Trạng thái
+- Ngày tạo
+- Thao tác
+- STT
+- Số HĐ
+- Giờ
+- Thu ngân
+- Tổng tiền
+- Sản phẩm
+- Tồn kho
+- Giá bán
+- Thời gian
+- Tài khoản
+- IP
+- Tên thiết bị
+- Tên định danh
+- Mã thiết bị
+- Đăng ký lúc
+- Đăng nhập
+- Tên sản phẩm
+- Loại
+- Thay đổi
+- Ghi chú
+- Tên kho
+- Cửa hàng
+- Số lượng
+- Tồn kho nguồn
+- Từ kho
+- Đến kho
+**Tab / khu vực:**
+- Thông tin
+- Ngân hàng
+- HĐ đầu vào
+- Email SMTP
+- Trợ lý AI
+- Cấu hình
+- Viettel
+- Cơ quan thuế
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: VD: VPOS01
+- Ô nhập: VD: Chuỗi VietPOS
+- Ô nhập: VD: 0123456789
+- Ô nhập: VD: 0901234567
+- Ô nhập: VD: contact@company.vn
+- Ô nhập: VD: 123 Nguyễn Huệ, Q.1, TP.HCM
+- Ô nhập: VD: Vietcombank
+- Ô nhập: Để trống thì dùng tên tổ chức
+- Ô nhập: VD: 0100109106-507
+- Ô nhập: Để trống nếu không đổi
+- Ô nhập: VD: 1/001
+- Ô nhập: VD: C26TYY
+- Ô nhập: Để trống → dùng MST tổ chức
+- Ô nhập: smtp.gmail.com
+- Ô nhập: mail@company.vn
+- Ô nhập: https://api.openai.com/v1
+- Ô nhập: gpt-4o-mini
+- Ô nhập: Tìm tên, email, chi nhánh, vai trò…
+- Ô nhập: https://pos.cuahang.vn
+- Ô nhập: VD: Chi nhánh Hà Nội
+- Ô nhập: VD: HN01, 04TP
+- Ô nhập: VD: 12 Nguyễn Huệ, Quận 1, TP.HCM
+- Ô nhập: Nguyễn Văn A
+- Ô nhập: admin.hanoi@shop.com
+- Ô nhập: VD: HN01
+**Tooltip / mô tả ngắn (title=):**
+- Chỉnh sửa
+- Sao chép mã thiết bị
+- Xem lịch sử đăng nhập trên thiết bị này
+- Chỉnh sửa kho
+- Huỷ phiếu
+
+### `@/pages/chain-api-keys`
+
+**Cột bảng:**
+- Tên
+- Cách cộng
+- API key
+- Bật
+- Xóa
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: VD: Cửa trước
+- 2 tia · 1 người
+- 1 tia · 1 người
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `chain.tsx`
+
+**Thao tác:**
+- Thêm tổ chức
+- openEdit(org)} >
+- requestDeactivateOrg(org)} disabled= >
+- selectInboundProviderViettel()} >
+- setFormGdtPasswordVisible(v => !v)} >
+- void loadGdtCaptcha()} > Tải captcha
+- void testGdtConnect()} >
+- selectInboundProviderGdt()} >
+- Huỷ
+- setSortDialogOpen(true)}> Sắp xếp
+- setShowForm(v => !v)}> Thêm cửa hàng
+- moveSortShop(id, -1)} aria-label="Lên" >
+- moveSortShop(id, 1)} aria-label="Xuống" >
+- setSortDialogOpen(false)}>Huỷ
+- saveShopOrder.mutate()} disabled= >
+- setShowForm(false)}>Huỷ
+- create.mutate()} disabled= >
+- setDashboardShopId(shop.id)} > Tổng quan
+- setDevicesShopId(shop.id)} > Thiết bị
+- setEditId(shop.id)} > Sửa
+- requestDeactivateShop(shop)} disabled= >
+- Đóng
+- update.mutate( )} disabled= > Lưu thông tin
+- updateEmail.mutate(editEmail)} disabled= > Cập nhật email
+- resetPwd.mutate(newPassword)} disabled={newPassword.length Đặt lại mật khẩu
+- createAdmin.mutate( )} disabled=
+- onSave(value.trim())} > Lưu
+- Lịch sử
+- updateDevice.mutate( )} > Duyệt
+- updateDevice.mutate( )} > Thu hồi
+- }> Lịch sử
+- }> Nhập / điều chỉnh kho
+- setShowAdjust(false)}>Huỷ
+- adjust.mutate()} disabled= >
+- setShowForm(v => !v)}> Thêm kho
+- createWh.mutate()} disabled= >
+- setExpanded(expanded === wh.id ? null : wh.id)} >
+- setEditWhId(null)}>Huỷ
+- updateWh.mutate( , })} disabled= >
+- setShowForm(v => !v)} disabled={warehouses.length Tạo phiếu chuyển kho
+
+**Hộp thoại (tiêu đề):**
+- Sắp xếp chi nhánh
+- Chi tiết đơn {resolveOrderInvoiceCode(selectedOrder)}
+
+### `@/pages/chain-api-keys`
+
+**Thao tác:**
+- setDeleteTarget( )} >
+- createKey.mutate( ) } > Tạo key
+- setAddForShop(null)}> Huỷ
+- } > Thêm cảm biến
+- deleteTarget && deleteKey.mutate(deleteTarget.id)} > Xóa
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Cảm biến — {created?.shopName}
+- Xóa cảm biến?
+
 **Đường dẫn:** `/chain`
 
 Sửa tổ chức: thông tin, shop, Viettel inbound/outbound, CQT, Trợ lý AI, URL feedback công khai.

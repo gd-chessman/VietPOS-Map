@@ -8,6 +8,40 @@
 **Tên component React:** `VatInvoices`
 **Quy mô:** ~395 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `vat-invoices.tsx`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Hoá đơn xuất VAT”
+**Cột bảng:**
+- Số HĐ VAT
+- Số HĐ POS
+- Chi nhánh
+- Ngày giờ
+- Thu ngân
+- Thanh toán
+- Trạng thái VAT
+- Tổng tiền
+**Nhãn lọc / preset / placeholder:**
+- Chờ xuất hoá đơn VAT
+- Đang xuất VAT
+- Đã xuất hoá đơn VAT
+- Xuất VAT lỗi
+**Tooltip / mô tả ngắn (title=):**
+- Sửa thông tin VAT
+- Xem thông tin VAT
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `vat-invoices.tsx`
+
+**Thao tác:**
+- setEditOrder(order)} >
+
 **Đường dẫn:** `/vat-invoices`
 
 HĐ VAT **xuất** (Viettel SInvoice): phát hành, tra cứu, điều chỉnh theo tích hợp Viettel.

@@ -8,6 +8,80 @@
 **Tên component React:** `Reports`
 **Quy mô:** ~2178 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `reports.tsx`
+
+**Tiêu đề trang:** “Báo cáo nhân viên”
+**Thẻ / chỉ số (CardTitle):**
+- Doanh thu theo nhân viên bán hàng
+- Top NV — sự kiện rủi ro cao
+- Top NV — thao tác nhạy cảm
+- Top NV — thao tác trên sản phẩm
+- Top NV — thao tác phiếu NX
+- Top người thực hiện — thao tác đặt hàng
+**Cột bảng:**
+- Mã đơn
+- Thời gian tạo
+- Trạng thái
+- Tổng tiền
+- Lý do huỷ
+- Thời gian in
+- Trạng thái đơn
+- Ghi chú đơn
+- Chi nhánh
+- Nhân viên
+- Vai trò
+- Tổng đơn
+- Hoàn thành
+- Đơn trong ca
+- Đã huỷ
+- Đề nghị huỷ
+- Doanh thu
+- In lại
+- Họ tên
+- Số ca
+- Doanh thu ca
+- Đơn phân bổ
+- Doanh thu phân bổ
+- Thời gian
+- Người tạo đơn
+- Người in lại
+- Rủi ro cao
+- Ca
+- NV ca
+- Tab
+- Hành động
+- Sản phẩm
+- SL
+- Giá trị
+- Rủi ro
+- Số sự kiện
+- Mô tả
+- Nhạy cảm
+- Tác động TM
+- Ghi chú
+**Nhãn lọc / preset / placeholder:**
+- Quản trị hệ thống
+- Quản trị viên
+- Quản lý
+- Kế toán
+- Thủ kho
+- Nhân viên
+- Tất cả hành động
+- Tất cả mức rủi ro
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `reports.tsx`
+
+**Thao tác:**
+- void handleExport()} >
+
 **Đường dẫn:** `/reports`
 
 Báo cáo nhân viên, in lại bill, doanh số.

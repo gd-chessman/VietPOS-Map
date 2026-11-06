@@ -8,6 +8,132 @@
 **Tên component React:** `Products`
 **Quy mô:** ~2689 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `products.tsx`
+
+**Tiêu đề trang:** “Danh mục sản phẩm”
+**Cột bảng:**
+- Ảnh
+- Mã sản phẩm
+- Tên sản phẩm
+- Tên tiếng Anh
+- Tên VAT
+- Loại
+- ĐVT
+- VAT%
+- TNCN%
+- Giá bán
+- Giá vốn
+- Tồn
+- Trạng thái
+- Mã SP gốc
+- Mã biến thể
+- Tên biến thể
+- Kích thước
+- Cân nặng
+- Lượt bán
+- Tồn kho
+**Tab / khu vực:**
+- Thông tin
+- Biến thể
+- Sản phẩm
+- Loại sản phẩm
+- Sản phẩm ( / )
+- Biến thể ( / )
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Hoặc dán URL ảnh...
+- Ô nhập: SP001 hoặc 8938505...
+- Ô nhập: Tên gọi trong kho...
+- Ô nhập: Tên bán hàng
+- Ô nhập: English name
+- Ô nhập: Tìm theo tên, mã, tên VAT, tên TA...
+- Tất cả
+**Tooltip / mô tả ngắn (title=):**
+- Thông tin cơ bản
+- Giá & tồn kho
+- Tổng tồn biến thể khác tồn gốc — cần phân bổ lại trong tab Biến thể
+- Ngừng kinh doanh
+- Kích hoạt lại
+
+### `@/components/ProductVariantsPanel`
+
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Hoặc dán URL…
+- Ô nhập: Nhập tên biến thể
+- Ô nhập: Không bắt buộc
+- Ô nhập: 10×8×3 cm
+- Ô nhập: 150g
+**Tooltip / mô tả ngắn (title=):**
+- Xoá ảnh
+- Bán lại
+- Ngừng kinh doanh
+
+### `@/components/ProductCategoriesPanel`
+
+**Cột bảng:**
+- Tên loại
+- Ghi chú
+- Trạng thái
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: VD: Quà lưu niệm, Đồ trang sức, Gốm sứ…
+- Ô nhập: Tuỳ chọn
+- Đang dùng
+- Ngừng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `products.tsx`
+
+**Thao tác:**
+- fileRef.current?.click()} disabled= >
+- catch }} > Tải file mẫu
+- fileInputRef.current?.click()} disabled= >
+- void handleExportExcel()} disabled= >
+- Thêm sản phẩm
+- setImportSelecting((v) => !v)} title= aria-label= >
+- Huỷ
+- setBulkConfirm( ) } > Ngừng kinh doanh ( )
+- setBulkConfirm( ) } > Kích hoạt lại ( )
+- setSelectedProductIds(new Set())} > Bỏ chọn
+- setEditProduct(product)}>
+- setStatusConfirm( )}>
+- Chọn tất cả
+- Chọn tất cả biến thể
+- Chọn tất cả trên trang
+
+**Hộp thoại (tiêu đề):**
+- Thêm sản phẩm mới
+- Chỉnh sửa sản phẩm
+- Xem trước dữ liệu nhập
+
+### `@/components/ProductVariantsPanel`
+
+**Thao tác:**
+- setRestoreConfirm(row)} >
+- setDiscontinueConfirm(row)} >
+- removeRow(row)} >
+- Thêm biến thể
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Ngừng kinh doanh?
+- Bán lại?
+
+### `@/components/ProductCategoriesPanel`
+
+**Thao tác:**
+- Thêm loại
+- setEditRow(row)} >
+
+**Hộp thoại (tiêu đề):**
+- Thêm loại sản phẩm
+- Sửa loại sản phẩm
+
 **Đường dẫn:** `/products`
 
 Danh mục SP: grid/table, import Excel, variant, giá, ảnh.

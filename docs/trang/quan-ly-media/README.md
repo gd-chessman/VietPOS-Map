@@ -8,6 +8,37 @@
 **Tên component React:** `MediaPage`
 **Quy mô:** ~603 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `media.tsx`
+
+**Tiêu đề trang:** “Thư viện ảnh”
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Tìm mã SP, tên, số HĐ...
+- Ô nhập: Cửa hàng
+- Ô nhập: Nhà cung cấp
+- Ô nhập: Loại sản phẩm
+- Tất cả
+- Ảnh sản phẩm
+- Chứng từ thanh toán
+- Chứng từ sản phẩm
+- Góp ý khách hàng
+**Tooltip / mô tả ngắn (title=):**
+- Tải ảnh
+- Xem đơn hàng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `media.tsx`
+
+**Thao tác:**
+- Tải ảnh xuống
+- Xem đơn hàng
+
 **Đường dẫn:** `/media`
 
 Thư viện media/upload ảnh sản phẩm.

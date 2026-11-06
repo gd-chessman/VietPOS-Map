@@ -8,6 +8,59 @@
 **Tên component React:** `Staff`
 **Quy mô:** ~863 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `staff.tsx`
+
+**Tiêu đề trang:** “Quản lý nhân viên”
+**Cột bảng:**
+- Nhân viên
+- Email
+- Chi nhánh
+- Vai trò
+- Mã PIN
+- Trạng thái
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Nguyễn Văn A
+- Quản trị viên
+- Quản lý
+- Kế toán
+- Thủ kho
+- Nhân viên
+- Đang làm
+- Tạm nghỉ
+- Đã nghỉ
+- Quản trị hệ thống
+- Có
+- Chưa
+**Tooltip / mô tả ngắn (title=):**
+- Đặt mã PIN mới
+- Mã PIN đăng nhập (4 số)
+- Đánh dấu đã nghỉ
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `staff.tsx`
+
+**Thao tác:**
+- Thêm nhân viên
+- setConfirmUserSetsRequest(row)} > Để họ tự đặt
+- setAdminPinForRequest(row)} > Đặt PIN giúp
+- setConfirmDismissRequest(row)} > Xóa yêu cầu
+- setEditStaff(s)} disabled= title= >
+- onResign(s.id)} title="Đánh dấu đã nghỉ">
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Thêm nhân viên mới
+- Xóa yêu cầu quên PIN?
+- Cho tự đặt mã PIN?
+- Chỉnh sửa nhân viên
+
 **Đường dẫn:** `/staff`
 
 Quản lý tài khoản nhân viên (admin).

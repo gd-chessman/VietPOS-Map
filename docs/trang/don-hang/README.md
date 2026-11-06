@@ -8,6 +8,82 @@
 **Tên component React:** `Orders`
 **Quy mô:** ~22 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `@/components/OrdersPanel`
+
+**Tiêu đề trang:** “Đơn hàng”
+**Cột bảng:**
+- STT
+- Số HĐ
+- Chi nhánh
+- Ngày giờ
+- Thu ngân
+- NV ca
+- Thanh toán
+- CT thanh toán
+- CT sản phẩm
+- Số món
+- Ghi chú
+- Tổng tiền
+- Trạng thái
+- Lý do
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Thêm ghi chú nếu cần...
+- Hoàn thành
+- Đề nghị huỷ
+- Đơn huỷ
+- Đơn ghi chú
+- Chờ xuất VAT
+- Đã xuất VAT
+- CT thanh toán
+- CT sản phẩm
+**Tooltip / mô tả ngắn (title=):**
+- Chứng từ thanh toán
+- Chứng từ sản phẩm
+- Xem chi tiết
+- Đổi thanh toán
+- Sửa hoá đơn VAT
+- In lại
+- Duyệt huỷ
+- Từ chối
+- Khôi phục
+- Chụp ảnh chứng từ sản phẩm
+- In lại hoá đơn
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `@/components/OrdersPanel`
+
+**Thao tác:**
+- onRequestModerate("approve-cancel")} >
+- onRequestModerate("reject-cancel")} >
+- onRequestModerate("uncancel")} >
+- Huỷ bỏ
+- Không, huỷ bỏ
+- } className="bg-amber-500 hover:bg-amber-600"> Có, in lại
+- } > Chụp ảnh
+- openModerateConfirm("approve-cancel")} disabled= > Duyệt huỷ đơn
+- openModerateConfirm("reject-cancel")} disabled= > Từ chối
+- openModerateConfirm("uncancel")} disabled= > Khôi phục đơn hàng
+- setChangePaymentOpen(true)}> Đổi phương thức thanh toán
+- setProductCameraOpen(true)} > Thêm chứng từ sản phẩm
+- onReprint(displayOrder)}> In lại hoá đơn
+- setEditInvoiceOpen(true)}>
+- void handleExportExcel()} >
+- void handleExportPdf()} >
+- setSelectedOrder(order)} >
+- setEditInvoiceOrder(order)} >
+- setReprintWarningOrder(order)} >
+- setCancelOrder(order)} >
+- openModerateConfirm(order, "approve-cancel")}>
+- openModerateConfirm(order, "reject-cancel")}>
+- openModerateConfirm(order, "uncancel")}>
+
 **Đường dẫn:** `/orders`
 
 Trang **vỏ mỏng** (~20 dòng): toàn bộ UI/logic nằm trong **`OrdersPanel`** (`components/OrdersPanel.tsx`, prop `variant="page"`).

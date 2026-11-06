@@ -8,6 +8,33 @@
 **Tên component React:** `AgentChatAuditPage`
 **Quy mô:** ~269 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `agent-chat-audit.tsx`
+
+**Tiêu đề trang:** “Lịch sử chat Trợ lý AI”
+**Thẻ / chỉ số (CardTitle):**
+- Theo tài khoản
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `agent-chat-audit.tsx`
+
+**Thao tác:**
+- Trợ lý AI
+- setPage((p) => Math.max(0, p - 1))} > Trước
+- = pageCount} onClick= > Sau
+- setDeleteConfirmOpen(true)} > Xóa hẳn
+- setOpenThreadId(null)}> Đóng
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Xóa vĩnh viễn hội thoại #{openThreadId}?
+
 **Đường dẫn:** `/agent-chat-audit`
 
 Xem lịch sử hội thoại Trợ lý AI đã lưu.

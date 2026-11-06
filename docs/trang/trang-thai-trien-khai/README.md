@@ -8,6 +8,24 @@
 **Tên component React:** `PageStatus`
 **Quy mô:** ~338 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `page-status.tsx`
+
+**Tiêu đề trang:** “Trạng thái cửa hàng”
+**Thẻ / chỉ số (CardTitle):**
+- Trực tuyến
+- Ngoại tuyến
+- Chi tiết chi nhánh
+**Tooltip / mô tả ngắn (title=):**
+- Giờ thiết bị lệch so với giờ server ở lần heartbeat gần nhất
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
 **Đường dẫn:** `/page-status`
 
 Trạng thái triển khai từng trang (dev/ops).

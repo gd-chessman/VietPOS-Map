@@ -8,6 +8,69 @@
 **Tên component React:** `Statistics`
 **Quy mô:** ~1208 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `statistics.tsx`
+
+**Tiêu đề trang:** “Thống kê”
+**Thẻ / chỉ số (CardTitle):**
+- Doanh thu
+- Giá vốn
+- Lợi nhuận
+- Sản phẩm đã bán
+- Đơn hàng
+**Cột bảng:**
+- Chỉ số
+- Thay đổi
+**Nhãn lọc / preset / placeholder:**
+- Hôm nay
+- Hôm qua
+- 7 ngày qua
+- 30 ngày qua
+- Tuần này
+- Tháng này
+- Năm này
+- Kỳ liền trước
+- Cùng kỳ năm trước
+
+### `@/components/CatalogStatisticsPanel`
+
+**Thẻ / chỉ số (CardTitle):**
+- Danh mục & tồn kho
+**Cột bảng:**
+- Ảnh
+- Mã
+- Sản phẩm
+- Giá bán
+- Giá vốn
+- Lượt bán
+- Doanh thu (kỳ)
+- Lợi nhuận (kỳ)
+- Tồn kho
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Sắp xếp / lọc
+- Ô nhập: Tìm tên, mã...
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `statistics.tsx`
+
+**Thao tác:**
+- void handleExportExcel()} >
+- Tuỳ chọn
+- pick(item.from, item.to)} >
+- setShortcutYear((y) => y - 1)}>
+- = thisYear} onClick= >
+- setRangeModalOpen(false)}>Hủy
+- Xem thống kê
+
+**Hộp thoại (tiêu đề):**
+- Chọn khoảng thời gian
+
 **Đường dẫn:** `/statistics`
 
 Thống kê bán theo sản phẩm/kỳ.

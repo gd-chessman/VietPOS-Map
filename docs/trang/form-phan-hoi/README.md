@@ -8,6 +8,29 @@
 **Tên component React:** `FeedbackFormPage`
 **Quy mô:** ~360 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `feedback-form.tsx`
+
+**Tiêu đề trang:** “Thank you! / Cảm ơn bạn!”
+**Thẻ / chỉ số (CardTitle):**
+- Customer Feedback / Góp ý khách hàng
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Your full name / Họ và tên của bạn
+- Ô nhập: Optional / Không bắt buộc
+- Ô nhập: Share your experience... / Chia sẻ trải nghiệm của bạn...
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `feedback-form.tsx`
+
+**Thao tác:**
+- fileRef.current?.click()} disabled=
+
 **Đường dẫn:** `/feedback`
 
 Form công khai `/feedback` cho khách gửi ý kiến.

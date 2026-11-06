@@ -8,6 +8,41 @@
 **Tên component React:** `SalesStaffPage`
 **Quy mô:** ~470 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `sales-staff.tsx`
+
+**Tiêu đề trang:** “Nhân viên bán hàng”
+**Cột bảng:**
+- Họ tên
+- Chi nhánh
+- Liên hệ
+- Ngày vào / nghỉ
+- Trạng thái
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Nguyễn Văn A
+- Ô nhập: Số nhà, phường, quận...
+- Ô nhập: Lý do nghỉ việc, ghi chú khác...
+- Đang làm
+- Tạm nghỉ
+- Đã nghỉ
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `sales-staff.tsx`
+
+**Thao tác:**
+- Thêm NV bán
+- setEditRow(s)}>
+
+**Hộp thoại (tiêu đề):**
+- Thêm nhân viên bán hàng
+- Chỉnh sửa hồ sơ
+
 **Đường dẫn:** `/sales-staff`
 
 Nhân viên bán hàng (sales staff) gắn POS.

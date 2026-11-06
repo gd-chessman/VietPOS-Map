@@ -8,6 +8,209 @@
 **Tên component React:** `VatInboundInvoices`
 **Quy mô:** ~5847 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `vat-inbound.tsx`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Hoá đơn nhập VAT”
+**Cột bảng:**
+- STT
+- Tên hàng
+- Số lượng
+- ĐVT
+- Đơn giá
+- VAT
+- Thành tiền
+- Thuế suất
+- Chưa thuế
+- Tiền thuế
+- Cộng
+- Ngày HĐ
+- Số HĐ
+- Ký hiệu
+- Nhà cung cấp
+- MST bán
+- Tổng tiền
+- Ghép hàng
+- Trạng thái
+- Ngày tạo
+- Thao tác
+- Ảnh
+- Sản phẩm
+- Mã sản phẩm
+- Tồn
+- Số lượng trên HĐ
+- Đã nhận
+- Giá nhập
+- Giá bán
+- Tên trên HĐ
+- Thuế
+- Sản phẩm (theo tên hóa đơn VAT nội bộ)
+- File
+- Nhận lần này
+**Tab / khu vực:**
+- Hoá đơn
+- Danh sách phiếu )}
+**Nhãn lọc / preset / placeholder:**
+- Danh sách MST
+- Lý do
+- Tên sản phẩm
+- Mã sản phẩm / Barcode
+- Giá nhập
+- Giá bán
+- Tên VAT nội bộ
+- ĐVT
+- Nhà cung cấp
+- Sản phẩm trong kho nội bộ
+- Giá bán dự kiến
+- Ô nhập: Trạng thái ghép hàng
+- Ô nhập: VD: Cần ghép thêm dòng HĐ còn sót
+- Ô nhập: Chọn sản phẩm…
+- Ô nhập: Tên hiển thị trong hệ thống
+- Ô nhập: Bắt buộc
+- Ô nhập: Mặc định = giá nhập
+- Ô nhập: VD: Nhập nhầm số lượng / sai phiếu
+- Ô nhập: Tìm kiếm và chọn sản phẩm…
+- Ô nhập: Nhập tên sản phẩm…
+- Ô nhập: VD: SP00123
+- Ô nhập: VD: 50000
+- Tất cả
+- Đang dùng
+- Lưu trữ
+**Tooltip / mô tả ngắn (title=):**
+- Khôi phục dòng trong chi tiết hoá đơn nếu cần đưa vào phiếu
+- Chi tiết
+- Bỏ lưu trữ
+- Lưu trữ
+- Sửa ghép hàng
+- Khôi phục dòng này
+- Nhà cung cấp đã có trên hệ thống
+- NCC chưa có trên hệ thống, sẽ được tạo tự động khi ghép hàng
+- Đã khớp tên VAT nội bộ
+- Tạo sản phẩm mới
+- Hoàn tác / Khôi phục dòng này
+- Bỏ dòng này (làm mờ)
+
+### `@/components/ProductVariantsPanel`
+
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Hoặc dán URL…
+- Ô nhập: Nhập tên biến thể
+- Ô nhập: Không bắt buộc
+- Ô nhập: 10×8×3 cm
+- Ô nhập: 150g
+**Tooltip / mô tả ngắn (title=):**
+- Xoá ảnh
+- Bán lại
+- Ngừng kinh doanh
+
+### `@/pages/suppliers`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Nhà cung cấp”
+**Cột bảng:**
+- Tên nhà cung cấp
+- Liên hệ
+- MST
+- Trạng thái
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Làng nghề Bát Tràng
+- Ô nhập: Nguyễn Văn A
+- Ô nhập: ncc@example.com
+- Ô nhập: Số nhà, phường, quận...
+- Ô nhập: Ghi chú thêm...
+- Ô nhập: Tìm tên, MST, SĐT, người liên hệ...
+- Đang hợp tác
+- Ngừng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `vat-inbound.tsx`
+
+**Thao tác:**
+- feeOverride.onToggleLine(i)} >
+- setMarkedMstDialogOpen(true)} > MST lọc ) : null}
+- catch ); } }} > Mẫu Excel
+- excelInputRef.current?.click()} >
+- inputRef.current?.click()} >
+- void pullFromTax()} >
+- void openStockReceipt(row)} >
+- setDetail(row)}>
+- setPendingUnarchive(row)} >
+- setPendingArchive(row)} >
+- setDetail(row)}> Chi tiết
+- void openReceiveStock(row)} >
+- setCloseShortInvoice(row)} > Đóng thiếu
+- setMarkedMstDialogOpen(false)}> Đóng
+- void saveMarkedMstList()} >
+- initDetailAllocDraft(productId, extras)} > Hoàn tác
+- void saveDetailAllocation(productId, rootQty, extras) } > Lưu phân bổ
+- setUndoDismissInvoice(detail)} > Hoàn tác chốt ghép thiếu
+- openUndoDismissRequest(detail)} > Đề nghị hoàn tác chốt ghép thiếu
+- setUndoDismissRequestInvoice(null)} > Huỷ
+- void submitUndoDismissRequest()} >
+- void submitApproveUndoDismissExcluded(detail)} > Duyệt hoàn tác chốt ghép thiếu
+- void submitRejectUndoDismissExcluded(detail)} > Từ chối
+- setDismissExcludedInvoice(detail)} > Không ghép các dòng còn lại
+- void openStockReceipt(detail)} >
+- }> Đóng
+- void openReceiveStock(detail)} >
+- setCloseShortInvoice(detail)} > Đóng thiếu
+- openRollbackRequest(detail)} >
+- void submitApproveRollback(detail)} > Duyệt hoàn tác nhập kho
+- void submitRejectRollback(detail)} > Từ chối
+- void previewStockReceiptPdf(detail)} > Xem phiếu nhập kho tổng
+- setConfirmPdf(null)}> Đóng
+- } > Xuất PDF
+- } > In
+- openCreateProductModal(idx)} > Sửa
+- setStockDraft((prev) => prev.map((r, i) => i === idx ? : r, ), ) } > Huỷ
+- openCreateProductModal(idx)} >
+- setStockDraft((prev) => prev.map((r, i) => (i === idx ? : r)) ) } >
+- } > Đóng
+
+**Hộp thoại (tiêu đề):**
+- Chi tiết hoá đơn{" "} {detail ? [detail.series, detail.invoiceNo].filter(Boolean).join(" ") || "" : ""}
+- Phiếu nhập kho tổng
+- Ghép hàng từ HĐ VAT
+- Tạo sản phẩm mới
+- Xem trước dữ liệu nhập
+- Hoàn tác chốt ghép thiếu?
+- Không ghép các dòng HĐ còn lại?
+- Đóng phần thiếu?
+- Lưu trữ hoá đơn?
+- Bỏ lưu trữ hoá đơn?
+- Khôi phục sản phẩm vào phiếu nhập kho
+
+### `@/components/ProductVariantsPanel`
+
+**Thao tác:**
+- setRestoreConfirm(row)} >
+- setDiscontinueConfirm(row)} >
+- removeRow(row)} >
+- Thêm biến thể
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Ngừng kinh doanh?
+- Bán lại?
+
+### `@/pages/suppliers`
+
+**Thao tác:**
+- Thêm nhà cung cấp
+- } > Sửa
+- setViewRow(s)} title="Xem" >
+- setEditRow(s)} title="Sửa" >
+
+**Hộp thoại (tiêu đề):**
+- Thêm nhà cung cấp
+- Chỉnh sửa nhà cung cấp
+- Chi tiết nhà cung cấp
+
 **Đường dẫn:** `/vat-inbound`
 
 ## Cấu trúc UI

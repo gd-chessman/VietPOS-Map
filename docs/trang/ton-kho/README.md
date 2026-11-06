@@ -8,6 +8,131 @@
 **Tên component React:** `Inventory`
 **Quy mô:** ~1066 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `inventory.tsx`
+
+**Tiêu đề trang:** “Quản lý tồn kho”
+**Thẻ / chỉ số (CardTitle):**
+- Giá trị tồn (giá bán) — {activeShopName}
+- Giá trị tồn (giá vốn) — {activeShopName}
+**Cột bảng:**
+- Ảnh
+- Mã sản phẩm
+- Tên sản phẩm
+- Tồn kho
+- Giá bán
+- Thành tiền (bán)
+- Tồn
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Tìm kiếm sản phẩm...
+- Ô nhập: Mức tồn kho
+**Tooltip / mô tả ngắn (title=):**
+- Sửa tồn
+
+### `@/components/ProductVariantsPanel`
+
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Hoặc dán URL…
+- Ô nhập: Nhập tên biến thể
+- Ô nhập: Không bắt buộc
+- Ô nhập: 10×8×3 cm
+- Ô nhập: 150g
+**Tooltip / mô tả ngắn (title=):**
+- Xoá ảnh
+- Bán lại
+- Ngừng kinh doanh
+
+### `@/pages/stock-requests`
+
+**Tiêu đề trang:** “Phiếu nhập/xuất kho”
+**Cột bảng:**
+- Sản phẩm
+- Mã
+- SL
+- Tồn kho chính
+- Tồn chi nhánh gửi
+- Tồn chi nhánh nhận
+- Số lượng
+- Ghi chú
+- Mã phiếu
+- Loại
+- Trạng thái
+- Từ CN
+- Đến CN
+- Người yêu cầu
+- Ngày tạo
+- Thao tác
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Tìm sản phẩm theo tên hoặc mã...
+- Ô nhập: Lý do huỷ...
+- Ô nhập: Lý do từ chối...
+- Ô nhập: Họ tên người nhận...
+- Ô nhập: Ghi chú...
+- Ô nhập: Lý do, ghi chú thêm...
+- Chờ duyệt
+- Đã duyệt
+- Đang vận chuyển
+- Hoàn thành
+- Từ chối
+- Đã huỷ
+- Tạo phiếu
+- Duyệt
+- Huỷ
+- Tất cả
+- Tất cả loại
+- Phiếu nhập
+- Phiếu xuất
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `inventory.tsx`
+
+**Thao tác:**
+- Tạo phiếu nhập ( )
+- setStockEditItem( ) } >
+- initAllocDraft(item)} > Hoàn tác
+- void saveAllocation(item)} > Lưu phân bổ
+- Chọn tất cả
+- Sửa tồn
+
+### `@/components/ProductVariantsPanel`
+
+**Thao tác:**
+- setRestoreConfirm(row)} >
+- setDiscontinueConfirm(row)} >
+- removeRow(row)} >
+- Thêm biến thể
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Ngừng kinh doanh?
+- Bán lại?
+
+### `@/pages/stock-requests`
+
+**Thao tác:**
+- Đóng
+- Xác nhận huỷ
+- Huỷ
+- Xác nhận từ chối
+- onConfirm(trimmedReceiver)} disabled= > Xác nhận nhận hàng
+- } > Tạo phiếu nhập
+- } > Tạo phiếu xuất
+- printStockRequest( )), })} > In
+- doAction(req.id, "approve")} > Duyệt
+- setRejectTarget(req.id)} > Từ chối
+- doAction(req.id, "ship")} > Vận chuyển
+- setCompleteTarget(req)} title= >
+- setCancelTarget(req.id)} > Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Huỷ phiếu
+
 **Đường dẫn:** `/inventory`
 
 Tồn kho shop: số lượng, tạo phiếu nhập từ SP sắp hết (thủ kho).

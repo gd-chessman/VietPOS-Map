@@ -8,6 +8,31 @@
 **Tên component React:** `KeyboardShortcutsPage`
 **Quy mô:** ~396 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `keyboard-shortcuts.tsx`
+
+**Tiêu đề trang:** “Phím tắt chức năng”
+**Thẻ / chỉ số (CardTitle):**
+- Phím tắt chức năng
+- Phím cố định (không đổi)
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `keyboard-shortcuts.tsx`
+
+**Thao tác:**
+- setResetConfirmOpen(true)}> Khôi phục mặc định
+- Khôi phục
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Khôi phục phím tắt mặc định?
+
 **Đường dẫn:** `/keyboard-shortcuts`
 
 Bảng phím tắt POS/desktop.

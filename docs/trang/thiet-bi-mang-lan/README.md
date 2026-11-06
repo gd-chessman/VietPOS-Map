@@ -8,6 +8,23 @@
 **Tên component React:** `LanDevicesPage`
 **Quy mô:** ~382 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `lan-devices.tsx`
+
+**Tiêu đề trang:** “Thiết bị LAN”, “Thiết bị của bạn”, “Máy khác trên Wi‑Fi )}”
+**Tab / khu vực:**
+- Máy quầy
+- Điện thoại
+**Tooltip / mô tả ngắn (title=):**
+- Đang trên LAN
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
 **Đường dẫn:** `/lan-devices`
 
 Thiết bị LAN peer (in, widget nội bộ).

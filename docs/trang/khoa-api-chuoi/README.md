@@ -8,6 +8,41 @@
 **Tên component React:** `ChainApiKeysTab`
 **Quy mô:** ~405 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `chain-api-keys.tsx`
+
+**Cột bảng:**
+- Tên
+- Cách cộng
+- API key
+- Bật
+- Xóa
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: VD: Cửa trước
+- 2 tia · 1 người
+- 1 tia · 1 người
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `chain-api-keys.tsx`
+
+**Thao tác:**
+- setDeleteTarget( )} >
+- createKey.mutate( ) } > Tạo key
+- setAddForShop(null)}> Huỷ
+- } > Thêm cảm biến
+- deleteTarget && deleteKey.mutate(deleteTarget.id)} > Xóa
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Cảm biến — {created?.shopName}
+- Xóa cảm biến?
+
 **Đường dẫn:** `*(public hoặc redirect — xem App.tsx)*`
 
 Tạo API key shop cho widget và thiết bị ESP32.

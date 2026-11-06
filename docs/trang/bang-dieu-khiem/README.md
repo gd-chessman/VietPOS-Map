@@ -8,6 +8,49 @@
 **Tên component React:** `Dashboard`
 **Quy mô:** ~1221 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `dashboard.tsx`
+
+**Tiêu đề trang:** “Dashboard”
+**Thẻ / chỉ số (CardTitle):**
+- Sản phẩm đã bán
+- Cảnh báo tồn kho
+- Phân tích doanh thu
+**Cột bảng:**
+- STT
+- Số HĐ
+- Giờ
+- Thu ngân
+- Thanh toán
+- Trạng thái
+- Số món
+- Tổng tiền
+- Ảnh
+- Sản phẩm
+- Mã nội bộ
+- SL đã bán
+- Doanh thu
+- Tồn kho
+- Giá bán
+**Nhãn lọc / preset / placeholder:**
+- Doanh thu
+- Lợi nhuận
+- Số lượng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `dashboard.tsx`
+
+**Thao tác:**
+- setEditOpen(true)}> Sửa / xử lý hoá đơn VAT
+- void handleExportExcel()} >
+- setTopSort(opt.key)} >
+
 **Đường dẫn:** `/dashboard`
 
 Tổng quan doanh thu, đơn, tồn thấp — theo quyền và scope shop.

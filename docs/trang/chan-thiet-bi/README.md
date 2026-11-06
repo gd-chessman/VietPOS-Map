@@ -8,6 +8,44 @@
 **Tên component React:** `*(default export)*`
 **Quy mô:** ~282 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `device-ban.tsx`
+
+**Thẻ / chỉ số (CardTitle):**
+- Thêm thiết bị bị chặn
+- Danh sách đang chặn
+**Cột bảng:**
+- Tên thiết bị
+- Device ID
+- Ghi chú
+- Thêm lúc
+- Người thêm
+**Nhãn lọc / preset / placeholder:**
+- Device ID
+- Ghi chú (tuỳ chọn)
+- Ô nhập: pos-…
+- Ô nhập: Máy lạ, đã thu hồi…
+**Tooltip / mô tả ngắn (title=):**
+- Bỏ chặn
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `device-ban.tsx`
+
+**Thao tác:**
+- Chặn thiết bị
+- setConfirmRemove( ) } >
+- ); }} > Bỏ chặn
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Bỏ chặn thiết bị này?
+
 **Export:** `DeviceBanSection` (tab **Chặn thiết bị** trên `/access-block`).
 
 ## API (React Query `["blocked-devices"]`)

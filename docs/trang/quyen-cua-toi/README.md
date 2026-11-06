@@ -8,6 +8,49 @@
 **Tên component React:** `MyPermissions`
 **Quy mô:** ~767 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `my-permissions.tsx`
+
+**Tiêu đề trang:** “Quyền của tôi”
+**Nhãn lọc / preset / placeholder:**
+- Đang ở chi nhánh chính (kho tổng)
+- Quản trị tổng / hệ thống
+- Quản trị viên chi nhánh chính
+- Quản lý danh mục tại chi nhánh chính
+- Bán hàng POS
+- Xem / xử lý đơn hàng
+- Lọc đơn theo chi nhánh (chuỗi)
+- Bán vượt tồn
+- Quản lý sửa đơn hàng
+- Cửa hàng cho nhân viên sửa thanh toán
+- Cửa hàng cho nhân viên xóa giỏ POS
+- Tôi được sửa thanh toán (nhân viên)
+- Tôi được xóa giỏ (nhân viên)
+- Menu hoá đơn xuất VAT
+- Đánh dấu đã xuất hoá đơn VAT
+- Xem báo cáo nhật ký giỏ POS
+- Xem trang sản phẩm
+- Thêm / import sản phẩm
+- Sửa giá / ngừng kinh doanh sản phẩm
+- Xem cột giá vốn (danh mục)
+- Xem tồn kho
+- Xem giá bán trên tồn
+- Xem giá vốn trên tồn
+- Quản lý nhà cung cấp
+- Đặt hàng nhà cung cấp
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `my-permissions.tsx`
+
+**Thao tác:**
+- setPinDialogOpen(true)}> ).pinConfigured ? "Đổi mã PIN" : "Thiết lập mã PIN"}
+
 **Đường dẫn:** `/my-permissions`
 
 Giải thích quyền role hiện tại (đối chiếu menu thực tế).

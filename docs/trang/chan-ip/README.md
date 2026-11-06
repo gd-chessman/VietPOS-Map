@@ -8,6 +8,42 @@
 **Tên component React:** `*(default export)*`
 **Quy mô:** ~266 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `ip-ban.tsx`
+
+**Thẻ / chỉ số (CardTitle):**
+- Thêm IP bị chặn
+- Danh sách đang chặn
+**Cột bảng:**
+- IP
+- Ghi chú
+- Thêm lúc
+- Người thêm
+**Nhãn lọc / preset / placeholder:**
+- Địa chỉ IP
+- Ghi chú (tuỳ chọn)
+- Ô nhập: Spam login, bot quét…
+**Tooltip / mô tả ngắn (title=):**
+- Bỏ chặn
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `ip-ban.tsx`
+
+**Thao tác:**
+- Chặn IP
+- setConfirmRemove( )} >
+- ); }} > Bỏ chặn
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Bỏ chặn IP này?
+
 **Export:** `IpBanSection` (dùng trong `access-block.tsx`, tab **Chặn IP**).
 
 ## API (React Query `["blocked-ips"]`)

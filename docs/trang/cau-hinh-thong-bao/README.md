@@ -8,6 +8,36 @@
 **Tên component React:** `NotificationSettingsPage`
 **Quy mô:** ~487 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `notification-settings.tsx`
+
+**Tiêu đề trang:** “Thông báo hệ thống”
+**Thẻ / chỉ số (CardTitle):**
+- Tổng quan
+**Nhãn lọc / preset / placeholder:**
+- Quản trị hệ thống
+- Quản trị tổng
+- Quản trị chi nhánh
+- Quản lý tổng
+- Quản lý chi nhánh
+- Kế toán tại cửa hàng
+- Thủ kho tại cửa hàng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `notification-settings.tsx`
+
+**Thao tác:**
+- setOpenRolesType(item.type)} > Vai trò nhận
+
+**Hộp thoại (tiêu đề):**
+- Vai trò nhận thông báo
+
 **Đường dẫn:** `/notification-settings`
 
 Cấu hình thông báo platform/org.

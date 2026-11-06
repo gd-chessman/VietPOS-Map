@@ -8,6 +8,103 @@
 **Tên component React:** `AccessBlockPage`
 **Quy mô:** ~78 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `access-block.tsx`
+
+**Tiêu đề trang:** “Chặn truy cập”
+**Tab / khu vực:**
+- Tổng quan
+- Chặn IP
+- Chặn thiết bị
+
+### `@/pages/ip-ban`
+
+**Thẻ / chỉ số (CardTitle):**
+- Thêm IP bị chặn
+- Danh sách đang chặn
+**Cột bảng:**
+- IP
+- Ghi chú
+- Thêm lúc
+- Người thêm
+**Nhãn lọc / preset / placeholder:**
+- Địa chỉ IP
+- Ghi chú (tuỳ chọn)
+- Ô nhập: Spam login, bot quét…
+**Tooltip / mô tả ngắn (title=):**
+- Bỏ chặn
+
+### `@/pages/device-ban`
+
+**Thẻ / chỉ số (CardTitle):**
+- Thêm thiết bị bị chặn
+- Danh sách đang chặn
+**Cột bảng:**
+- Tên thiết bị
+- Device ID
+- Ghi chú
+- Thêm lúc
+- Người thêm
+**Nhãn lọc / preset / placeholder:**
+- Device ID
+- Ghi chú (tuỳ chọn)
+- Ô nhập: pos-…
+- Ô nhập: Máy lạ, đã thu hồi…
+**Tooltip / mô tả ngắn (title=):**
+- Bỏ chặn
+
+### `@/pages/access-overview-section`
+
+**Thẻ / chỉ số (CardTitle):**
+- Thiết bị & IP gần đây
+**Cột bảng:**
+- Tên thiết bị
+- Device ID
+- IP
+- Hôm nay
+- 48h
+- Lần cuối
+- Thao tác
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `@/pages/ip-ban`
+
+**Thao tác:**
+- Chặn IP
+- setConfirmRemove( )} >
+- ); }} > Bỏ chặn
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Bỏ chặn IP này?
+
+### `@/pages/device-ban`
+
+**Thao tác:**
+- Chặn thiết bị
+- setConfirmRemove( ) } >
+- ); }} > Bỏ chặn
+- Huỷ
+
+**Hộp thoại (tiêu đề):**
+- Bỏ chặn thiết bị này?
+
+### `@/pages/access-overview-section`
+
+**Thao tác:**
+- void refetch()} > Làm mới
+- Đã chặn IP
+- setConfirmBlock( ) } > Chặn IP
+- Đã chặn thiết bị
+- setConfirmBlock( ) } > Chặn thiết bị
+- Huỷ
+
 **Đường dẫn:** `/access-block` (query `?tab=overview|ip|device`)
 
 ## Vai trò
@@ -117,6 +214,14 @@ Mỗi module có bảng endpoint + **body/response/mã lỗi** từng route:
 ## Module `@/lib/...` được import
 
 - `@/lib/use-session-user`
+
+## Chuỗi `/api/...` (page + component con, 5 mục)
+
+- `/api/access-observations?limit=200`
+- `/api/blocked-devices` → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
+- `/api/blocked-devices/${id}` → [`blocked-devices`](../../module-api/chan-thiet-bi-api/)
+- `/api/blocked-ips` → [`blocked-ips`](../../module-api/chan-ip-api/)
+- `/api/blocked-ips/${id}` → [`blocked-ips`](../../module-api/chan-ip-api/)
 
 ## Luồng nghiệp vụ (doc)
 

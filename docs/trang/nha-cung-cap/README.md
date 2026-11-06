@@ -8,6 +8,45 @@
 **Tên component React:** `SuppliersPage`
 **Quy mô:** ~593 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `suppliers.tsx`
+
+**Tiêu đề trang:** “Không có quyền truy cập”, “Nhà cung cấp”
+**Cột bảng:**
+- Tên nhà cung cấp
+- Liên hệ
+- MST
+- Trạng thái
+**Nhãn lọc / preset / placeholder:**
+- Ô nhập: Làng nghề Bát Tràng
+- Ô nhập: Nguyễn Văn A
+- Ô nhập: ncc@example.com
+- Ô nhập: Số nhà, phường, quận...
+- Ô nhập: Ghi chú thêm...
+- Ô nhập: Tìm tên, MST, SĐT, người liên hệ...
+- Đang hợp tác
+- Ngừng
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `suppliers.tsx`
+
+**Thao tác:**
+- Thêm nhà cung cấp
+- } > Sửa
+- setViewRow(s)} title="Xem" >
+- setEditRow(s)} title="Sửa" >
+
+**Hộp thoại (tiêu đề):**
+- Thêm nhà cung cấp
+- Chỉnh sửa nhà cung cấp
+- Chi tiết nhà cung cấp
+
 **Đường dẫn:** `/suppliers`
 
 Danh mục nhà cung cấp.

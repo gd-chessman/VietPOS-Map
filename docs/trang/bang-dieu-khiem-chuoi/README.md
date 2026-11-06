@@ -8,6 +8,66 @@
 **Tên component React:** `ChainDashboard`
 **Quy mô:** ~2003 dòng.
 
+## Thông tin hiển thị
+
+Nội dung người dùng **nhìn thấy** trên màn hình (trích nhãn từ TSX; số liệu động từ API).
+
+### `chain-dashboard.tsx`
+
+**Tiêu đề trang:** “Dashboard chuỗi”
+**Thẻ / chỉ số (CardTitle):**
+- Doanh thu hôm nay
+- Đơn hàng hôm nay
+- Sắp hết hàng
+- Biểu đồ doanh thu
+- Top sản phẩm
+**Cột bảng:**
+- STT
+- Số HĐ
+- Chi nhánh
+- Giờ
+- Thu ngân
+- Thanh toán
+- Trạng thái
+- Số món
+- Tổng tiền
+- Thao tác
+- Sản phẩm
+- Mã
+- Tồn
+**Nhãn lọc / preset / placeholder:**
+- Doanh thu
+- Lợi nhuận
+- Số lượng
+**Tooltip / mô tả ngắn (title=):**
+- Bằng hôm qua
+- Trung bình / đơn
+- Trung bình vào/mua
+- So với hôm qua (doanh thu đơn hoàn thành)
+- Duyệt huỷ
+- Từ chối
+- Khôi phục đơn
+
+## Thao tác người dùng
+
+Hành động chính (nút, menu, mục dialog) — không liệt kê mọi nút icon-only.
+
+### `chain-dashboard.tsx`
+
+**Thao tác:**
+- setConfirmTarget(orderModerateTarget(o, "approve-cancel"))} >
+- setConfirmTarget(orderModerateTarget(o, "reject-cancel"))} >
+- setConfirmTarget(orderModerateTarget(o, "uncancel"))} >
+- setConfirmTarget(orderModerateTarget(order, "uncancel"))} > Khôi phục đơn hàng
+- setConfirmTarget(orderModerateTarget(order, "approve-cancel"))} > Duyệt huỷ
+- setConfirmTarget(orderModerateTarget(order, "reject-cancel"))} > Từ chối
+- setEditOpen(true)}> Sửa / xử lý hoá đơn VAT
+- void handleExportExcel()} >
+- setTopSort(opt.key)} >
+
+**Hộp thoại (tiêu đề):**
+- Hàng sắp hết — {shopName}
+
 **Đường dẫn:** `/chain-dashboard`
 
 Dashboard tổng hợp chuỗi cửa hàng theo quyền.
