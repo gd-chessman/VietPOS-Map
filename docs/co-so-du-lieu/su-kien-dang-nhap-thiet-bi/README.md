@@ -1,27 +1,50 @@
 # Schema: `deviceLoginEvents`
 
-**Mô tả:** Drizzle schema deviceLoginEvents.ts — 8 cột trên 1 bảng Postgres (device_login_events).
+**Mô tả:** Drizzle deviceLoginEvents.ts — 1 bảng, 8 cột, 1 enum, 2 index (device_login_events).
 
 **Mã nguồn Shop:** `lib/db/src/schema/deviceLoginEvents.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `device_login_events`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `shop_id` (shopId)
-- `device_id` (deviceId)
-- `user_id` (userId)
-- `method` (method)
-- `ip` (ip)
-- `user_agent` (userAgent)
-- `created_at` (createdAt)
+- **HTTP API:** [quan-sat-truy-cap](../../module-api/quan-sat-truy-cap/) (`routes/access-observations.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Enum Postgres
 
-- `shopsTable`
-- `usersTable`
+### `device_login_method` (`deviceLoginMethodEnum`)
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- Giá trị: `[
+  "password",
+  "pin_setup",
+  "pin_verify",
+  "pin_device",
+]`
+
+## Bảng `device_login_events`
+
+- **Biến Drizzle:** `deviceLoginEventsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `device_id` | `deviceId` | text | NOT NULL | — | — |
+| `user_id` | `userId` | integer | NOT NULL | `users` | — |
+| `method` | `method` | enum `device_login_method` | NOT NULL | — | — |
+| `ip` | `ip` | text | — | — | — |
+| `user_agent` | `userAgent` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+**Index:**
+
+- `device_login_events_shop_device_created_idx` on `shopId`, `deviceId`, `createdAt`
+- `device_login_events_user_created_idx` on `userId`, `createdAt`
+
+## Kiểu & Zod (insert)
+
+- `export type DeviceLoginEvent`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

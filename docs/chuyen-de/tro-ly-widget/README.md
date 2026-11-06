@@ -23,9 +23,9 @@ Tích hợp ngoài quầy — API key shop.
 
 ## 4. Bảng dữ liệu (schema)
 
-- [khoa-api-shop](../../co-so-du-lieu/khoa-api-shop/) — Drizzle schema shopApiKeys.ts — 9 cột trên 1 bảng Postgres (shop_api_keys).
-- [dem-khach-theo-ngay](../../co-so-du-lieu/dem-khach-theo-ngay/) — Drizzle schema shopDailyVisitorCounts.ts — 5 cột trên 1 bảng Postgres (shop_daily_visitor_counts).
-- [tro-ly-ai-chat](../../co-so-du-lieu/tro-ly-ai-chat/) — Drizzle schema agentChat.ts — 12 cột trên 2 bảng Postgres (agent_chat_threads, agent_chat_messages).
+- [khoa-api-shop](../../co-so-du-lieu/khoa-api-shop/) — Drizzle shopApiKeys.ts — 1 bảng, 9 cột (shop_api_keys).
+- [dem-khach-theo-ngay](../../co-so-du-lieu/dem-khach-theo-ngay/) — Drizzle shopDailyVisitorCounts.ts — 1 bảng, 5 cột (shop_daily_visitor_counts).
+- [tro-ly-ai-chat](../../co-so-du-lieu/tro-ly-ai-chat/) — Drizzle agentChat.ts — 2 bảng, 12 cột, 3 index (agent_chat_threads, agent_chat_messages).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

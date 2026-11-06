@@ -23,9 +23,9 @@ Chủ đề phức tạp nhất — đọc **06 → 07 → 08** trước khi m�
 
 ## 4. Bảng dữ liệu (schema)
 
-- [hoa-don-dau-vao-db](../../co-so-du-lieu/hoa-don-dau-vao-db/) — Drizzle schema vatInboundInvoices.ts — 55 cột trên 1 bảng Postgres (vat_inbound_invoices).
-- [audit-hoa-don-dau-vao](../../co-so-du-lieu/audit-hoa-don-dau-vao/) — Drizzle schema vatInboundAuditLogs.ts — 8 cột trên 1 bảng Postgres (vat_inbound_audit_logs).
-- [phien-thue-cqt](../../co-so-du-lieu/phien-thue-cqt/) — Drizzle schema orgGdtTaxSessions.ts — 8 cột trên 1 bảng Postgres (org_gdt_tax_sessions).
+- [hoa-don-dau-vao-db](../../co-so-du-lieu/hoa-don-dau-vao-db/) — Drizzle vatInboundInvoices.ts — 1 bảng, 55 cột, 3 index (vat_inbound_invoices).
+- [audit-hoa-don-dau-vao](../../co-so-du-lieu/audit-hoa-don-dau-vao/) — Drizzle vatInboundAuditLogs.ts — 1 bảng, 8 cột, 2 index (vat_inbound_audit_logs).
+- [phien-thue-cqt](../../co-so-du-lieu/phien-thue-cqt/) — Drizzle orgGdtTaxSessions.ts — 1 bảng, 8 cột (org_gdt_tax_sessions).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

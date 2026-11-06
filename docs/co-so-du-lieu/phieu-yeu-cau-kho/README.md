@@ -1,55 +1,76 @@
 # Schema: `stockRequests`
 
-**Mô tả:** Drizzle schema stockRequests.ts — 32 cột trên 3 bảng Postgres (stock_requests, stock_request_logs, stock_request_items).
+**Mô tả:** Drizzle stockRequests.ts — 3 bảng, 32 cột (stock_requests, stock_request_logs, stock_request_items).
 
 **Mã nguồn Shop:** `lib/db/src/schema/stockRequests.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `stock_requests`
-- `stock_request_logs`
-- `stock_request_items`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `shop_id` (shopId)
-- `from_shop_id` (fromShopId)
-- `to_shop_id` (toShopId)
-- `warehouse_id` (warehouseId)
-- `request_type` (requestType)
-- `status` (status)
-- `requested_by` (requestedBy)
-- `approved_by` (approvedBy)
-- `rejected_by` (rejectedBy)
-- `completed_by` (completedBy)
-- `cancelled_by` (cancelledBy)
-- `reject_note` (rejectNote)
-- `cancel_note` (cancelNote)
-- `receiver_name` (receiverName)
-- `note` (note)
-- `created_at` (createdAt)
-- `approved_at` (approvedAt)
-- `completed_at` (completedAt)
-- `cancelled_at` (cancelledAt)
-- `id` (id)
-- `request_id` (requestId)
-- `action` (action)
-- `user_id` (userId)
-- `note` (note)
-- `created_at` (createdAt)
-- `id` (id)
-- `request_id` (requestId)
-- `product_id` (productId)
-- `variant_id` (variantId)
-- `quantity` (quantity)
-- `note` (note)
+- **HTTP API:** [phieu-nhap-xuat](../../module-api/phieu-nhap-xuat/) (`routes/stock-requests.ts`)
+- **Giao diện:** [phieu-nhap-xuat](../../trang/phieu-nhap-xuat/)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `stock_requests`
 
-- `shopsTable`
-- `stockRequestsTable`
-- `usersTable`
-- `warehousesTable`
+- **Biến Drizzle:** `stockRequestsTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `from_shop_id` | `fromShopId` | integer | — | `shops` | — |
+| `to_shop_id` | `toShopId` | integer | — | `shops` | — |
+| `warehouse_id` | `warehouseId` | integer | — | `warehouses` | — |
+| `request_type` | `requestType` | text | NOT NULL, default `import` | — | — |
+| `status` | `status` | text | NOT NULL, default `pending` | — | — |
+| `requested_by` | `requestedBy` | integer | NOT NULL | `users` | — |
+| `approved_by` | `approvedBy` | integer | — | `users` | — |
+| `rejected_by` | `rejectedBy` | integer | — | `users` | — |
+| `completed_by` | `completedBy` | integer | — | `users` | — |
+| `cancelled_by` | `cancelledBy` | integer | — | `users` | — |
+| `reject_note` | `rejectNote` | text | — | — | — |
+| `cancel_note` | `cancelNote` | text | — | — | — |
+| `receiver_name` | `receiverName` | text | — | — | — |
+| `note` | `note` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `approved_at` | `approvedAt` | timestamp("approved_at", { withTimezone: true }) | — | — | — |
+| `completed_at` | `completedAt` | timestamp("completed_at", { withTimezone: true }) | — | — | — |
+| `cancelled_at` | `cancelledAt` | timestamp("cancelled_at", { withTimezone: true }) | — | — | — |
+
+## Bảng `stock_request_logs`
+
+*Nhật ký thao tác trên phiếu (tạo, duyệt, từ chối, hoàn thành, huỷ).*
+
+- **Biến Drizzle:** `stockRequestLogsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `request_id` | `requestId` | integer | NOT NULL | `stock_requests` | — |
+| `action` | `action` | text | NOT NULL | — | — |
+| `user_id` | `userId` | integer | NOT NULL | `users` | — |
+| `note` | `note` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+## Bảng `stock_request_items`
+
+- **Biến Drizzle:** `stockRequestItemsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `request_id` | `requestId` | integer | NOT NULL | `stock_requests` | — |
+| `product_id` | `productId` | integer | NOT NULL | — | — |
+| `variant_id` | `variantId` | integer | — | — | — |
+| `quantity` | `quantity` | integer | NOT NULL | — | — |
+| `note` | `note` | text | — | — | — |
+
+## Kiểu & Zod (insert)
+
+- `insertStockRequestSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertStockRequest`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

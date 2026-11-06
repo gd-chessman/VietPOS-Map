@@ -1,27 +1,36 @@
 # Schema: `allowedDevices`
 
-**Mô tả:** Drizzle schema allowedDevices.ts — 8 cột trên 1 bảng Postgres (allowed_devices).
+**Mô tả:** Drizzle allowedDevices.ts — 1 bảng, 8 cột (allowed_devices).
 
 **Mã nguồn Shop:** `lib/db/src/schema/allowedDevices.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `allowed_devices`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `shop_id` (shopId)
-- `device_id` (deviceId)
-- `device_name` (deviceName)
-- `identifier_name` (identifierName)
-- `status` (status)
-- `created_at` (createdAt)
-- `approved_by` (approvedBy)
+- **HTTP API:** [quan-sat-truy-cap](../../module-api/quan-sat-truy-cap/) (`routes/access-observations.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `allowed_devices`
 
-- `shopsTable`
-- `usersTable`
+*Tracks which browser-generated device IDs are approved to operate as a POS for a given shop.*
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- **Biến Drizzle:** `allowedDevicesTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `device_id` | `deviceId` | text | NOT NULL | — | — |
+| `device_name` | `deviceName` | text | — | — | — |
+| `identifier_name` | `identifierName` | text | — | — | — |
+| `status` | `status` | text | NOT NULL, default `pending` | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `approved_by` | `approvedBy` | integer | — | `users` | — |
+
+## Kiểu & Zod (insert)
+
+- `export type AllowedDevice`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

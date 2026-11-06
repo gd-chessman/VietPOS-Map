@@ -1,30 +1,42 @@
 # Schema: `userNotifications`
 
-**Mô tả:** Drizzle schema userNotifications.ts — 11 cột trên 1 bảng Postgres (user_notifications).
+**Mô tả:** Drizzle userNotifications.ts — 1 bảng, 11 cột, 2 index (user_notifications).
 
 **Mã nguồn Shop:** `lib/db/src/schema/userNotifications.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `user_notifications`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `user_id` (userId)
-- `shop_id` (shopId)
-- `notification_key` (notificationKey)
-- `type` (type)
-- `title` (title)
-- `body` (body)
-- `href` (href)
-- `severity` (severity)
-- `created_at` (createdAt)
-- `read_at` (readAt)
+- **HTTP API:** [thong-bao](../../module-api/thong-bao/) (`routes/notifications.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `user_notifications`
 
-- `shopsTable`
-- `usersTable`
+- **Biến Drizzle:** `userNotificationsTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `user_id` | `userId` | integer | NOT NULL | `users` | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `notification_key` | `notificationKey` | text | NOT NULL | — | — |
+| `type` | `type` | text | NOT NULL | — | — |
+| `title` | `title` | text | NOT NULL | — | — |
+| `body` | `body` | text | NOT NULL | — | — |
+| `href` | `href` | text | NOT NULL | — | — |
+| `severity` | `severity` | text | NOT NULL, default `info` | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `read_at` | `readAt` | timestamp("read_at", { withTimezone: true }) | — | — | — |
+
+**Index:**
+
+- `user_notifications_user_key_uidx` on `userId`, `notificationKey`
+- `user_notifications_user_unread_idx` on `userId`, `readAt`
+
+## Kiểu & Zod (insert)
+
+- `export type UserNotification`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

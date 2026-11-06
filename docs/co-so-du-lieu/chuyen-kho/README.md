@@ -1,38 +1,51 @@
 # Schema: `stockTransfers`
 
-**Mô tả:** Drizzle schema stockTransfers.ts — 17 cột trên 2 bảng Postgres (stock_transfers, stock_transfer_items).
+**Mô tả:** Drizzle stockTransfers.ts — 2 bảng, 17 cột (stock_transfers, stock_transfer_items).
 
 **Mã nguồn Shop:** `lib/db/src/schema/stockTransfers.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `stock_transfers`
-- `stock_transfer_items`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `from_warehouse_id` (fromWarehouseId)
-- `to_warehouse_id` (toWarehouseId)
-- `requested_by` (requestedBy)
-- `approved_by` (approvedBy)
-- `status` (status)
-- `note` (note)
-- `created_at` (createdAt)
-- `approved_at` (approvedAt)
-- `shipped_at` (shippedAt)
-- `received_at` (receivedAt)
-- `id` (id)
-- `transfer_id` (transferId)
-- `product_id` (productId)
-- `requested_qty` (requestedQty)
-- `shipped_qty` (shippedQty)
-- `received_qty` (receivedQty)
+- **HTTP API:** [chuoi-api](../../module-api/chuoi-api/) (`routes/chain.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `stock_transfers`
 
-- `stockTransfersTable`
-- `usersTable`
-- `warehousesTable`
+- **Biến Drizzle:** `stockTransfersTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `from_warehouse_id` | `fromWarehouseId` | integer | NOT NULL | `warehouses` | — |
+| `to_warehouse_id` | `toWarehouseId` | integer | NOT NULL | `warehouses` | — |
+| `requested_by` | `requestedBy` | integer | NOT NULL | `users` | — |
+| `approved_by` | `approvedBy` | integer | — | `users` | — |
+| `status` | `status` | text | NOT NULL, default `draft` | — | — |
+| `note` | `note` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `approved_at` | `approvedAt` | timestamp("approved_at", { withTimezone: true }) | — | — | — |
+| `shipped_at` | `shippedAt` | timestamp("shipped_at", { withTimezone: true }) | — | — | — |
+| `received_at` | `receivedAt` | timestamp("received_at", { withTimezone: true }) | — | — | — |
+
+## Bảng `stock_transfer_items`
+
+- **Biến Drizzle:** `stockTransferItemsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `transfer_id` | `transferId` | integer | NOT NULL | `stock_transfers` | — |
+| `product_id` | `productId` | integer | NOT NULL | — | — |
+| `requested_qty` | `requestedQty` | integer | NOT NULL | — | — |
+| `shipped_qty` | `shippedQty` | integer | NOT NULL, default `0` | — | — |
+| `received_qty` | `receivedQty` | integer | NOT NULL, default `0` | — | — |
+
+## Kiểu & Zod (insert)
+
+- `insertStockTransferSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertStockTransfer`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

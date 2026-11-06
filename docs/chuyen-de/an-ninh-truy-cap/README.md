@@ -22,8 +22,8 @@ Denylist chạy **trước** router API — 403 ngay nếu bị chặn.
 
 ## 4. Bảng dữ liệu (schema)
 
-- [ip-bi-chan](../../co-so-du-lieu/ip-bi-chan/) — Drizzle schema blockedIps.ts — 5 cột trên 1 bảng Postgres (blocked_ips).
-- [thiet-bi-bi-chan](../../co-so-du-lieu/thiet-bi-bi-chan/) — Drizzle schema blockedDevices.ts — 5 cột trên 1 bảng Postgres (blocked_devices).
+- [ip-bi-chan](../../co-so-du-lieu/ip-bi-chan/) — Drizzle blockedIps.ts — 1 bảng, 5 cột, 1 index (blocked_ips).
+- [thiet-bi-bi-chan](../../co-so-du-lieu/thiet-bi-bi-chan/) — Drizzle blockedDevices.ts — 1 bảng, 5 cột, 1 index (blocked_devices).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

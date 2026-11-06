@@ -1,27 +1,31 @@
 # Schema: `inventoryMovements`
 
-**Mô tả:** Drizzle schema inventoryMovements.ts — 9 cột trên 1 bảng Postgres (inventory_movements).
+**Mô tả:** Drizzle inventoryMovements.ts — 1 bảng, 9 cột (inventory_movements).
 
 **Mã nguồn Shop:** `lib/db/src/schema/inventoryMovements.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `inventory_movements`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `product_id` (productId)
-- `warehouse_id` (warehouseId)
-- `movement_type` (movementType)
-- `quantity_delta` (quantityDelta)
-- `reference_type` (referenceType)
-- `reference_id` (referenceId)
-- `note` (note)
-- `created_at` (createdAt)
+- **HTTP API:** [ton-kho-api](../../module-api/ton-kho-api/) (`routes/inventory.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `inventory_movements`
 
-- `warehousesTable`
+- **Biến Drizzle:** `inventoryMovementsTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `product_id` | `productId` | integer | NOT NULL | — | — |
+| `warehouse_id` | `warehouseId` | integer | NOT NULL | `warehouses` | — |
+| `movement_type` | `movementType` | text | NOT NULL | — | — |
+| `quantity_delta` | `quantityDelta` | integer | NOT NULL | — | — |
+| `reference_type` | `referenceType` | text | — | — | — |
+| `reference_id` | `referenceId` | integer | — | — | — |
+| `note` | `note` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

@@ -1,26 +1,35 @@
 # Schema: `warehouses`
 
-**Mô tả:** Drizzle schema warehouses.ts — 7 cột trên 1 bảng Postgres (warehouses).
+**Mô tả:** Drizzle warehouses.ts — 1 bảng, 7 cột (warehouses).
 
 **Mã nguồn Shop:** `lib/db/src/schema/warehouses.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `warehouses`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `organization_id` (organizationId)
-- `shop_id` (shopId)
-- `name` (name)
-- `warehouse_type` (warehouseType)
-- `status` (status)
-- `created_at` (createdAt)
+- **HTTP API:** [chuoi-api](../../module-api/chuoi-api/) (`routes/chain.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `warehouses`
 
-- `organizationsTable`
-- `shopsTable`
+- **Biến Drizzle:** `warehousesTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `organization_id` | `organizationId` | integer | NOT NULL | `organizations` | — |
+| `shop_id` | `shopId` | integer | — | `shops` | — |
+| `name` | `name` | text | NOT NULL | — | — |
+| `warehouse_type` | `warehouseType` | text | NOT NULL, default `store_backroom` | — | — |
+| `status` | `status` | text | NOT NULL, default `active` | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+## Kiểu & Zod (insert)
+
+- `insertWarehouseSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertWarehouse`
+- `export type Warehouse`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

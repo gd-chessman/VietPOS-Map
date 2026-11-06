@@ -1,41 +1,63 @@
 # Schema: `products`
 
-**Mô tả:** Drizzle schema products.ts — 21 cột trên 1 bảng Postgres (products).
+**Mô tả:** Drizzle products.ts — 1 bảng, 21 cột, 1 enum, 4 index (products).
 
 **Mã nguồn Shop:** `lib/db/src/schema/products.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `products`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `internal_code` (internalCode)
-- `internal_name` (internalName)
-- `english_name` (englishName)
-- `vat_name` (vatName)
-- `unit` (unit)
-- `vat_rate` (vatRate)
-- `tncn_rate` (tncnRate)
-- `material` (material)
-- `dimensions` (dimensions)
-- `weight` (weight)
-- `manufacturer` (manufacturer)
-- `supplier_id` (supplierId)
-- `category` (category)
-- `category_id` (categoryId)
-- `name` (name)
-- `price` (price)
-- `cost_price` (costPrice)
-- `shop_id` (shopId)
-- `status` (status)
-- `thumbnail_url` (thumbnailUrl)
+- **HTTP API:** [san-pham-api](../../module-api/san-pham-api/) (`routes/products.ts`)
+- **Giao diện:** [san-pham](../../trang/san-pham/)
 
-## Tham chiếu (references → bảng Drizzle)
+## Enum Postgres
 
-- `productCategoriesTable`
-- `shopsTable`
-- `suppliersTable`
+### `product_status` (`productStatusEnum`)
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- Giá trị: `["active", "discontinued"]`
+
+## Bảng `products`
+
+- **Biến Drizzle:** `productsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `internal_code` | `internalCode` | text | — | — | — |
+| `internal_name` | `internalName` | text | — | — | — |
+| `english_name` | `englishName` | text | — | — | — |
+| `vat_name` | `vatName` | text | — | — | — |
+| `unit` | `unit` | text | NOT NULL, default `Cái` | — | — |
+| `vat_rate` | `vatRate` | numeric("vat_rate", { precision: 5, scale: 2 }) | NOT NULL, default `1` | — | — |
+| `tncn_rate` | `tncnRate` | numeric("tncn_rate", { precision: 5, scale: 2 }) | NOT NULL, default `0.5` | — | — |
+| `material` | `material` | text | — | — | — |
+| `dimensions` | `dimensions` | text | — | — | — |
+| `weight` | `weight` | text | — | — | — |
+| `manufacturer` | `manufacturer` | text | — | — | — |
+| `supplier_id` | `supplierId` | integer | — | `suppliers` | — |
+| `category` | `category` | text | — | — | — |
+| `category_id` | `categoryId` | integer | — | `product_categories` | — |
+| `name` | `name` | text | NOT NULL | — | — |
+| `price` | `price` | numeric("price", { precision: 12, scale: 2 }) | NOT NULL | — | — |
+| `cost_price` | `costPrice` | numeric("cost_price", { precision: 12, scale: 2 }) | NOT NULL | — | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `status` | `status` | enum `product_status` | NOT NULL, default `active` | — | — |
+| `thumbnail_url` | `thumbnailUrl` | text | — | — | — |
+
+**Index:**
+
+- `products_shop_internal_code_uidx` on `shopId`, `internalCode`
+- `products_shop_supplier_vat_name_uidx` on `shopId`, `supplierId`, `vatName`
+- `products_shop_supplier_idx` on `shopId`, `supplierId`
+- `products_shop_category_idx` on `shopId`, `categoryId`
+
+## Kiểu & Zod (insert)
+
+- `insertProductSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertProduct`
+- `export type Product`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

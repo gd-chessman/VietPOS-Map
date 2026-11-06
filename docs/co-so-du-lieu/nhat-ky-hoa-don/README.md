@@ -1,27 +1,34 @@
 # Schema: `invoiceChangeLogs`
 
-**Mô tả:** Drizzle schema invoiceChangeLogs.ts — 7 cột trên 1 bảng Postgres (invoice_change_logs).
+**Mô tả:** Drizzle invoiceChangeLogs.ts — 1 bảng, 7 cột, 1 index (invoice_change_logs).
 
 **Mã nguồn Shop:** `lib/db/src/schema/invoiceChangeLogs.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `invoice_change_logs`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Bảng `invoice_change_logs`
 
-- `id` (id)
-- `order_id` (orderId)
-- `shop_id` (shopId)
-- `changed_by` (changedBy)
-- `changed_at` (changedAt)
-- `old_values` (oldValues)
-- `new_values` (newValues)
+- **Biến Drizzle:** `invoiceChangeLogsTable`
 
-## Tham chiếu (references → bảng Drizzle)
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `order_id` | `orderId` | integer | NOT NULL | `orders` | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `changed_by` | `changedBy` | integer | NOT NULL | `users` | — |
+| `changed_at` | `changedAt` | timestamp("changed_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `old_values` | `oldValues` | jsonb | NOT NULL, JSON typed | — | — |
+| `new_values` | `newValues` | jsonb | NOT NULL, JSON typed | — | — |
 
-- `ordersTable`
-- `shopsTable`
-- `usersTable`
+**Index:**
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- `invoice_change_logs_order_idx` on `orderId`, `changedAt`
+
+## Kiểu & Zod (insert)
+
+- `export type InvoiceSnapshot`
+- `export type InvoiceChangeLog`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

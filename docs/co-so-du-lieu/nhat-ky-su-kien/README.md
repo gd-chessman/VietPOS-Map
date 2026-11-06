@@ -1,31 +1,43 @@
 # Schema: `systemEventLogs`
 
-**Mô tả:** Drizzle schema systemEventLogs.ts — 11 cột trên 1 bảng Postgres (system_event_logs).
+**Mô tả:** Drizzle systemEventLogs.ts — 1 bảng, 11 cột, 4 index (system_event_logs).
 
 **Mã nguồn Shop:** `lib/db/src/schema/systemEventLogs.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `system_event_logs`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Bảng `system_event_logs`
 
-- `id` (id)
-- `organization_id` (organizationId)
-- `shop_id` (shopId)
-- `user_id` (userId)
-- `device_id` (deviceId)
-- `category` (category)
-- `severity` (severity)
-- `code` (code)
-- `message` (message)
-- `detail` (detail)
-- `created_at` (createdAt)
+- **Biến Drizzle:** `systemEventLogsTable`
 
-## Tham chiếu (references → bảng Drizzle)
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `organization_id` | `organizationId` | integer | — | `organizations` | — |
+| `shop_id` | `shopId` | integer | — | `shops` | — |
+| `user_id` | `userId` | integer | — | `users` | — |
+| `device_id` | `deviceId` | text | — | — | — |
+| `category` | `category` | text | NOT NULL, JSON typed | — | — |
+| `severity` | `severity` | text | NOT NULL, JSON typed | — | — |
+| `code` | `code` | text | NOT NULL | — | — |
+| `message` | `message` | text | NOT NULL | — | — |
+| `detail` | `detail` | jsonb | JSON typed | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
 
-- `organizationsTable`
-- `shopsTable`
-- `usersTable`
+**Index:**
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- `system_event_logs_org_created_idx` on `organizationId`, `createdAt`
+- `system_event_logs_shop_created_idx` on `shopId`, `createdAt`
+- `system_event_logs_category_created_idx` on `category`, `createdAt`
+- `system_event_logs_severity_created_idx` on `severity`, `createdAt`
+
+## Kiểu & Zod (insert)
+
+- `export type SystemEventCategory`
+- `export type SystemEventSeverity`
+- `export type SystemEventDetail`
+- `export type SystemEventLog`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

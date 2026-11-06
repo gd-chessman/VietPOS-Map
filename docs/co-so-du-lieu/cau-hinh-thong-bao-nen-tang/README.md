@@ -1,19 +1,29 @@
 # Schema: `platformNotificationSettings`
 
-**Mô tả:** Drizzle schema platformNotificationSettings.ts — 5 cột trên 1 bảng Postgres (platform_notification_settings).
+**Mô tả:** Drizzle platformNotificationSettings.ts — 1 bảng, 5 cột (platform_notification_settings).
 
 **Mã nguồn Shop:** `lib/db/src/schema/platformNotificationSettings.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `platform_notification_settings`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Bảng `platform_notification_settings`
 
-- `notification_type` (notificationType)
-- `in_app_enabled` (inAppEnabled)
-- `email_enabled` (emailEnabled)
-- `recipient_roles` (recipientRoles)
-- `updated_at` (updatedAt)
+*Cài đặt kênh thông báo toàn hệ thống (chỉ super_admin sửa).*
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- **Biến Drizzle:** `platformNotificationSettingsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `notification_type` | `notificationType` | text | **PK** | — | — |
+| `in_app_enabled` | `inAppEnabled` | boolean | NOT NULL, default `true` | — | — |
+| `email_enabled` | `emailEnabled` | boolean | NOT NULL, default `true` | — | — |
+| `recipient_roles` | `recipientRoles` | jsonb | JSON typed | — | — |
+| `updated_at` | `updatedAt` | timestamp("updated_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+## Kiểu & Zod (insert)
+
+- `export type PlatformNotificationSetting`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

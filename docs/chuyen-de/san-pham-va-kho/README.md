@@ -29,9 +29,9 @@ Dữ liệu master + tồn trước khi bán hoặc nhập HĐ.
 
 ## 4. Bảng dữ liệu (schema)
 
-- [san-pham-db](../../co-so-du-lieu/san-pham-db/) — Drizzle schema products.ts — 21 cột trên 1 bảng Postgres (products).
-- [ton-kho-db](../../co-so-du-lieu/ton-kho-db/) — Drizzle schema inventory.ts — 6 cột trên 1 bảng Postgres (inventory).
-- [phieu-yeu-cau-kho](../../co-so-du-lieu/phieu-yeu-cau-kho/) — Drizzle schema stockRequests.ts — 32 cột trên 3 bảng Postgres (stock_requests, stock_request_logs,…
+- [san-pham-db](../../co-so-du-lieu/san-pham-db/) — Drizzle products.ts — 1 bảng, 21 cột, 1 enum, 4 index (products).
+- [ton-kho-db](../../co-so-du-lieu/ton-kho-db/) — Drizzle inventory.ts — 1 bảng, 6 cột, 2 index (inventory).
+- [phieu-yeu-cau-kho](../../co-so-du-lieu/phieu-yeu-cau-kho/) — Drizzle stockRequests.ts — 3 bảng, 32 cột (stock_requests, stock_request_logs, stock_request_items).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

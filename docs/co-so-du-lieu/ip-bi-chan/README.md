@@ -1,23 +1,37 @@
 # Schema: `blockedIps`
 
-**Mô tả:** Drizzle schema blockedIps.ts — 5 cột trên 1 bảng Postgres (blocked_ips).
+**Mô tả:** Drizzle blockedIps.ts — 1 bảng, 5 cột, 1 index (blocked_ips).
 
 **Mã nguồn Shop:** `lib/db/src/schema/blockedIps.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `blocked_ips`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `ip` (ip)
-- `note` (note)
-- `created_at` (createdAt)
-- `created_by` (createdBy)
+- **HTTP API:** [chan-ip-api](../../module-api/chan-ip-api/) (`routes/blocked-ips.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `blocked_ips`
 
-- `usersTable`
+*IP bị chặn toàn bộ /api — quản lý qua giao diện quản trị hệ thống.*
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- **Biến Drizzle:** `blockedIpsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `ip` | `ip` | text | NOT NULL | — | — |
+| `note` | `note` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `created_by` | `createdBy` | integer | — | `users` | — |
+
+**Index:**
+
+- `blocked_ips_ip_idx` on `ip`
+
+## Kiểu & Zod (insert)
+
+- `export type BlockedIp`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

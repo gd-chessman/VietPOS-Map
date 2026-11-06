@@ -1,27 +1,36 @@
 # Schema: `pinResetRequests`
 
-**Mô tả:** Drizzle schema pinResetRequests.ts — 8 cột trên 1 bảng Postgres (pin_reset_requests).
+**Mô tả:** Drizzle pinResetRequests.ts — 1 bảng, 8 cột, 1 index (pin_reset_requests).
 
 **Mã nguồn Shop:** `lib/db/src/schema/pinResetRequests.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `pin_reset_requests`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Bảng `pin_reset_requests`
 
-- `id` (id)
-- `user_id` (userId)
-- `shop_id` (shopId)
-- `status` (status)
-- `requested_at` (requestedAt)
-- `resolved_at` (resolvedAt)
-- `resolved_by_user_id` (resolvedByUserId)
-- `resolution_mode` (resolutionMode)
+*Yêu cầu quên mã PIN — quản trị xử lý tại /staff.*
 
-## Tham chiếu (references → bảng Drizzle)
+- **Biến Drizzle:** `pinResetRequestsTable`
 
-- `shopsTable`
-- `usersTable`
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `user_id` | `userId` | integer | NOT NULL | `users` | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `status` | `status` | text | NOT NULL, default `pending` | — | — |
+| `requested_at` | `requestedAt` | timestamp("requested_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `resolved_at` | `resolvedAt` | timestamp("resolved_at", { withTimezone: true }) | — | — | — |
+| `resolved_by_user_id` | `resolvedByUserId` | integer | — | `users` | — |
+| `resolution_mode` | `resolutionMode` | text | — | — | — |
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+**Index:**
+
+- `pin_reset_requests_shop_status_idx` on `shopId`, `status`
+
+## Kiểu & Zod (insert)
+
+- `export type PinResetRequest`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

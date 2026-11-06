@@ -1,29 +1,45 @@
 # Schema: `shiftSessions`
 
-**Mô tả:** Drizzle schema shiftSessions.ts — 7 cột trên 2 bảng Postgres (shift_sessions, shift_session_staff).
+**Mô tả:** Drizzle shiftSessions.ts — 2 bảng, 7 cột, 1 index (shift_sessions, shift_session_staff).
 
 **Mã nguồn Shop:** `lib/db/src/schema/shiftSessions.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `shift_sessions`
-- `shift_session_staff`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `shop_id` (shopId)
-- `user_id` (userId)
-- `started_at` (startedAt)
-- `ended_at` (endedAt)
-- `session_id` (sessionId)
-- `sales_staff_id` (salesStaffId)
+- **HTTP API:** [ca-lam-viec](../../module-api/ca-lam-viec/) (`routes/shift-sessions.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `shift_sessions`
 
-- `salesStaffTable`
-- `shiftSessionsTable`
-- `shopsTable`
-- `usersTable`
+- **Biến Drizzle:** `shiftSessionsTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `user_id` | `userId` | integer | NOT NULL | `users` | — |
+| `started_at` | `startedAt` | timestamp("started_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `ended_at` | `endedAt` | timestamp("ended_at", { withTimezone: true }) | — | — | — |
+
+**Index:**
+
+- `shift_sessions_shop_user_open_idx` on `shopId`, `userId`, `endedAt`
+
+## Bảng `shift_session_staff`
+
+- **Biến Drizzle:** `shiftSessionStaffTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `session_id` | `sessionId` | integer | NOT NULL | `shift_sessions` | — |
+| `sales_staff_id` | `salesStaffId` | integer | NOT NULL | `sales_staff` | — |
+
+## Kiểu & Zod (insert)
+
+- `export type ShiftSession`
+- `export type ShiftSessionStaff`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

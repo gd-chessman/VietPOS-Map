@@ -22,8 +22,8 @@ Mọi API gần như đều gắn **shop_id** và **role** sau khi đăng nhập
 
 ## 4. Bảng dữ liệu (schema)
 
-- [nguoi-dung](../../co-so-du-lieu/nguoi-dung/) — Drizzle schema users.ts — 13 cột trên 1 bảng Postgres (users).
-- [cua-hang-db](../../co-so-du-lieu/cua-hang-db/) — Drizzle schema shops.ts — 31 cột trên 1 bảng Postgres (shops).
+- [nguoi-dung](../../co-so-du-lieu/nguoi-dung/) — Drizzle users.ts — 1 bảng, 13 cột, 2 enum, 2 index (users).
+- [cua-hang-db](../../co-so-du-lieu/cua-hang-db/) — Drizzle shops.ts — 1 bảng, 31 cột (shops).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

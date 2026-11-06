@@ -24,9 +24,9 @@ Một **organization** nhiều **shop**; hub shop cho HĐ đầu vào.
 
 ## 4. Bảng dữ liệu (schema)
 
-- [to-chuc](../../co-so-du-lieu/to-chuc/) — Drizzle schema organizations.ts — 39 cột trên 1 bảng Postgres (organizations).
-- [kho-hang](../../co-so-du-lieu/kho-hang/) — Drizzle schema warehouses.ts — 7 cột trên 1 bảng Postgres (warehouses).
-- [chuyen-kho](../../co-so-du-lieu/chuyen-kho/) — Drizzle schema stockTransfers.ts — 17 cột trên 2 bảng Postgres (stock_transfers, stock_transfer_ite…
+- [to-chuc](../../co-so-du-lieu/to-chuc/) — Drizzle organizations.ts — 1 bảng, 39 cột (organizations).
+- [kho-hang](../../co-so-du-lieu/kho-hang/) — Drizzle warehouses.ts — 1 bảng, 7 cột (warehouses).
+- [chuyen-kho](../../co-so-du-lieu/chuyen-kho/) — Drizzle stockTransfers.ts — 2 bảng, 17 cột (stock_transfers, stock_transfer_items).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

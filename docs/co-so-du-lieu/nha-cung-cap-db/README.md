@@ -1,30 +1,52 @@
 # Schema: `suppliers`
 
-**Mô tả:** Drizzle schema suppliers.ts — 12 cột trên 1 bảng Postgres (suppliers).
+**Mô tả:** Drizzle suppliers.ts — 1 bảng, 12 cột, 1 enum, 2 index (suppliers).
 
 **Mã nguồn Shop:** `lib/db/src/schema/suppliers.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `suppliers`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `shop_id` (shopId)
-- `name` (name)
-- `phone` (phone)
-- `email` (email)
-- `address` (address)
-- `tax_code` (taxCode)
-- `contact_person` (contactPerson)
-- `notes` (notes)
-- `status` (status)
-- `created_at` (createdAt)
-- `updated_at` (updatedAt)
+- **HTTP API:** [nha-cung-cap-api](../../module-api/nha-cung-cap-api/) (`routes/suppliers.ts`)
+- **Giao diện:** [nha-cung-cap](../../trang/nha-cung-cap/)
 
-## Tham chiếu (references → bảng Drizzle)
+## Enum Postgres
 
-- `shopsTable`
+### `supplier_status` (`supplierStatusEnum`)
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- Giá trị: `["active", "inactive"]`
+
+## Bảng `suppliers`
+
+- **Biến Drizzle:** `suppliersTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `name` | `name` | text | NOT NULL | — | — |
+| `phone` | `phone` | text | — | — | — |
+| `email` | `email` | text | — | — | — |
+| `address` | `address` | text | — | — | — |
+| `tax_code` | `taxCode` | text | — | — | — |
+| `contact_person` | `contactPerson` | text | — | — | — |
+| `notes` | `notes` | text | — | — | — |
+| `status` | `status` | enum `supplier_status` | NOT NULL, default `active` | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+| `updated_at` | `updatedAt` | timestamp("updated_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+**Index:**
+
+- `suppliers_shop_status_idx` on `shopId`, `status`
+- `suppliers_shop_name_idx` on `shopId`, `name`
+
+## Kiểu & Zod (insert)
+
+- `insertSupplierSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertSupplier`
+- `export type Supplier`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

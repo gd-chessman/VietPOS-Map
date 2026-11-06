@@ -1,27 +1,40 @@
 # Schema: `inventory`
 
-**Mô tả:** Drizzle schema inventory.ts — 6 cột trên 1 bảng Postgres (inventory).
+**Mô tả:** Drizzle inventory.ts — 1 bảng, 6 cột, 2 index (inventory).
 
 **Mã nguồn Shop:** `lib/db/src/schema/inventory.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `inventory`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `product_id` (productId)
-- `variant_id` (variantId)
-- `warehouse_id` (warehouseId)
-- `shop_id` (shopId)
-- `quantity` (quantity)
+- **HTTP API:** [ton-kho-api](../../module-api/ton-kho-api/) (`routes/inventory.ts`)
+- **Giao diện:** [ton-kho](../../trang/ton-kho/)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `inventory`
 
-- `productVariantsTable`
-- `productsTable`
-- `shopsTable`
-- `warehousesTable`
+- **Biến Drizzle:** `inventoryTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `product_id` | `productId` | integer | NOT NULL | `products` | — |
+| `variant_id` | `variantId` | integer | — | `product_variants` | — |
+| `warehouse_id` | `warehouseId` | integer | — | `warehouses` | — |
+| `shop_id` | `shopId` | integer | — | `shops` | — |
+| `quantity` | `quantity` | integer | NOT NULL, default `0` | — | — |
+
+**Index:**
+
+- UNIQUE `(unique)` on `productId`, `warehouseId`
+- UNIQUE `(unique)` on `productId`, `shopId`
+
+## Kiểu & Zod (insert)
+
+- `insertInventorySchema` — `createInsertSchema` (xem file TS)
+- `export type InsertInventory`
+- `export type Inventory`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

@@ -22,7 +22,7 @@ Tích hợp Viettel SInvoice — cấu hình tại Chuỗi → Sửa tổ chức
 
 ## 4. Bảng dữ liệu (schema)
 
-- [to-chuc](../../co-so-du-lieu/to-chuc/) — Drizzle schema organizations.ts — 39 cột trên 1 bảng Postgres (organizations).
+- [to-chuc](../../co-so-du-lieu/to-chuc/) — Drizzle organizations.ts — 1 bảng, 39 cột (organizations).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

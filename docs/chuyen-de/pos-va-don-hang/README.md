@@ -23,9 +23,9 @@ Luồng doanh thu chính — từ màn POS đến bảng `orders`.
 
 ## 4. Bảng dữ liệu (schema)
 
-- [don-hang-db](../../co-so-du-lieu/don-hang-db/) — Drizzle schema orders.ts — 39 cột trên 1 bảng Postgres (orders).
-- [chi-tiet-don-hang](../../co-so-du-lieu/chi-tiet-don-hang/) — Drizzle schema orderItems.ts — 13 cột trên 1 bảng Postgres (order_items).
-- [ca-lam-viec-db](../../co-so-du-lieu/ca-lam-viec-db/) — Drizzle schema shiftSessions.ts — 7 cột trên 2 bảng Postgres (shift_sessions, shift_session_staff).
+- [don-hang-db](../../co-so-du-lieu/don-hang-db/) — Drizzle orders.ts — 1 bảng, 39 cột, 2 enum, 4 index (orders).
+- [chi-tiet-don-hang](../../co-so-du-lieu/chi-tiet-don-hang/) — Drizzle orderItems.ts — 1 bảng, 13 cột, 3 index (order_items).
+- [ca-lam-viec-db](../../co-so-du-lieu/ca-lam-viec-db/) — Drizzle shiftSessions.ts — 2 bảng, 7 cột, 1 index (shift_sessions, shift_session_staff).
 
 ## 5. Thư viện backend (một số file quan trọng)
 

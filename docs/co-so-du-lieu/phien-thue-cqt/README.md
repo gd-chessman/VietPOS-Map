@@ -1,26 +1,36 @@
 # Schema: `orgGdtTaxSessions`
 
-**Mô tả:** Drizzle schema orgGdtTaxSessions.ts — 8 cột trên 1 bảng Postgres (org_gdt_tax_sessions).
+**Mô tả:** Drizzle orgGdtTaxSessions.ts — 1 bảng, 8 cột (org_gdt_tax_sessions).
 
 **Mã nguồn Shop:** `lib/db/src/schema/orgGdtTaxSessions.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `org_gdt_tax_sessions`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `organization_id` (organizationId)
-- `gdt_access_token_enc` (gdtAccessTokenEnc)
-- `gdt_token_expires_at` (gdtTokenExpiresAt)
-- `connected_at` (connectedAt)
-- `last_test_at` (lastTestAt)
-- `last_test_ok` (lastTestOk)
-- `updated_at` (updatedAt)
+- **HTTP API:** [cong-cqt](../../module-api/cong-cqt/) (`routes/org-gdt-portal.ts`)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `org_gdt_tax_sessions`
 
-- `organizationsTable`
+*Phiên JWT cổng hoadondientu.gdt.gov.vn theo tổ chức (sau «Kiểm tra kết nối»).*
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- **Biến Drizzle:** `orgGdtTaxSessionsTable`
+
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `organization_id` | `organizationId` | integer | NOT NULL | `organizations` | — |
+| `gdt_access_token_enc` | `gdtAccessTokenEnc` | text | — | — | — |
+| `gdt_token_expires_at` | `gdtTokenExpiresAt` | timestamp("gdt_token_expires_at", { withTimezone: true }) | — | — | — |
+| `connected_at` | `connectedAt` | timestamp("connected_at", { withTimezone: true }) | — | — | — |
+| `last_test_at` | `lastTestAt` | timestamp("last_test_at", { withTimezone: true }) | — | — | — |
+| `last_test_ok` | `lastTestOk` | boolean | — | — | — |
+| `updated_at` | `updatedAt` | timestamp("updated_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+## Kiểu & Zod (insert)
+
+- `export type OrgGdtTaxSessionRow`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

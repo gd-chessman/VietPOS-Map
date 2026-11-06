@@ -7,6 +7,12 @@ import shutil
 from pathlib import Path
 
 from api_extract import build_endpoint_detail_auto, iter_route_handlers, load_zod_schemas
+from schema_extract import (
+    build_var_to_pg_map,
+    parse_schema_file,
+    render_schema_markdown,
+    schema_summary,
+)
 
 from doc_paths import (
     README,
@@ -20,6 +26,7 @@ from doc_paths import (
     map_index_path,
     module_api_path,
     nghiep_vu_path,
+    PAGE_SLUG,
     rewrite_legacy_links,
     resolve_doc_link,
     tham_chieu_path,
@@ -27,6 +34,7 @@ from doc_paths import (
     trang_path,
     md_href,
     md_relpath,
+    camel_to_kebab,
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -67,6 +75,126 @@ ROUTE_BLOCK_RE = re.compile(
 PG_TABLE_RE = re.compile(r'pgTable\(\s*["\']([^"\']+)["\']')
 COL_RE = re.compile(r'^\s*(\w+):\s*\w+\(["\']([^"\']+)["\']', re.MULTILINE)
 FK_RE = re.compile(r'\.references\(\(\)\s*=>\s*(\w+)', re.MULTILINE)
+
+# schema TS stem → route file (khi không trùng camelToKebab)
+SCHEMA_ROUTE_ALIAS: dict[str, str] = {
+    "stockTransfers": "chain",
+    "warehouses": "chain",
+    "shopVariantStock": "inventory",
+    "inventoryMovements": "inventory",
+    "vatInboundInvoices": "vat-inbound",
+    "vatInboundAuditLogs": "vat-inbound",
+    "orgGdtTaxSessions": "org-gdt-portal",
+    "orderAuditLogs": "order-audit-reports",
+    "productAuditLogs": "product-audit-reports",
+    "posCartAuditLogs": "pos-cart-audit",
+    "purchaseOrders": "purchase-orders",
+    "shopApiKeys": "shop-api-keys",
+    "salesStaff": "sales-staff",
+    "shiftSessions": "shift-sessions",
+    "productCategories": "product-categories",
+    "userNotifications": "notifications",
+    "customerFeedback": "feedback",
+    "agentChat": "agent",
+    "shopDailyVisitorCounts": "walk-in-customers",
+    "orderPreprintReservations": "orders",
+    "orderSyncKeys": "sync",
+    "allowedDevices": "access-observations",
+    "blockedDevices": "blocked-devices",
+    "blockedIps": "blocked-ips",
+    "deviceLoginEvents": "access-observations",
+}
+
+SCHEMA_DOMAINS: list[tuple[str, str, list[str]]] = [
+    (
+        "Tài khoản, shop & tổ chức",
+        "users, shops, organizations, nhân viên bán, reset PIN.",
+        [
+            "users",
+            "shops",
+            "organizations",
+            "salesStaff",
+            "pinResetRequests",
+        ],
+    ),
+    (
+        "An ninh truy cập",
+        "Chặn IP/thiết bị, allowlist, sự kiện đăng nhập.",
+        [
+            "blockedIps",
+            "blockedDevices",
+            "allowedDevices",
+            "deviceLoginEvents",
+        ],
+    ),
+    (
+        "POS & đơn hàng",
+        "Đơn, dòng đơn, ca, in trước, đồng bộ offline, audit POS.",
+        [
+            "orders",
+            "orderItems",
+            "shiftSessions",
+            "orderPreprintReservations",
+            "orderSyncKeys",
+            "orderAuditLogs",
+            "posCartAuditLogs",
+            "reprintLogs",
+            "paymentChangeLogs",
+            "invoiceChangeLogs",
+        ],
+    ),
+    (
+        "Sản phẩm & tồn",
+        "SP, biến thể, danh mục, tồn shop, biến động, NCC.",
+        [
+            "products",
+            "productVariants",
+            "productCategories",
+            "inventory",
+            "inventoryMovements",
+            "shopVariantStock",
+            "suppliers",
+            "productAuditLogs",
+        ],
+    ),
+    (
+        "Kho, phiếu & đặt hàng",
+        "Kho vật lý, phiếu nhập/xuất, chuyển kho, PO.",
+        [
+            "warehouses",
+            "stockRequests",
+            "stockTransfers",
+            "purchaseOrders",
+        ],
+    ),
+    (
+        "Hóa đơn đầu vào & CQT",
+        "HĐ mua vào, audit, phiên GDT.",
+        [
+            "vatInboundInvoices",
+            "vatInboundAuditLogs",
+            "orgGdtTaxSessions",
+        ],
+    ),
+    (
+        "Thông báo, widget & nhật ký hệ thống",
+        "API key, khách qua cửa, feedback, AI chat, event log.",
+        [
+            "shopApiKeys",
+            "shopDailyVisitorCounts",
+            "customerFeedback",
+            "agentChat",
+            "platformNotificationSettings",
+            "userNotifications",
+            "changeLog",
+            "systemEventLogs",
+            "shopOperationalEvents",
+        ],
+    ),
+]
+
+SCHEMA_STEM_REL: dict[str, str] = {}
+
 EXPORT_RE = re.compile(
     r"^export (?:async )?function (\w+)|^export const (\w+)\s*=",
     re.MULTILINE,
@@ -1328,15 +1456,42 @@ def write_chi_muc(all_paths: list[str], flat_endpoints: list[tuple[str, str, str
 
     schema_items = sorted(p for p in all_paths if p.startswith("co-so-du-lieu/"))
     chi_schema = chi_muc_path("co-so-du-lieu")
-    body = []
-    for i, item in enumerate(schema_items, 1):
-        d = one_line(DOC_DESCRIPTIONS.get(item, ""), 130)
-        label = Path(item).parent.name
-        body.append(f"{i}. [{label}]({md_href(chi_schema, item)}) — {d}")
+    body = [
+        "Postgres + **Drizzle ORM** (`lib/db/src/schema`). Mỗi file TS có thể khai báo "
+        "nhiều bảng; trang con có **bảng cột đầy đủ** (kiểu, PK/FK, index, enum, ghi chú JSDoc).",
+        "",
+        f"Tài liệu ER tổng thể (tiếng Anh, Shop gốc): "
+        f"[co-so-du-lieu-goc]({md_href(chi_schema, tham_chieu_path('database.md'))}).",
+        "",
+    ]
+    listed: set[str] = set()
+    for title, blurb, stems in SCHEMA_DOMAINS:
+        body.append(f"### {title}")
+        body.append("")
+        body.append(blurb)
+        body.append("")
+        for stem in stems:
+            item = SCHEMA_STEM_REL.get(stem)
+            if not item:
+                continue
+            listed.add(item)
+            d = one_line(DOC_DESCRIPTIONS.get(item, ""), 110)
+            label = Path(item).parent.name
+            body.append(f"- [{label}]({md_href(chi_schema, item)}) — {d}")
+        body.append("")
+    rest = [p for p in schema_items if p not in listed]
+    if rest:
+        body.append("### Khác")
+        body.append("")
+        for item in rest:
+            d = one_line(DOC_DESCRIPTIONS.get(item, ""), 110)
+            label = Path(item).parent.name
+            body.append(f"- [{label}]({md_href(chi_schema, item)}) — {d}")
+        body.append("")
     write_one(
         "co-so-du-lieu",
-        "Chỉ mục schema Drizzle",
-        f"Danh sách {len(schema_items)} schema — tra bảng/cột Postgres.",
+        "Chỉ mục cơ sở dữ liệu (Drizzle)",
+        f"{len(schema_items)} file schema — bảng cột, quan hệ FK, index; nhóm theo nghiệp vụ.",
         body,
     )
 
@@ -2162,26 +2317,58 @@ def write_pages() -> list[str]:
     return paths
 
 
+def route_stem_for_schema(schema_stem: str) -> str | None:
+    if schema_stem in SCHEMA_ROUTE_ALIAS:
+        alias = SCHEMA_ROUTE_ALIAS[schema_stem]
+        if (ROUTES_DIR / f"{alias}.ts").is_file():
+            return alias
+    kebab = camel_to_kebab(schema_stem)
+    if (ROUTES_DIR / f"{kebab}.ts").is_file():
+        return kebab
+    if (ROUTES_DIR / f"{schema_stem}.ts").is_file():
+        return schema_stem
+    return None
+
+
+def schema_related_links(rel: str, schema_stem: str) -> list[str]:
+    lines: list[str] = []
+    route = route_stem_for_schema(schema_stem)
+    if route:
+        api_rel = module_api_path(route)
+        lines.append(
+            f"- **HTTP API:** [{Path(api_rel).parent.name}]({md_href(rel, api_rel)}) "
+            f"(`routes/{route}.ts`)"
+        )
+    page_key = schema_stem
+    if page_key not in PAGE_SLUG:
+        page_key = camel_to_kebab(schema_stem)
+    page_candidates = [schema_stem, camel_to_kebab(schema_stem)]
+    for pc in page_candidates:
+        if pc in PAGE_SLUG and (PAGES_DIR / f"{pc}.tsx").is_file():
+            pg = trang_path(pc)
+            lines.append(
+                f"- **Giao diện:** [{Path(pg).parent.name}]({md_href(rel, pg)})"
+            )
+            break
+    return lines
+
+
 def write_schemas() -> list[str]:
     paths: list[str] = []
-    for f in sorted(SCHEMA_DIR.glob("*.ts")):
-        if f.name in ("index.ts",):
-            continue
-        text = f.read_text(encoding="utf-8", errors="replace")
-        tables = PG_TABLE_RE.findall(text)
-        cols: list[str] = []
-        for m in COL_RE.finditer(text):
-            cols.append(f"- `{m.group(2)}` ({m.group(1)})")
-        if not tables and not cols:
+    SCHEMA_STEM_REL.clear()
+    files = sorted(p for p in SCHEMA_DIR.glob("*.ts") if p.name != "index.ts")
+    texts = {f.stem: f.read_text(encoding="utf-8", errors="replace") for f in files}
+    var_to_pg = build_var_to_pg_map(texts)
+
+    for f in files:
+        text = texts[f.stem]
+        sf = parse_schema_file(f.stem, text, var_to_pg)
+        if not sf.tables and not sf.enums:
             continue
         rel = co_so_du_lieu_path(f.stem)
-        tbl = ", ".join(f"`{t}`" for t in tables[:3])
-        if len(tables) > 3:
-            tbl += f" (+{len(tables) - 3} bảng)"
-        desc = register_desc(
-            rel,
-            f"Drizzle schema `{f.stem}.ts` — {len(cols)} cột trên {len(tables) or 0} bảng Postgres ({tbl or 'n/a'}).",
-        )
+        SCHEMA_STEM_REL[f.stem] = rel
+        desc = register_desc(rel, schema_summary(sf))
+        ref_href = md_href(rel, tham_chieu_path("database.md"))
         lines = [
             f"# Schema: `{f.stem}`",
             "",
@@ -2189,27 +2376,17 @@ def write_schemas() -> list[str]:
             "",
             f"**Mã nguồn Shop:** `lib/db/src/schema/{f.name}`",
             "",
+            "## Cách đọc trang này",
+            "",
+            "Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại "
+            "(cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê "
+            "riêng khi có trong file.",
+            "",
         ]
-        if tables:
-            lines.append("## Bảng Postgres")
-            lines.append("")
-            for t in tables:
-                lines.append(f"- `{t}`")
-            lines.append("")
-        fks = sorted(set(FK_RE.findall(text)))
-        if cols:
-            lines.append("## Cột (trích từ schema TS)")
-            lines.append("")
-            lines.extend(cols)
-            lines.append("")
-        if fks:
-            lines.append("## Tham chiếu (references → bảng Drizzle)")
-            lines.append("")
-            for fk in fks:
-                lines.append(f"- `{fk}`")
-            lines.append("")
-        lines.append(f"Tổng quan quan hệ: `{tham_chieu_path('database.md')}`.")
-        lines.append("")
+        related = schema_related_links(rel, f.stem)
+        if related:
+            lines.extend(["## Liên kết nhanh", ""] + related + [""])
+        lines.append(render_schema_markdown(sf, ref_db_href=ref_href))
         out = ROOT / rel
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text("\n".join(lines), encoding="utf-8")

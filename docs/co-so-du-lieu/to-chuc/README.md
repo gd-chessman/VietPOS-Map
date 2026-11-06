@@ -1,53 +1,63 @@
 # Schema: `organizations`
 
-**Mô tả:** Drizzle schema organizations.ts — 39 cột trên 1 bảng Postgres (organizations).
+**Mô tả:** Drizzle organizations.ts — 1 bảng, 39 cột (organizations).
 
 **Mã nguồn Shop:** `lib/db/src/schema/organizations.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `organizations`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Bảng `organizations`
 
-- `id` (id)
-- `code` (code)
-- `name` (name)
-- `tax_code` (taxCode)
-- `address` (address)
-- `phone` (phone)
-- `email` (email)
-- `bank_name` (bankName)
-- `bank_account` (bankAccount)
-- `bank_account_name` (bankAccountName)
-- `status` (status)
-- `public_base_url` (publicBaseUrl)
-- `viettel_invoice_api_url` (viettelInvoiceApiUrl)
-- `viettel_invoice_auth_url` (viettelInvoiceAuthUrl)
-- `viettel_invoice_username` (viettelInvoiceUsername)
-- `viettel_invoice_password` (viettelInvoicePassword)
-- `viettel_invoice_tax_code` (viettelInvoiceTaxCode)
-- `viettel_invoice_template_code` (viettelInvoiceTemplateCode)
-- `viettel_invoice_series` (viettelInvoiceSeries)
-- `viettel_invoice_type` (viettelInvoiceType)
-- `viettel_invoice_gdt_tax_code` (viettelInvoiceGdtTaxCode)
-- `vat_inbound_provider` (vatInboundProvider)
-- `gdt_portal_username` (gdtPortalUsername)
-- `gdt_portal_password` (gdtPortalPassword)
-- `vat_inbound_auto_sync_enabled` (vatInboundAutoSyncEnabled)
-- `vat_inbound_auto_map_enabled` (vatInboundAutoMapEnabled)
-- `vat_inbound_auto_receive_enabled` (vatInboundAutoReceiveEnabled)
-- `vat_inbound_auto_archive_tax_codes` (vatInboundAutoArchiveTaxCodes)
-- `smtp_host` (smtpHost)
-- `smtp_port` (smtpPort)
-- `smtp_secure` (smtpSecure)
-- `smtp_user` (smtpUser)
-- `smtp_password` (smtpPassword)
-- `smtp_from` (smtpFrom)
-- `agent_openai_api_key_enc` (agentOpenAiApiKeyEnc)
-- `agent_openai_api_key_enabled` (agentOpenAiApiKeyEnabled)
-- `agent_openai_base_url` (agentOpenAiBaseUrl)
-- `agent_openai_model` (agentOpenAiModel)
-- `created_at` (createdAt)
+- **Biến Drizzle:** `organizationsTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `code` | `code` | text | NOT NULL | — | — |
+| `name` | `name` | text | NOT NULL | — | — |
+| `tax_code` | `taxCode` | text | — | — | — |
+| `address` | `address` | text | — | — | — |
+| `phone` | `phone` | text | — | — | — |
+| `email` | `email` | text | — | — | — |
+| `bank_name` | `bankName` | text | — | — | — |
+| `bank_account` | `bankAccount` | text | — | — | — |
+| `bank_account_name` | `bankAccountName` | text | — | — | — |
+| `status` | `status` | text | NOT NULL, default `active` | — | — |
+| `public_base_url` | `publicBaseUrl` | text | — | — | — |
+| `viettel_invoice_api_url` | `viettelInvoiceApiUrl` | text | — | — | — |
+| `viettel_invoice_auth_url` | `viettelInvoiceAuthUrl` | text | — | — | — |
+| `viettel_invoice_username` | `viettelInvoiceUsername` | text | — | — | — |
+| `viettel_invoice_password` | `viettelInvoicePassword` | text | — | — | — |
+| `viettel_invoice_tax_code` | `viettelInvoiceTaxCode` | text | — | — | — |
+| `viettel_invoice_template_code` | `viettelInvoiceTemplateCode` | text | — | — | — |
+| `viettel_invoice_series` | `viettelInvoiceSeries` | text | — | — | — |
+| `viettel_invoice_type` | `viettelInvoiceType` | text | — | — | — |
+| `viettel_invoice_gdt_tax_code` | `viettelInvoiceGdtTaxCode` | text | — | — | — |
+| `vat_inbound_provider` | `vatInboundProvider` | text | NOT NULL, default `viettel` | — | — |
+| `gdt_portal_username` | `gdtPortalUsername` | text | — | — | — |
+| `gdt_portal_password` | `gdtPortalPassword` | text | — | — | — |
+| `vat_inbound_auto_sync_enabled` | `vatInboundAutoSyncEnabled` | boolean | NOT NULL, default `false` | — | — |
+| `vat_inbound_auto_map_enabled` | `vatInboundAutoMapEnabled` | boolean | NOT NULL, default `false` | — | — |
+| `vat_inbound_auto_receive_enabled` | `vatInboundAutoReceiveEnabled` | boolean | NOT NULL, default `false` | — | — |
+| `vat_inbound_auto_archive_tax_codes` | `vatInboundAutoArchiveTaxCodes` | text | — | — | — |
+| `smtp_host` | `smtpHost` | text | — | — | — |
+| `smtp_port` | `smtpPort` | integer | — | — | — |
+| `smtp_secure` | `smtpSecure` | boolean | NOT NULL, default `false` | — | — |
+| `smtp_user` | `smtpUser` | text | — | — | — |
+| `smtp_password` | `smtpPassword` | text | — | — | — |
+| `smtp_from` | `smtpFrom` | text | — | — | — |
+| `agent_openai_api_key_enc` | `agentOpenAiApiKeyEnc` | text | — | — | — |
+| `agent_openai_api_key_enabled` | `agentOpenAiApiKeyEnabled` | boolean | NOT NULL, default `true` | — | — |
+| `agent_openai_base_url` | `agentOpenAiBaseUrl` | text | — | — | — |
+| `agent_openai_model` | `agentOpenAiModel` | text | — | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+## Kiểu & Zod (insert)
+
+- `insertOrganizationSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertOrganization`
+- `export type Organization`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

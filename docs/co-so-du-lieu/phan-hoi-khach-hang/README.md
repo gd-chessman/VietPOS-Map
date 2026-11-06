@@ -1,26 +1,42 @@
 # Schema: `customerFeedback`
 
-**Mô tả:** Drizzle schema customerFeedback.ts — 8 cột trên 1 bảng Postgres (customer_feedback).
+**Mô tả:** Drizzle customerFeedback.ts — 1 bảng, 8 cột, 2 index (customer_feedback).
 
 **Mã nguồn Shop:** `lib/db/src/schema/customerFeedback.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `customer_feedback`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Liên kết nhanh
 
-- `id` (id)
-- `shop_id` (shopId)
-- `customer_name` (customerName)
-- `phone` (phone)
-- `rating` (rating)
-- `content` (content)
-- `image_urls` (imageUrls)
-- `created_at` (createdAt)
+- **HTTP API:** [phan-hoi-api](../../module-api/phan-hoi-api/) (`routes/feedback.ts`)
+- **Giao diện:** [phan-hoi-khach](../../trang/phan-hoi-khach/)
 
-## Tham chiếu (references → bảng Drizzle)
+## Bảng `customer_feedback`
 
-- `shopsTable`
+- **Biến Drizzle:** `customerFeedbackTable`
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `shop_id` | `shopId` | integer | — | `shops` | — |
+| `customer_name` | `customerName` | text | NOT NULL | — | — |
+| `phone` | `phone` | text | — | — | — |
+| `rating` | `rating` | integer | NOT NULL | — | — |
+| `content` | `content` | text | NOT NULL | — | — |
+| `image_urls` | `imageUrls` | jsonb | JSON typed | — | — |
+| `created_at` | `createdAt` | timestamp("created_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
+
+**Index:**
+
+- `customer_feedback_created_idx` on `createdAt`
+- `customer_feedback_shop_idx` on `shopId`
+
+## Kiểu & Zod (insert)
+
+- `insertCustomerFeedbackSchema` — `createInsertSchema` (xem file TS)
+- `export type InsertCustomerFeedback`
+- `export type CustomerFeedback`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).

@@ -21,7 +21,7 @@ POS ghi local trước; worker đẩy khi có mạng.
 
 ## 4. Bảng dữ liệu (schema)
 
-- [khoa-dong-bo-don](../../co-so-du-lieu/khoa-dong-bo-don/) — Drizzle schema orderSyncKeys.ts — 4 cột trên 1 bảng Postgres (order_sync_keys).
+- [khoa-dong-bo-don](../../co-so-du-lieu/khoa-dong-bo-don/) — Drizzle orderSyncKeys.ts — 1 bảng, 4 cột (order_sync_keys).
 
 ---
 

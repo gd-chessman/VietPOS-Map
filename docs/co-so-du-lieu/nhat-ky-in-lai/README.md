@@ -1,25 +1,27 @@
 # Schema: `reprintLogs`
 
-**Mô tả:** Drizzle schema reprintLogs.ts — 5 cột trên 1 bảng Postgres (reprint_logs).
+**Mô tả:** Drizzle reprintLogs.ts — 1 bảng, 5 cột (reprint_logs).
 
 **Mã nguồn Shop:** `lib/db/src/schema/reprintLogs.ts`
 
-## Bảng Postgres
+## Cách đọc trang này
 
-- `reprint_logs`
+Mỗi **bảng Postgres** có bảng cột: kiểu Drizzle, `NOT NULL` / **PK**, khóa ngoại (cột FK → tên bảng đích), và ghi chú JSDoc từ mã nguồn. Enum và index được liệt kê riêng khi có trong file.
 
-## Cột (trích từ schema TS)
+## Bảng `reprint_logs`
 
-- `id` (id)
-- `order_id` (orderId)
-- `user_id` (userId)
-- `shop_id` (shopId)
-- `reprinted_at` (reprintedAt)
+- **Biến Drizzle:** `reprintLogsTable`
 
-## Tham chiếu (references → bảng Drizzle)
+| Cột SQL | Thuộc tính TS | Kiểu | Ràng buộc | FK → bảng | Ghi chú |
+|---------|---------------|------|-----------|-----------|---------|
+| `id` | `id` | serial | **PK** | — | — |
+| `order_id` | `orderId` | integer | NOT NULL | `orders` | — |
+| `user_id` | `userId` | integer | NOT NULL | `users` | — |
+| `shop_id` | `shopId` | integer | NOT NULL | `shops` | — |
+| `reprinted_at` | `reprintedAt` | timestamp("reprinted_at", { withTimezone: true }) | NOT NULL, default `now()` | — | — |
 
-- `ordersTable`
-- `shopsTable`
-- `usersTable`
+## Kiểu & Zod (insert)
 
-Tổng quan quan hệ: `tham-chieu/co-so-du-lieu-goc/README.md`.
+- `export type ReprintLog`
+
+Tổng quan ER / naming: [../../tham-chieu/co-so-du-lieu-goc/](../../tham-chieu/co-so-du-lieu-goc/).
