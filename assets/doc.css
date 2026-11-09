@@ -29,8 +29,11 @@ html:not([data-theme]) {
 }
 
 :root {
-  --sidebar-width: 280px;
-  --toc-width: 220px;
+  --sidebar-width: 292px;
+  --toc-width: 228px;
+  --doc-radius: 10px;
+  --doc-radius-sm: 8px;
+  --doc-font: "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 * {
@@ -53,8 +56,19 @@ body {
   margin: 0;
   background: var(--doc-bg);
   color: var(--doc-text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  line-height: 1.5;
+  font-family: var(--doc-font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[data-theme="light"] body,
+html.theme-light body {
+  background: linear-gradient(180deg, #f6f8fa 0%, #ffffff 12rem);
+}
+
+html[data-theme="dark"] body,
+html.theme-dark body {
+  background: linear-gradient(180deg, #0f172a 0%, #0d1117 14rem);
 }
 
 /* Khung doc — ép đồng bộ với theme (tránh chỉ markdown sáng, sidebar còn tối) */
@@ -153,8 +167,10 @@ html[data-theme="dark"] .doc-breadcrumb {
   align-self: flex-start;
   max-height: 100vh;
   overflow: auto;
-  padding: 0.75rem 0 1.5rem;
+  padding: 0.85rem 0 1.75rem;
   font-size: 0.8125rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--doc-border) transparent;
 }
 
 .doc-sidebar-inner {
@@ -186,12 +202,13 @@ html[data-theme="dark"] .doc-breadcrumb {
 
 .nav-tree a {
   display: block;
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--doc-radius-sm);
   color: var(--doc-text);
   text-decoration: none;
   line-height: 1.35;
   border-left: 2px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .nav-tree a:hover {
@@ -200,7 +217,7 @@ html[data-theme="dark"] .doc-breadcrumb {
 }
 
 .nav-tree a.active {
-  background: var(--doc-panel);
+  background: color-mix(in srgb, var(--doc-accent) 12%, var(--doc-panel));
   border-left-color: var(--doc-accent);
   color: var(--doc-link);
   font-weight: 600;
@@ -251,19 +268,61 @@ html[data-theme="dark"] .doc-breadcrumb {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 0.75rem;
-  padding: 0.55rem 1rem;
-  background: var(--doc-panel-2);
+  padding: 0.6rem 1rem;
+  background: color-mix(in srgb, var(--doc-panel-2) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--doc-border);
   font-size: 0.875rem;
+  box-shadow: 0 1px 0 var(--doc-border);
 }
 
-.doc-topbar a {
+.doc-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 650;
+  font-size: 0.92rem;
+  letter-spacing: -0.02em;
+  color: var(--doc-text) !important;
+  text-decoration: none !important;
+}
+
+.doc-brand:hover {
+  color: var(--doc-link) !important;
+}
+
+.doc-brand-mark {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.doc-topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.doc-topbar-nav a {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--doc-muted);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.doc-topbar-nav a:hover {
   color: var(--doc-link);
+  background: var(--doc-panel);
+  border-color: var(--doc-border);
   text-decoration: none;
 }
 
-.doc-topbar a:hover {
-  text-decoration: underline;
+.doc-topbar a:not(.doc-brand) {
+  color: var(--doc-link);
+  text-decoration: none;
 }
 
 .doc-topbar-spacer {
@@ -275,15 +334,25 @@ html[data-theme="dark"] .doc-breadcrumb {
   border: 1px solid var(--doc-border);
   background: var(--doc-panel);
   color: var(--doc-text);
-  border-radius: 8px;
-  padding: 0.35rem 0.65rem;
+  border-radius: var(--doc-radius-sm);
+  padding: 0.35rem 0.7rem;
   font-size: 0.8rem;
   cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
 .theme-toggle:hover,
 .sidebar-toggle:hover {
   border-color: var(--doc-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--doc-accent) 22%, transparent);
+}
+
+.theme-toggle:focus-visible,
+.sidebar-toggle:focus-visible,
+.nav-tree a:focus-visible,
+.doc-topbar-nav a:focus-visible {
+  outline: 2px solid var(--doc-accent);
+  outline-offset: 2px;
 }
 
 .doc-breadcrumb {
@@ -313,9 +382,27 @@ html[data-theme="dark"] .doc-breadcrumb {
 .doc-wrap {
   flex: 1;
   min-width: 0;
-  max-width: 1012px;
+  max-width: 52rem;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
+  padding: 1.75rem 1.5rem 3.5rem;
+}
+
+html[data-theme="light"] .doc-wrap .markdown-body,
+html.theme-light .doc-wrap .markdown-body {
+  background: var(--doc-panel-2);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius);
+  padding: 1.75rem 2rem 2.25rem;
+  box-shadow: 0 1px 2px var(--doc-shadow), 0 8px 24px color-mix(in srgb, var(--doc-shadow) 65%, transparent);
+}
+
+html[data-theme="dark"] .doc-wrap .markdown-body,
+html.theme-dark .doc-wrap .markdown-body {
+  background: color-mix(in srgb, var(--doc-panel) 55%, var(--doc-bg));
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius);
+  padding: 1.75rem 2rem 2.25rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
 }
 
 .doc-toc {
@@ -383,6 +470,8 @@ html[data-theme="dark"] .doc-breadcrumb {
 
 .markdown-body pre {
   background: var(--doc-pre) !important;
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-sm);
 }
 
 .markdown-body .mermaid {
