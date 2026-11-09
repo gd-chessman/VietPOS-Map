@@ -6,6 +6,52 @@
 
 ---
 
+## 0. Sơ đồ bấm được (khuyên dùng)
+
+1. **[Mở sơ đồ HTML — bấm từng ô](so-do-tuong-tac.html)** (10 hub + runtime + chỉ mục).
+2. **Mermaid hub** (preview Markdown — bấm nút trên sơ đồ nếu viewer hỗ trợ `click`):
+
+```mermaid
+flowchart TB
+  HOME[Trang chủ Map]
+  HOME --> H0["Kiến trúc hệ thống"]
+  HOME --> H1["Đăng nhập và phiên làm việc"]
+  HOME --> H2["POS và đơn hàng"]
+  HOME --> H3["Sản phẩm và tồn kho"]
+  HOME --> H4["Hóa đơn đầu vào (VAT mua vào)"]
+  HOME --> H5["Hóa đơn bán ra (Viettel)"]
+  HOME --> H6["Chuỗi và nhiều cửa hàng"]
+  HOME --> H7["An ninh và chặn truy cập"]
+  HOME --> H8["Offline và đồng bộ"]
+  HOME --> H9["Trợ lý AI, widget, đếm khách"]
+  click HOME "../README.md" "Mục lục"
+  click H0 "../chuyen-de/kien-truc-he-thong/README.md" "Kiến trúc hệ thống"
+  click H1 "../chuyen-de/dang-nhap-va-phien/README.md" "Đăng nhập và phiên làm việc"
+  click H2 "../chuyen-de/pos-va-don-hang/README.md" "POS và đơn hàng"
+  click H3 "../chuyen-de/san-pham-va-kho/README.md" "Sản phẩm và tồn kho"
+  click H4 "../chuyen-de/hoa-don-dau-vao/README.md" "Hóa đơn đầu vào (VAT mua vào)"
+  click H5 "../chuyen-de/hoa-don-ban-ra/README.md" "Hóa đơn bán ra (Viettel)"
+  click H6 "../chuyen-de/chuoi-cua-hang/README.md" "Chuỗi và nhiều cửa hàng"
+  click H7 "../chuyen-de/an-ninh-truy-cap/README.md" "An ninh và chặn truy cập"
+  click H8 "../chuyen-de/offline-dong-bo/README.md" "Offline và đồng bộ"
+  click H9 "../chuyen-de/tro-ly-widget/README.md" "Trợ lý AI, widget, đếm khách"
+```
+
+| Hub | Mô tả ngắn |
+|-----|------------|
+| [Kiến trúc hệ thống](../chuyen-de/kien-truc-he-thong/) | Sơ đồ tổng thể: pos-app, api-server, Postgres, offline, cloud-sync — đọc đầu tiên. |
+| [Đăng nhập và phiên làm việc](../chuyen-de/dang-nhap-va-phien/) | JWT, shop đang chọn, hub shop, quyền menu. |
+| [POS và đơn hàng](../chuyen-de/pos-va-don-hang/) | Quầy bán, giỏ hàng, thanh toán, ca làm việc, hủy đơn. |
+| [Sản phẩm và tồn kho](../chuyen-de/san-pham-va-kho/) | Danh mục SP, tồn shop, phiếu nhập/xuất, PO. |
+| [Hóa đơn đầu vào (VAT mua vào)](../chuyen-de/hoa-don-dau-vao/) | Import PDF/Excel, kéo CQT, MST lọc, ghép hàng, nhập kho. |
+| [Hóa đơn bán ra (Viettel)](../chuyen-de/hoa-don-ban-ra/) | Phát hành HĐ VAT từ POS, tra cứu, form công khai. |
+| [Chuỗi và nhiều cửa hàng](../chuyen-de/chuoi-cua-hang/) | Tổ chức, shop, kho, điều chuyển, dashboard chuỗi. |
+| [An ninh và chặn truy cập](../chuyen-de/an-ninh-truy-cap/) | Chặn IP/thiết bị, quan sát truy cập, super_admin. |
+| [Offline và đồng bộ](../chuyen-de/offline-dong-bo/) | IndexedDB, checkout offline, API sync. |
+| [Trợ lý AI, widget, đếm khách](../chuyen-de/tro-ly-widget/) | Agent chat, widget Android, ESP32 visitor-counts. |
+
+---
+
 ## 1. Hệ thống VietPOS (runtime)
 
 ```
@@ -99,7 +145,7 @@
          Chuỗi shop · An ninh · Offline · Trợ lý/widget
 ```
 
-Danh sách link: [00-muc-luc → Chủ đề](README.md)
+Danh sách link đầy đủ (bấm được): mục **[0. Sơ đồ bấm được](#0-sơ-đồ-bấm-được-khuyên-dùng)** phía trên · [Trang chủ Map](README.md)
 
 ---
 

@@ -2,7 +2,8 @@
 
 **Mô tả:** Trang chủ Map — mỗi chủ đề nằm trong **một thư mục**, file **`README.md`**.
 
-**Bản đồ hình (ASCII):** [README.md](ban-do-kien-truc/README.md)
+**Bản đồ bấm được (HTML):** [ban-do-kien-truc/so-do-tuong-tac.html](ban-do-kien-truc/so-do-tuong-tac.html)
+**Bản đồ hình (ASCII + Mermaid):** [README.md](ban-do-kien-truc/README.md)
 
 1. [Hướng dẫn đọc (3 bước)](huong-dan-doc/README.md)
 2. [Kiến trúc — Mermaid](chuyen-de/kien-truc-he-thong/README.md)
@@ -62,7 +63,7 @@ Dùng **sau** hub chủ đề — danh sách dài, không đọc từ đầu đ�
 |---------|----------|
 | [danh-sach-api](chi-muc/danh-sach-api/README.md) | 39 module API |
 | [danh-sach-trang](chi-muc/danh-sach-trang/README.md) | 36 trang UI |
-| [thu-vien-backend](chi-muc/thu-vien-backend/README.md) | 98 file lib |
+| [thu-vien-backend](chi-muc/thu-vien-backend/README.md) | 99 file lib |
 | [co-so-du-lieu](chi-muc/co-so-du-lieu/README.md) | 43 schema |
 | [endpoint-http](chi-muc/endpoint-http/README.md) | 235 endpoint HTTP |
 
@@ -91,6 +92,6 @@ Dùng **sau** hub chủ đề — danh sách dài, không đọc từ đầu đ�
 ## Thống kê
 
 - Hub chủ đề: 10
-- README sinh tự động: ~264
+- README sinh tự động: ~265
 - Endpoint HTTP: 235
 

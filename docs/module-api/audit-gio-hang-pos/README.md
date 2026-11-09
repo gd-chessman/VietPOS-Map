@@ -33,6 +33,7 @@ Audit thao tác giỏ hàng POS.
 | HTTP | Message |
 |------|---------|
 | **400** | `No events provided` |
+| **400** | `orderId not found for cart_checkout` |
 | **403** | `Forbidden` |
 
 **Response 201** — trường top-level (trích `res.json`):

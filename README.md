@@ -5,11 +5,12 @@ Bản đồ tài liệu **VietPOS** (tiếng Việt) — mỗi chủ đề một
 ## Đọc theo thứ tự
 
 1. **[Bản đồ chính](docs/README.md)** — mục lục và hub chủ đề
-2. [Bản đồ hình ASCII](docs/ban-do-kien-truc/README.md)
-3. [Hướng dẫn 3 bước](docs/huong-dan-doc/README.md)
-4. [Kiến trúc Mermaid](docs/chuyen-de/kien-truc-he-thong/README.md)
-5. Chọn **hub** trong `docs/chuyen-de/…/` (POS, HĐ đầu vào, chuỗi…)
-6. Tra cứu sâu: [chi-muc/danh-sach-api](docs/chi-muc/danh-sach-api/README.md) và các chỉ mục cùng cấp
+2. **[Sơ đồ bấm được (HTML)](docs/ban-do-kien-truc/so-do-tuong-tac.html)** — bấm ô → mở hub/trang/chỉ mục
+3. [Bản đồ hình ASCII + Mermaid click](docs/ban-do-kien-truc/README.md)
+4. [Hướng dẫn 3 bước](docs/huong-dan-doc/README.md)
+5. [Kiến trúc Mermaid (click node)](docs/chuyen-de/kien-truc-he-thong/README.md)
+6. Chọn **hub** trong `docs/chuyen-de/…/` (POS, HĐ đầu vào, chuỗi…)
+7. Tra cứu sâu: [chi-muc/danh-sach-api](docs/chi-muc/danh-sach-api/README.md) và các chỉ mục cùng cấp
 
 | Thư mục | Ý nghĩa |
 |---------|---------|

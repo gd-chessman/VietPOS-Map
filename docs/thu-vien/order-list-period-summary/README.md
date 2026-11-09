@@ -4,7 +4,7 @@
 
 **Chủ đề:** [POS & đơn hàng](../../chuyen-de/pos-va-don-hang/)
 
-**Mã nguồn Shop:** `artifacts/api-server/src/lib/order-list-period-summary.ts` · **Quy mô:** ~147 dòng
+**Mã nguồn Shop:** `artifacts/api-server/src/lib/order-list-period-summary.ts` · **Quy mô:** ~169 dòng
 
 File này là **tra cứu** khi đã đọc hub chủ đề và module API tương ứng. Thuật toán đầy đủ nằm trong mã TypeScript gốc.
 

@@ -238,6 +238,11 @@ def ban_do_path() -> str:
     return _readme("ban-do-kien-truc")
 
 
+def ban_do_so_do_html_path() -> str:
+    """Sơ đồ HTML bấm được — file trong thư mục ban-do-kien-truc/."""
+    return "ban-do-kien-truc/so-do-tuong-tac.html"
+
+
 def map_index_path() -> str:
     return README
 
@@ -320,7 +325,7 @@ def rewrite_legacy_links(text: str) -> str:
         (r"schema/([\w-]+)\.md", lambda m: co_so_du_lieu_path(m.group(1))),
         (r"lib-modules/([\w/-]+)\.md", lambda m: thu_vien_path(m.group(1))),
         (r"nghiep-vu/([\w-]+)\.md", lambda m: nghiep_vu_path(m.group(1))),
-        (r"he-thong/([\w-]+)\.md", lambda m: he_thong_path(m.group(1))),
+        (r"(?<![\w-])he-thong/([\w-]+)\.md", lambda m: he_thong_path(m.group(1))),
         (r"chuyen-de/00-kien-truc-he-thong\.md", lambda _m: chuyen_de_path("00-kien-truc-he-thong")),
         (r"chuyen-de/([\w-]+)\.md", lambda m: chuyen_de_path(m.group(1))),
         (r"chi-muc/([\w-]+)\.md", lambda m: chi_muc_path(m.group(1))),

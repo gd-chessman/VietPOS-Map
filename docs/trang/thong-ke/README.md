@@ -1,12 +1,12 @@
 # Trang giao diện: `statistics.tsx`
 
-**Mô tả:** Thống kê bán theo sản phẩm/kỳ. (URL /statistics, Statistics, ~1208 dòng).
+**Mô tả:** Thống kê bán theo sản phẩm/kỳ. (URL /statistics, Statistics, ~1225 dòng).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/statistics.tsx`
 
 **Đường dẫn URL:** `/statistics`
 **Tên component React:** `Statistics`
-**Quy mô:** ~1208 dòng.
+**Quy mô:** ~1225 dòng.
 
 ## Thông tin hiển thị
 
@@ -91,6 +91,7 @@ Thống kê bán theo sản phẩm/kỳ.
 - `@/components/DashboardPeriodSelector` → `artifacts/pos-app/src/components/DashboardPeriodSelector.tsx`
 - `@/components/CatalogStatisticsPanel` → `artifacts/pos-app/src/components/CatalogStatisticsPanel.tsx`
 - `@/components/DashboardMonthlyBreakdownCards` → `artifacts/pos-app/src/components/DashboardMonthlyBreakdownCards.tsx`
+- `@/components/DashboardPeriodStatCell` → `artifacts/pos-app/src/components/DashboardPeriodStatCell.tsx`
 - `@/components/DashboardChartTooltip` → `artifacts/pos-app/src/components/DashboardChartTooltip.tsx`
 - `@/components/QuarterChartGranularityToggle` → `artifacts/pos-app/src/components/QuarterChartGranularityToggle.tsx`
 
@@ -127,6 +128,7 @@ Thống kê bán theo sản phẩm/kỳ.
 - `<DashboardChartDataPoint />`
 - `<DashboardMonthlyBreakdownCards />`
 - `<DashboardPeriodSelector />`
+- `<DashboardPeriodStatCell />`
 - `<Delta />`
 - `<Dialog />`
 - `<DialogContent />`
@@ -134,8 +136,7 @@ Thống kê bán theo sản phẩm/kỳ.
 - `<DialogHeader />`
 - `<DialogTitle />`
 - `<DollarSign />`
-- `<FileSpreadsheet />`
-- … 26 component khác
+- … 27 component khác
 
 ## Dialog / modal (tiêu đề)
 
@@ -156,12 +157,12 @@ Thống kê bán theo sản phẩm/kỳ.
 - `import { DashboardPeriodSelector } from "@/components/DashboardPeriodSelector";`
 - `import { CatalogStatisticsPanel } from "@/components/CatalogStatisticsPanel";`
 - `import { DashboardMonthlyBreakdownCards } from "@/components/DashboardMonthlyBreakdownCards";`
+- `import { DashboardPeriodStatCell } from "@/components/DashboardPeriodStatCell";`
 - `import {`
 - `import { useVietnamCalendarDay } from "@/lib/use-vietnam-calendar-day";`
 - `import type { DashboardChartDataPoint } from "@/components/DashboardChartTooltip";`
 - `import { QuarterChartGranularityToggle } from "@/components/QuarterChartGranularityToggle";`
-- `import { chartPointsForMonthlyBreakdown, showsDashboardMonthlyBreakdown } from "@/lib/dashboard-chart-breakdown";`
-- … 10 import khác
+- … 11 import khác
 
 ## Module `@/lib/...` được import
 
@@ -185,6 +186,7 @@ Thống kê bán theo sản phẩm/kỳ.
 - `DashboardPeriodSelector` → `artifacts/pos-app/src/components/DashboardPeriodSelector.tsx`
 - `CatalogStatisticsPanel` → `artifacts/pos-app/src/components/CatalogStatisticsPanel.tsx`
 - `DashboardMonthlyBreakdownCards` → `artifacts/pos-app/src/components/DashboardMonthlyBreakdownCards.tsx`
+- `DashboardPeriodStatCell` → `artifacts/pos-app/src/components/DashboardPeriodStatCell.tsx`
 - `DashboardChartTooltip` → `artifacts/pos-app/src/components/DashboardChartTooltip.tsx`
 - `QuarterChartGranularityToggle` → `artifacts/pos-app/src/components/QuarterChartGranularityToggle.tsx`
 

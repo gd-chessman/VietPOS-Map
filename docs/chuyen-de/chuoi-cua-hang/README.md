@@ -13,7 +13,7 @@ Một **organization** nhiều **shop**; hub shop cho HĐ đầu vào.
 ## 2. Màn hình (giao diện)
 
 - [chuoi-cua-hang](../../trang/chuoi-cua-hang/) — Sửa tổ chức: shop, Viettel, CQT, Trợ lý AI, URL feedback. (URL /chain, Chain, ~4155 dòng).
-- [bang-dieu-khiem-chuoi](../../trang/bang-dieu-khiem-chuoi/) — Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2003 dòng).
+- [bang-dieu-khiem-chuoi](../../trang/bang-dieu-khiem-chuoi/) — Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2011 dòng).
 - [khoa-api-chuoi](../../trang/khoa-api-chuoi/) — Tạo API key shop cho widget và thiết bị ESP32. (URL *(public hoặc redirect — xem App.tsx)*, ChainAp…
 
 ## 3. Module API

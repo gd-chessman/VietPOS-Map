@@ -7,7 +7,7 @@
 ---
 
 1. [ban-hang-pos](../../trang/ban-hang-pos/) — Màn bán hàng: giỏ, thanh toán, in bill, checkout offline. (URL /pos, POS, ~1988 dòng).
-2. [bang-dieu-khiem-chuoi](../../trang/bang-dieu-khiem-chuoi/) — Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2003 dòng).
+2. [bang-dieu-khiem-chuoi](../../trang/bang-dieu-khiem-chuoi/) — Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2011 dòng).
 3. [bang-dieu-khiem](../../trang/bang-dieu-khiem/) — Tổng quan doanh thu, đơn, tồn thấp theo shop. (URL /dashboard, Dashboard, ~1221 dòng).
 4. [bao-cao-he-thong](../../trang/bao-cao-he-thong/) — Báo cáo hệ thống, sự kiện, lỗi. (URL /system-reports, SystemReportsPage, ~269 dòng).
 5. [bao-cao](../../trang/bao-cao/) — Báo cáo nhân viên, in lại bill, doanh số. (URL /reports, Reports, ~2178 dòng).
@@ -36,7 +36,7 @@
 28. [quyen-cua-toi](../../trang/quyen-cua-toi/) — Giải thích quyền role và menu hiện tại. (URL /my-permissions, MyPermissions, ~767 dòng).
 29. [san-pham](../../trang/san-pham/) — Danh mục sản phẩm, variant, import Excel, giá. (URL /products, Products, ~2689 dòng).
 30. [thiet-bi-mang-lan](../../trang/thiet-bi-mang-lan/) — Thiết bị LAN peer (in, widget nội bộ). (URL /lan-devices, LanDevicesPage, ~382 dòng).
-31. [thong-ke](../../trang/thong-ke/) — Thống kê bán theo sản phẩm/kỳ. (URL /statistics, Statistics, ~1208 dòng).
+31. [thong-ke](../../trang/thong-ke/) — Thống kê bán theo sản phẩm/kỳ. (URL /statistics, Statistics, ~1225 dòng).
 32. [ton-kho](../../trang/ton-kho/) — Tồn kho shop, điều chỉnh số lượng, cảnh báo sắp hết. (URL /inventory, Inventory, ~1066 dòng).
 33. [tong-quan-truy-cap](../../trang/tong-quan-truy-cap/) — Section embed tổng quan access trong trang chặn truy cập. (URL *(public hoặc redirect — xem App.tsx)*, *(default export)*, ~453 d…
 34. [tra-cuu-hoa-don-cong-khai](../../trang/tra-cuu-hoa-don-cong-khai/) — Form công khai tra cứu/xem HĐ VAT /vat-invoice. (URL /vat-invoice, VatInvoicePublicForm, ~689 dòng).

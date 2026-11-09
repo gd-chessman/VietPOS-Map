@@ -18,7 +18,17 @@ flowchart TB
   API --> PG[(PostgreSQL)]
   IDB -. pull/push .-> API
   API -. cloud-sync .-> CLOUD[(Postgres cloud)]
+  WIDGET[Widget Android / ESP32] -->|API key| API
+
+  click UI "../../trang/ban-hang-pos/README.md" "Màn POS"
+  click API "../../he-thong/01-kien-truc-runtime/README.md" "Runtime API"
+  click IDB "../offline-dong-bo/README.md" "Offline & đồng bộ"
+  click PG "../../chi-muc/co-so-du-lieu/README.md" "Schema Postgres"
+  click CLOUD "../../he-thong/04-docker-va-cloud-sync/README.md" "Docker & cloud-sync"
+  click WIDGET "../tro-ly-widget/README.md" "Widget & đếm khách"
 ```
+
+**Sơ đồ HTML (bấm ô):** [so-do-tuong-tac.html](../../ban-do-kien-truc/so-do-tuong-tac.html)
 
 | Thành phần | Vai trò |
 |------------|---------|

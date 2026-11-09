@@ -1,12 +1,12 @@
 # Trang giao diện: `chain-dashboard.tsx`
 
-**Mô tả:** Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2003 dòng).
+**Mô tả:** Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2011 dòng).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/chain-dashboard.tsx`
 
 **Đường dẫn URL:** `/chain-dashboard`
 **Tên component React:** `ChainDashboard`
-**Quy mô:** ~2003 dòng.
+**Quy mô:** ~2011 dòng.
 
 ## Thông tin hiển thị
 

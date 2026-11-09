@@ -1,6 +1,6 @@
 # Chỉ mục thư viện backend
 
-**Mô tả:** Danh sách 98 file lib — nhóm theo thư mục, không đọc tuần tự hết.
+**Mô tả:** Danh sách 99 file lib — nhóm theo thư mục, không đọc tuần tự hết.
 
 ← [Bản đồ chính](../../README.md) · [Hướng dẫn đọc](../../huong-dan-doc/)
 
@@ -87,6 +87,10 @@
 ### `logger/`
 
 - [logger](../../thu-vien/logger/) — [Kiến trúc / dùng chung] logger.ts — logger.
+
+### `manager-order-cancel-window/`
+
+- [manager-order-cancel-window](../../thu-vien/manager-order-cancel-window/) — [POS & đơn hàng] manager-order-cancel-window.ts — MANAGER_ORDER_CANCEL_WINDOW_DAYS, MANAGER_ORDER_C…
 
 ### `order-audit/`
 

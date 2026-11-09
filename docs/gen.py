@@ -18,6 +18,7 @@ from schema_extract import (
 from doc_paths import (
     README,
     ban_do_path,
+    ban_do_so_do_html_path,
     chi_muc_path,
     chuyen_de_path,
     co_so_du_lieu_path,
@@ -1165,7 +1166,17 @@ flowchart TB
   API --> PG[(PostgreSQL)]
   IDB -. pull/push .-> API
   API -. cloud-sync .-> CLOUD[(Postgres cloud)]
+  WIDGET[Widget Android / ESP32] -->|API key| API
+
+  click UI "../../trang/ban-hang-pos/README.md" "Màn POS"
+  click API "../../he-thong/01-kien-truc-runtime/README.md" "Runtime API"
+  click IDB "../offline-dong-bo/README.md" "Offline & đồng bộ"
+  click PG "../../chi-muc/co-so-du-lieu/README.md" "Schema Postgres"
+  click CLOUD "../../he-thong/04-docker-va-cloud-sync/README.md" "Docker & cloud-sync"
+  click WIDGET "../tro-ly-widget/README.md" "Widget & đếm khách"
 ```
+
+**Sơ đồ HTML (bấm ô):** [so-do-tuong-tac.html](../../ban-do-kien-truc/so-do-tuong-tac.html)
 
 | Thành phần | Vai trò |
 |------------|---------|
@@ -1662,7 +1673,7 @@ def write_huong_dan_doc() -> str:
 
 | Bước | Làm gì | Mở thư mục |
 |------|--------|------------|
-| **1** | Xem **bản đồ hình** + kiến trúc | [{README}]({md_href(rel, ban_do_path())}) (ASCII) · [kien-truc-he-thong]({md_href(rel, chuyen_de_path("kien-truc-he-thong"))}) (Mermaid) |
+| **1** | Xem **sơ đồ bấm được** + kiến trúc | [so-do-tuong-tac.html]({md_href(rel, ban_do_so_do_html_path())}) (HTML) · [{README}]({md_href(rel, ban_do_path())}) (ASCII/Mermaid) · [kien-truc-he-thong]({md_href(rel, chuyen_de_path("kien-truc-he-thong"))}) |
 | **2** | Chọn **một chủ đề** gần việc bạn làm | [Danh sách chủ đề]({md_href(rel, map_index_path())}#chủ-đề-chuyen-de) |
 | **3** | Sửa code → tra **chỉ mục kỹ thuật** | [chi-muc/danh-sach-api]({md_href(rel, chi_muc_path("danh-sach-api"))}) và các chỉ mục cùng cấp |
 
@@ -1703,15 +1714,190 @@ python3 docs/gen.py
     return rel
 
 
+def _html_href(from_html: str, to_doc: str) -> str:
+    return md_relpath(from_html, to_doc).replace("\\", "/")
+
+
+def mermaid_hub_map(from_doc: str) -> str:
+    """Mermaid 10 hub — node click mở README hub (Cursor / GitHub preview)."""
+    lines = [
+        "```mermaid",
+        "flowchart TB",
+        "  HOME[Trang chủ Map]",
+    ]
+    for i, hub in enumerate(TOPIC_HUBS):
+        nid = f"H{i}"
+        title = str(hub["title"]).replace('"', "'")
+        lines.append(f"  HOME --> {nid}[\"{title}\"]")
+    home_href = _html_href(from_doc, map_index_path())
+    lines.append(f'  click HOME "{home_href}" "Mục lục"')
+    for i, hub in enumerate(TOPIC_HUBS):
+        nid = f"H{i}"
+        href = _html_href(from_doc, chuyen_de_path(str(hub["file"])))
+        title = str(hub["title"]).replace('"', "'")
+        lines.append(f'  click {nid} "{href}" "{title}"')
+    lines.append("```")
+    return "\n".join(lines)
+
+
+def write_so_do_tuong_tac_html() -> str:
+    rel = ban_do_so_do_html_path()
+    from_html = rel
+    hub_cards: list[str] = []
+    for hub in TOPIC_HUBS:
+        href = _html_href(from_html, chuyen_de_path(str(hub["file"])))
+        title = str(hub["title"])
+        desc = str(hub["desc"])
+        hub_cards.append(
+            f"""    <a class="card hub" href="{href}">
+      <strong>{title}</strong>
+      <span>{desc}</span>
+    </a>"""
+        )
+    chi_muc = [
+        ("danh-sach-api", "Module API"),
+        ("danh-sach-trang", "Màn hình UI"),
+        ("co-so-du-lieu", "Schema DB"),
+        ("thu-vien-backend", "Thư viện backend"),
+        ("endpoint-http", "Endpoint HTTP"),
+    ]
+    chi_links = "\n".join(
+        f'    <a class="chip" href="{_html_href(from_html, chi_muc_path(name))}">{label}</a>'
+        for name, label in chi_muc
+    )
+    nav = [
+        ("Trang chủ Map", map_index_path()),
+        ("Hướng dẫn 3 bước", huong_dan_doc_path()),
+        ("Kiến trúc Mermaid", chuyen_de_path("kien-truc-he-thong")),
+        ("Runtime he-thong", he_thong_path("01-kien-truc-runtime")),
+        ("Workspace LuuNiem", he_thong_path("02-workspace-luu-niem")),
+    ]
+    nav_links = " · ".join(
+        f'<a href="{_html_href(from_html, target)}">{label}</a>' for label, target in nav
+    )
+    runtime_links = [
+        ("pos-app → Bán hàng POS", trang_path("pos")),
+        ("api-server → Runtime", he_thong_path("01-kien-truc-runtime")),
+        ("IndexedDB → Offline", chuyen_de_path("offline-dong-bo")),
+        ("PostgreSQL → Schema", chi_muc_path("co-so-du-lieu")),
+        ("Widget/ESP32", chuyen_de_path("tro-ly-widget")),
+    ]
+    runtime_html = "\n".join(
+        f'    <a class="card thin" href="{_html_href(from_html, target)}">{label}</a>'
+        for label, target in runtime_links
+    )
+    html = f"""<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VietPOS-Map — Sơ đồ bấm được</title>
+  <style>
+    :root {{
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --border: #2d3a4f;
+      --text: #e7ecf3;
+      --muted: #9aa8bc;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+    }}
+  </style>
+</head>
+<body style="margin:0;font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;">
+  <header style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);background:var(--panel);">
+    <h1 style="margin:0 0 .35rem;font-size:1.35rem;">VietPOS-Map — Sơ đồ bấm được</h1>
+    <p style="margin:0;color:var(--muted);font-size:.95rem;">Bấm từng ô để mở README tương ứng (trong Cursor: Open with Live Preview hoặc mở file .md).</p>
+    <p style="margin:.75rem 0 0;font-size:.9rem;">{nav_links}</p>
+  </header>
+  <main style="max-width:960px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;">
+    <section style="margin-bottom:2rem;">
+      <h2 style="font-size:1.1rem;margin:0 0 .75rem;">10 hub chủ đề</h2>
+      <div class="grid" style="display:grid;gap:.65rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+{chr(10).join(hub_cards)}
+      </div>
+    </section>
+    <section style="margin-bottom:2rem;">
+      <h2 style="font-size:1.1rem;margin:0 0 .75rem;">Runtime VietPOS</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+{runtime_html}
+      </div>
+    </section>
+    <section>
+      <h2 style="font-size:1.1rem;margin:0 0 .75rem;">Chỉ mục kỹ thuật (chi-muc)</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+{chi_links}
+      </div>
+    </section>
+  </main>
+  <style>
+    a {{ color: var(--accent); text-decoration: none; }}
+    a:hover {{ color: var(--accent-hover); text-decoration: underline; }}
+    .card {{
+      display: block;
+      padding: .85rem 1rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      transition: border-color .15s, transform .1s;
+    }}
+    .card:hover {{
+      border-color: var(--accent);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }}
+    .card strong {{ display: block; font-size: .98rem; margin-bottom: .25rem; }}
+    .card span {{ display: block; font-size: .82rem; color: var(--muted); line-height: 1.35; }}
+    .card.thin {{ font-size: .9rem; padding: .55rem .85rem; }}
+    .chip {{
+      padding: .45rem .75rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .88rem;
+      color: var(--text);
+    }}
+    .chip:hover {{ border-color: var(--accent); text-decoration: none; }}
+  </style>
+</body>
+</html>
+"""
+    p = ROOT / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(html, encoding="utf-8")
+    return rel
+
+
 def write_ban_do_hinh() -> str:
     rel = ban_do_path()
     register_desc(rel, HE_THONG_DESC[legacy_desc_key(rel)])
-    body = """
+    hub_table = "\n".join(
+        f"| [{hub['title']}]({md_href(rel, chuyen_de_path(str(hub['file'])))}) | {hub['desc']} |"
+        for hub in TOPIC_HUBS
+    )
+    so_do_html_href = md_href(rel, ban_do_so_do_html_path())
+    hub_mermaid = mermaid_hub_map(rel)
+    mermaid_placeholder = "___VIETPOS_MAP_MERMAID_HUB___"
+    body = f"""
 # Bản đồ kiến trúc (hình)
 
 **Mô tả:** Sơ đồ **vẽ bằng ký tự** — hiển thị trực tiếp trong Cursor/GitHub, không cần plugin Mermaid.
 
 ← [Trang chủ Map](00-muc-luc-va-kien-truc.md) · [Hướng dẫn đọc](00-huong-dan-doc-tai-lieu.md)
+
+---
+
+## 0. Sơ đồ bấm được (khuyên dùng)
+
+1. **[Mở sơ đồ HTML — bấm từng ô]({so_do_html_href})** (10 hub + runtime + chỉ mục).
+2. **Mermaid hub** (preview Markdown — bấm nút trên sơ đồ nếu viewer hỗ trợ `click`):
+
+{mermaid_placeholder}
+
+| Hub | Mô tả ngắn |
+|-----|------------|
+{hub_table}
 
 ---
 
@@ -1808,7 +1994,7 @@ def write_ban_do_hinh() -> str:
          Chuỗi shop · An ninh · Offline · Trợ lý/widget
 ```
 
-Danh sách link: [00-muc-luc → Chủ đề](00-muc-luc-va-kien-truc.md)
+Danh sách link đầy đủ (bấm được): mục **[0. Sơ đồ bấm được](#0-sơ-đồ-bấm-được-khuyên-dùng)** phía trên · [Trang chủ Map](00-muc-luc-va-kien-truc.md)
 
 ---
 
@@ -1829,6 +2015,7 @@ Danh sách link: [00-muc-luc → Chủ đề](00-muc-luc-va-kien-truc.md)
 Chi tiết: [hoa-don-dau-vao](../chuyen-de/hoa-don-dau-vao/README.md)
 """
     text = rewrite_legacy_links(body.strip()) + "\n"
+    text = text.replace(mermaid_placeholder, hub_mermaid)
     text = text.replace(
         "← [Trang chủ Map](00-muc-luc-va-kien-truc.md) · [Hướng dẫn đọc](00-huong-dan-doc-tai-lieu.md)",
         f"← [Trang chủ Map]({md_href(rel, map_index_path())}) · "
@@ -2569,7 +2756,8 @@ def write_index(
         "",
         "**Mô tả:** Trang chủ Map — mỗi chủ đề nằm trong **một thư mục**, file **`README.md`**.",
         "",
-        f"**Bản đồ hình (ASCII):** [{README}]({ban_do_path()})",
+        f"**Bản đồ bấm được (HTML):** [{ban_do_so_do_html_path()}]({ban_do_so_do_html_path()})",
+        f"**Bản đồ hình (ASCII + Mermaid):** [{README}]({ban_do_path()})",
         "",
         f"1. [Hướng dẫn đọc (3 bước)]({huong_dan_doc_path()})",
         f"2. [Kiến trúc — Mermaid]({chuyen_de_path('kien-truc-he-thong')})",
@@ -2661,6 +2849,7 @@ def main() -> None:
     all_paths.extend(mirror_shop())
     all_paths.append(write_huong_dan_doc())
     all_paths.append(write_ban_do_hinh())
+    write_so_do_tuong_tac_html()
     all_paths.extend(write_dict_files(HE_THONG_FILES))
     all_paths.extend(write_dict_files(NGHIEP_VU_FILES))
     api_paths, flat_endpoints = write_api_modules()
