@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kiến trúc hệ thống — VietPOS-Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link rel="stylesheet" href="/assets/doc.css" />
+</head>
+<body data-md-path="/docs/chuyen-de/kien-truc-he-thong/README.md">
+  <header class="doc-topbar">
+    <a href="/index.html">← Bản đồ</a>
+    <a href="/docs/index.html">Mục lục</a>
+    <span class="doc-path">/docs/chuyen-de/kien-truc-he-thong/README.md</span>
+  </header>
+  <main class="doc-wrap">
+    <article id="content" class="markdown-body"></article>
+  </main>
+  <script id="md-b64" type="application/octet-stream">IyBLaeG6v24gdHLDumMgaOG7hyB0aOG7kW5nCgoqKk3DtCB04bqjOioqIFPGoSDEkeG7kyB04buVbmcgdGjhu4M6IHBvcy1hcHAsIGFwaS1zZXJ2ZXIsIFBvc3RncmVzLCBvZmZsaW5lLCBjbG91ZC1zeW5jIOKAlCDEkeG7jWMgxJHhuqd1IHRpw6puLgoKKipW4buBIHRyYW5nIGNo4bunIE1hcDoqKiBbUkVBRE1FLm1kXSguLi8uLi9SRUFETUUubWQpIMK3IFtIxrDhu5tuZyBk4bqrbiDEkeG7jWNdKC4uLy4uL2h1b25nLWRhbi1kb2MvKQoKSOG7hyB0aOG7kW5nIFZpZXRQT1MgZ+G7k20gKipnaWFvIGRp4buHbiB3ZWIqKiAocG9zLWFwcCksICoqQVBJKiogKGFwaS1zZXJ2ZXIpIHbDoCAqKlBvc3RncmVTUUwqKi4KTcOheSBxdeG6p3kgY8OzIHRo4buDIGdoaSAqKm9mZmxpbmUqKiAoSW5kZXhlZERCKSBy4buTaSDEkeG7k25nIGLhu5k7IHTDuXkgY2jhu41uICoqY2xvdWQtc3luYyoqIGzDqm4gUG9zdGdyZXMgY2xvdWQuCgpgYGBtZXJtYWlkCmZsb3djaGFydCBUQgogIHN1YmdyYXBoIG1heVsiTcOheSBuZ8aw4budaSBkw7luZyJdCiAgICBVSVtwb3MtYXBwIFJlYWN0XQogICAgSURCWyhJbmRleGVkREIgb2ZmbGluZSldCiAgZW5kCiAgVUkgLS0+IElEQgogIFVJIC0tPnwiL2FwaSJ8IEFQSVthcGktc2VydmVyIEV4cHJlc3NdCiAgQVBJIC0tPiBQR1soUG9zdGdyZVNRTCldCiAgSURCIC0uIHB1bGwvcHVzaCAuLT4gQVBJCiAgQVBJIC0uIGNsb3VkLXN5bmMgLi0+IENMT1VEWyhQb3N0Z3JlcyBjbG91ZCldCiAgV0lER0VUW1dpZGdldCBBbmRyb2lkIC8gRVNQMzJdIC0tPnxBUEkga2V5fCBBUEkKCiAgY2xpY2sgVUkgIi4uLy4uL3RyYW5nL2Jhbi1oYW5nLXBvcy9SRUFETUUubWQiICJNw6BuIFBPUyIKICBjbGljayBBUEkgIi4uLy4uL2hlLXRob25nLzAxLWtpZW4tdHJ1Yy1ydW50aW1lL1JFQURNRS5tZCIgIlJ1bnRpbWUgQVBJIgogIGNsaWNrIElEQiAiLi4vb2ZmbGluZS1kb25nLWJvL1JFQURNRS5tZCIgIk9mZmxpbmUgJiDEkeG7k25nIGLhu5kiCiAgY2xpY2sgUEcgIi4uLy4uL2NoaS1tdWMvY28tc28tZHUtbGlldS9SRUFETUUubWQiICJTY2hlbWEgUG9zdGdyZXMiCiAgY2xpY2sgQ0xPVUQgIi4uLy4uL2hlLXRob25nLzA0LWRvY2tlci12YS1jbG91ZC1zeW5jL1JFQURNRS5tZCIgIkRvY2tlciAmIGNsb3VkLXN5bmMiCiAgY2xpY2sgV0lER0VUICIuLi90cm8tbHktd2lkZ2V0L1JFQURNRS5tZCIgIldpZGdldCAmIMSR4bq/bSBraMOhY2giCmBgYAoKKipTxqEgxJHhu5MgSFRNTCAoYuG6pW0gw7QpOioqIFtpbmRleC5odG1sXSguLi8uLi9pbmRleC5odG1sKQoKfCBUaMOgbmggcGjhuqduIHwgVmFpIHRyw7IgfAp8LS0tLS0tLS0tLS0tfC0tLS0tLS0tLXwKfCAqKnBvcy1hcHAqKiB8IE3DoG4gaMOsbmggUE9TLCBraG8sIEjEkCBWQVQsIGPhuqV1IGjDrG5oIGNodeG7l2kgfAp8ICoqYXBpLXNlcnZlcioqIHwgWOG7rSBsw70gbmdoaeG7h3AgduG7pSwgcXV54buBbiBKV1QsIGfhu41pIFZpZXR0ZWwvQ1FUIHwKfCAqKkB3b3Jrc3BhY2UvZGIqKiB8IFNjaGVtYSBEcml6emxlIOKGkiBQb3N0Z3JlcyB8CnwgKipsb2NhbC1kYiAvIHN5bmMqKiB8IMSQxqFuICYgSMSQIGNo4budIMSR4bqpeSBraGkgbeG6pXQgbeG6oW5nIHwKfCAqKmNsb3VkLXN5bmMqKiB8IE1pcnJvciBEQiBsw6puIFJhaWx3YXkgKG9wcykgfAoKKipC4bqjbiDEkeG7kyBow6xuaCAoQVNDSUksIGx1w7RuIGhp4buDbiB0aOG7iyk6KiogW2Jhbi1kby1raWVuLXRydWMvUkVBRE1FLm1kXSguLi9iYW4tZG8ta2llbi10cnVjL1JFQURNRS5tZCkKCioqQ2hpIHRp4bq/dCB04burbmcgcGjhuqduOioqIFtoZS10aG9uZy8wMV0oLi4vaGUtdGhvbmcvMDEta2llbi10cnVjLXJ1bnRpbWUvUkVBRE1FLm1kKSDCtyBbMDIgd29ya3NwYWNlXSguLi9oZS10aG9uZy8wMi13b3Jrc3BhY2UtbHV1LW5pZW0vUkVBRE1FLm1kKSDCtyBbMDMgbW9ub3JlcG9dKC4uL2hlLXRob25nLzAzLW1vbm9yZXBvLXBhY2thZ2VzL1JFQURNRS5tZCkgwrcgWzA0IERvY2tlcl0oLi4vaGUtdGhvbmcvMDQtZG9ja2VyLXZhLWNsb3VkLXN5bmMvUkVBRE1FLm1kKQoKLS0tCgoqU2luaCB04buxIMSR4buZbmcg4oCUIGBweXRob24zIGRvY3MvZ2VuLnB5YCoK</script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });</script>
+  <script src="/assets/reader.js"></script>
+</body>
+</html>

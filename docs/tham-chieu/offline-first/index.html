@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Offline-first (PWA + IndexedDB) — VietPOS-Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link rel="stylesheet" href="/assets/doc.css" />
+</head>
+<body data-md-path="/docs/tham-chieu/offline-first/README.md">
+  <header class="doc-topbar">
+    <a href="/index.html">← Bản đồ</a>
+    <a href="/docs/index.html">Mục lục</a>
+    <span class="doc-path">/docs/tham-chieu/offline-first/README.md</span>
+  </header>
+  <main class="doc-wrap">
+    <article id="content" class="markdown-body"></article>
+  </main>
+  <script id="md-b64" type="application/octet-stream">PCEtLSBNaXJyb3I6IFNob3AtTWFuYWdlci1TeXN0ZW0tT2ZmbGluZS9kb2NzL29mZmxpbmUtZmlyc3QubWQgLS0+CgojIE9mZmxpbmUtZmlyc3QgKFBXQSArIEluZGV4ZWREQikKCioqTcO0IHThuqM6KiogVMOgaSBsaeG7h3UgdGhhbSBjaGnhur91IGfhu5FjIFNob3AgZG9jcy9vZmZsaW5lLWZpcnN0Lm1kIOKAlCBPZmZsaW5lLWZpcnN0IChQV0EgKyBJbmRleGVkREIpIChu4buZaSBkdW5nIGTGsOG7m2kgdGjGsOG7nW5nIHRp4bq/bmcgQW5oKS4KCj4gKipHaGkgY2jDujoqKiBQaOG6p24gZMaw4bubaSBnaeG7ryBuZ3V5w6puIHRp4bq/bmcgQW5oIHThu6sgcmVwbyBTaG9wICh0aGFtIGNoaeG6v3Uga+G7uSB0aHXhuq10KS4gTHXhu5NuZyB0aeG6v25nIFZp4buHdCDGsHUgdGnDqm4gxJHhu41jIGBuZ2hpZXAtdnUvYCB2w6AgYGhlLXRob25nL2AuCgojIyBEZWNpc2lvbgoKVmlldFBPUyBQT1MgdOG6oWkgcXXhuqd5IGNodXnhu4NuIHNhbmcgKipvZmZsaW5lLWZpcnN0KiogduG7m2k6CgotICoqUFdBKiog4oCUIGNhY2hlIHNoZWxsIGFwcCBxdWEgU2VydmljZSBXb3JrZXIKLSAqKkluZGV4ZWREQiAoRGV4aWUpKiog4oCUIGNhdGFsb2csIHThu5NuIGtobywgxJHGoW4gcGVuZGluZywgcGhpw6puIGNhCi0gKipTeW5jIG91dGJveCoqIOKAlCDEkeG6qXkgxJHGoW4gbMOqbiBFeHByZXNzIEFQSSBraGkgY8OzIG3huqFuZwotICoqSWRlbXBvdGVuY3kqKiDigJQgaGVhZGVyIGBJZGVtcG90ZW5jeS1LZXlgICsgYuG6o25nIGBvcmRlcl9zeW5jX2tleXNgIHRyw6puIFBvc3RncmVzCgpXZWIgYWRtaW4gKGBhcnRpZmFjdHMvcG9zLWFwcGApIGdp4buvIG5ndXnDqm47IG9mZmxpbmUgxrB1IHRpw6puIGx14buTbmcgKipQT1MgY2hlY2tvdXQqKi4KCiMjIFBhY2thZ2VzCgp8IFBhY2thZ2UgfCBSb2xlIHwKfC0tLS0tLS0tLXwtLS0tLS18CnwgYGxpYi9sb2NhbC1kYmAgfCBEZXhpZSBzY2hlbWEgKyBoZWxwZXJzIHwKfCBgbGliL3N5bmNgIHwgUHVsbCBjYXRhbG9nLCBwdXNoIHBlbmRpbmcgb3JkZXJzLCBzeW5jIHdvcmtlciB8CnwgYGFydGlmYWN0cy9wb3MtYXBwYCB8IFBXQSArIFVJIGJhbm5lciArIG9mZmxpbmUgY2hlY2tvdXQgfAoKIyMgQVBJCgotIGBHRVQgL2FwaS9zeW5jL2NhdGFsb2c/c2luY2U9YCDigJQgc25hcHNob3QgY2F0YWxvZyArIGludmVudG9yeQotIGBHRVQgL2FwaS9zeW5jL3NoaWZ0LW9yZGVycz9zaGlmdFNlc3Npb25JZD1gIOKAlCDEkcahbiB0cm9uZyBjYSAoY2FjaGUgb2ZmbGluZSkKLSBgUE9TVCAvYXBpL29yZGVyc2AgKyBgSWRlbXBvdGVuY3ktS2V5YCDigJQgdOG6oW8gxJHGoW4gaWRlbXBvdGVudCBraGkgc3luYwoKIyMgUGhhc2VzCgoxLiAqKlBoYXNlIDAqKiDigJQgbG9jYWwtZGIsIHN5bmMsIFBXQSBzY2FmZm9sZCwgYmFubmVyCjIuICoqUGhhc2UgMSoqIOKAlCBjaGVja291dCBvZmZsaW5lICsgc3luYyBxdWV1ZQozLiAqKlBoYXNlIDIqKiDigJQgcGhpw6puIGNhICsgbOG7i2NoIHPhu60gxJHGoW4gdHJvbmcgY2Egb2ZmbGluZQoKIyMgQ29uZmxpY3QgcG9saWN5ICh2MSkKClNlcnZlciB0aOG6r25nIHRyw6puIHThu5NuIGtoby4gxJDGoW4gY29uZmxpY3QgxJHGsOG7o2MgxJHDoW5oIGThuqV1IGBjb25mbGljdGAgdHJvbmcgSW5kZXhlZERCIMSR4buDIHjhu60gbMO9IHRo4bunIGPDtG5nLgo=</script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });</script>
+  <script src="/assets/reader.js"></script>
+</body>
+</html>

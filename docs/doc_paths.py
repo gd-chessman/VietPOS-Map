@@ -247,8 +247,13 @@ def portal_index_href(from_doc_under_docs: str) -> str:
 
 
 def portal_doc_href(to_doc_under_docs: str) -> str:
-    """Link từ index.html (gốc repo) tới README trong docs/."""
-    return f"docs/{to_doc_under_docs.replace(chr(92), '/')}"
+    """Link từ index.html (gốc repo) tới trang HTML đã render trong docs/."""
+    p = to_doc_under_docs.replace("\\", "/")
+    if p == README:
+        return "docs/index.html"
+    if p.endswith(f"/{README}"):
+        return "docs/" + p[: -len(README)] + "index.html"
+    return f"docs/{p}"
 
 
 def map_index_path() -> str:

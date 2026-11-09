@@ -1,19 +1,25 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": false,
+  "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/(.*).md",
-      "missing": [{ "type": "query", "key": "raw" }],
-      "destination": "/viewer.html"
-    }
-  ],
   "redirects": [
     {
-      "source": "/docs/:path+/",
-      "destination": "/docs/:path+/README.md",
+      "source": "/docs/README.md",
+      "destination": "/docs/index.html",
       "permanent": false
+    },
+    {
+      "source": "/docs/:path+/README.md",
+      "destination": "/docs/:path+/index.html",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
     }
   ]
 }

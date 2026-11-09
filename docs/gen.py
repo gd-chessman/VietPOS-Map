@@ -2,6 +2,7 @@
 """Build VietPOS-Map: long TOC + detailed per-topic files from Shop codebase."""
 from __future__ import annotations
 
+import base64
 import re
 import shutil
 from pathlib import Path
@@ -2161,6 +2162,111 @@ def write_map_portal_index_html(
     return MAP_PORTAL_INDEX
 
 
+def _md_page_title(md: str) -> str:
+    m = re.search(r"^#\s+(.+)$", md, re.MULTILINE)
+    return m.group(1).strip() if m else "VietPOS-Map"
+
+
+def write_md_index_pages(all_paths: list[str]) -> int:
+    """Mỗi README.md → index.html cùng thư mục (Vercel đọc giống GitHub README)."""
+    repo_root = ROOT.parent
+    assets_src = repo_root / "assets" / "reader.js"
+    if not assets_src.is_file():
+        raise SystemExit("Missing assets/reader.js")
+    count = 0
+    shell = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} — VietPOS-Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link rel="stylesheet" href="/assets/doc.css" />
+</head>
+<body data-md-path="{md_web_path}">
+  <header class="doc-topbar">
+    <a href="/index.html">← Bản đồ</a>
+    <a href="/docs/index.html">Mục lục</a>
+    <span class="doc-path">{md_web_path}</span>
+  </header>
+  <main class="doc-wrap">
+    <article id="content" class="markdown-body"></article>
+  </main>
+  <script id="md-b64" type="application/octet-stream">{b64}</script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({{ startOnLoad: false, theme: 'dark', securityLevel: 'loose' }});</script>
+  <script src="/assets/reader.js"></script>
+</body>
+</html>
+"""
+    for rel in all_paths:
+        if rel != README and not rel.endswith(f"/{README}"):
+            continue
+        md_path = ROOT / rel
+        if not md_path.is_file():
+            continue
+        md_text = md_path.read_text(encoding="utf-8")
+        b64 = base64.standard_b64encode(md_text.encode("utf-8")).decode("ascii")
+        title = _esc_html(_md_page_title(md_text))
+        if rel == README:
+            md_web_path = "/docs/README.md"
+        else:
+            md_web_path = "/docs/" + rel
+        html = shell.format(
+            title=title,
+            md_web_path=_esc_html(md_web_path),
+            b64=b64,
+        )
+        (md_path.parent / "index.html").write_text(html, encoding="utf-8")
+        count += 1
+    return count
+
+
+def write_doc_assets() -> None:
+    repo_root = ROOT.parent
+    css = """body {
+  margin: 0;
+  background: #0d1117;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+.doc-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.65rem 1.25rem;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  font-size: 0.875rem;
+}
+.doc-topbar a { color: #58a6ff; text-decoration: none; }
+.doc-topbar a:hover { text-decoration: underline; }
+.doc-path { color: #94a3b8; word-break: break-all; flex: 1; min-width: 12rem; }
+.doc-wrap {
+  max-width: 1012px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+.markdown-body { box-sizing: border-box; min-width: 200px; }
+.markdown-body pre { background: #161b22 !important; }
+.markdown-body table { display: block; overflow-x: auto; }
+.markdown-body .mermaid {
+  background: #161b22;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.error { color: #f85149; }
+"""
+    assets = repo_root / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    (assets / "doc.css").write_text(css, encoding="utf-8")
+
+
 def write_ban_do_hinh() -> str:
     rel = ban_do_path()
     register_desc(rel, HE_THONG_DESC[legacy_desc_key(rel)])
@@ -3157,6 +3263,12 @@ def main() -> None:
         page_count=sum(1 for p in all_paths if p.startswith("trang/")),
         api_count=sum(1 for p in all_paths if p.startswith("module-api/")),
         schema_count=sum(1 for p in all_paths if p.startswith("co-so-du-lieu/")),
+    )
+    write_doc_assets()
+    html_pages = write_md_index_pages(all_paths)
+    print(
+        f"HTML doc pages: {html_pages}; ",
+        end="",
     )
     print(
         f"Built {len(all_paths)} topic files + index; "

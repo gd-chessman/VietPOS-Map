@@ -31,6 +31,9 @@ Tạo lại toàn bộ README sau khi sửa code Shop.
 
 ## Xem trên Vercel (giống README GitHub)
 
-Deploy **root** = thư mục `VietPOS-Map`. Mọi URL `*.md` (vd. `/docs/trang/ban-hang-pos/README.md`) được **rewrite** sang `viewer.html`: style GitHub Markdown dark, bảng, code, Mermaid.
+Deploy **root** = thư mục `VietPOS-Map`. Sau `python3 docs/gen.py`, mỗi `README.md` có thêm **`index.html`** cùng thư mục (GitHub Markdown dark + Mermaid).
 
-File gốc vẫn tải qua `?raw=1` (viewer dùng nội bộ). Cần commit `viewer.html` + `vercel.json` rồi deploy lại.
+- URL gọn: `/docs/trang/ban-hang-pos` hoặc `/docs/trang/ban-hang-pos/index.html`
+- Link cũ `.../README.md` → redirect sang `index.html` (`vercel.json`)
+
+Commit `assets/`, `vercel.json`, toàn bộ `docs/**/index.html` (sinh từ gen) rồi deploy lại.
