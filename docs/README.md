@@ -2,7 +2,7 @@
 
 **Mô tả:** Trang chủ Map — mỗi chủ đề nằm trong **một thư mục**, file **`README.md`**.
 
-**Bản đồ bấm được (HTML):** [ban-do-kien-truc/so-do-tuong-tac.html](ban-do-kien-truc/so-do-tuong-tac.html)
+**Cửa vào (index.html):** [../index.html](../index.html)
 **Bản đồ hình (ASCII + Mermaid):** [README.md](ban-do-kien-truc/README.md)
 
 1. [Hướng dẫn đọc (3 bước)](huong-dan-doc/README.md)

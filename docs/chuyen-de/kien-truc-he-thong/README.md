@@ -28,7 +28,7 @@ flowchart TB
   click WIDGET "../tro-ly-widget/README.md" "Widget & đếm khách"
 ```
 
-**Sơ đồ HTML (bấm ô):** [so-do-tuong-tac.html](../../ban-do-kien-truc/so-do-tuong-tac.html)
+**Sơ đồ HTML (bấm ô):** [index.html](../../index.html)
 
 | Thành phần | Vai trò |
 |------------|---------|

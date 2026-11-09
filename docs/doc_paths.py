@@ -238,9 +238,17 @@ def ban_do_path() -> str:
     return _readme("ban-do-kien-truc")
 
 
-def ban_do_so_do_html_path() -> str:
-    """Sơ đồ HTML bấm được — file trong thư mục ban-do-kien-truc/."""
-    return "ban-do-kien-truc/so-do-tuong-tac.html"
+MAP_PORTAL_INDEX = "index.html"
+
+
+def portal_index_href(from_doc_under_docs: str) -> str:
+    """Link tới index.html ở gốc repo VietPOS-Map (từ file markdown trong docs/)."""
+    return md_relpath(from_doc_under_docs, f"../{MAP_PORTAL_INDEX}").replace("\\", "/")
+
+
+def portal_doc_href(to_doc_under_docs: str) -> str:
+    """Link từ index.html (gốc repo) tới README trong docs/."""
+    return f"docs/{to_doc_under_docs.replace(chr(92), '/')}"
 
 
 def map_index_path() -> str:

@@ -8,7 +8,7 @@
 
 | Bước | Làm gì | Mở thư mục |
 |------|--------|------------|
-| **1** | Xem **sơ đồ bấm được** + kiến trúc | [so-do-tuong-tac.html](../ban-do-kien-truc/so-do-tuong-tac.html) (HTML) · [README.md](../ban-do-kien-truc/) (ASCII/Mermaid) · [kien-truc-he-thong](../chuyen-de/kien-truc-he-thong/) |
+| **1** | Xem **sơ đồ bấm được** + kiến trúc | [index.html](../../index.html) (gốc repo) · [README.md](../ban-do-kien-truc/) (ASCII/Mermaid) · [kien-truc-he-thong](../chuyen-de/kien-truc-he-thong/) |
 | **2** | Chọn **một chủ đề** gần việc bạn làm | [Danh sách chủ đề](../README.md#chủ-đề-chuyen-de) |
 | **3** | Sửa code → tra **chỉ mục kỹ thuật** | [chi-muc/danh-sach-api](../chi-muc/danh-sach-api/) và các chỉ mục cùng cấp |
 

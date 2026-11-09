@@ -8,7 +8,7 @@
 
 ## 0. Sơ đồ bấm được (khuyên dùng)
 
-1. **[Mở sơ đồ HTML — bấm từng ô](so-do-tuong-tac.html)** (10 hub + runtime + chỉ mục).
+1. **[Mở index.html — sơ đồ bấm được](../../index.html)** (gốc repo VietPOS-Map; 10 hub + runtime + chỉ mục).
 2. **Mermaid hub** (preview Markdown — bấm nút trên sơ đồ nếu viewer hỗ trợ `click`):
 
 ```mermaid

@@ -18,7 +18,9 @@ from schema_extract import (
 from doc_paths import (
     README,
     ban_do_path,
-    ban_do_so_do_html_path,
+    MAP_PORTAL_INDEX,
+    portal_doc_href,
+    portal_index_href,
     chi_muc_path,
     chuyen_de_path,
     co_so_du_lieu_path,
@@ -1176,7 +1178,7 @@ flowchart TB
   click WIDGET "../tro-ly-widget/README.md" "Widget & đếm khách"
 ```
 
-**Sơ đồ HTML (bấm ô):** [so-do-tuong-tac.html](../../ban-do-kien-truc/so-do-tuong-tac.html)
+**Sơ đồ HTML (bấm ô):** [index.html](../../index.html)
 
 | Thành phần | Vai trò |
 |------------|---------|
@@ -1673,7 +1675,7 @@ def write_huong_dan_doc() -> str:
 
 | Bước | Làm gì | Mở thư mục |
 |------|--------|------------|
-| **1** | Xem **sơ đồ bấm được** + kiến trúc | [so-do-tuong-tac.html]({md_href(rel, ban_do_so_do_html_path())}) (HTML) · [{README}]({md_href(rel, ban_do_path())}) (ASCII/Mermaid) · [kien-truc-he-thong]({md_href(rel, chuyen_de_path("kien-truc-he-thong"))}) |
+| **1** | Xem **sơ đồ bấm được** + kiến trúc | [index.html]({portal_index_href(rel)}) (gốc repo) · [{README}]({md_href(rel, ban_do_path())}) (ASCII/Mermaid) · [kien-truc-he-thong]({md_href(rel, chuyen_de_path("kien-truc-he-thong"))}) |
 | **2** | Chọn **một chủ đề** gần việc bạn làm | [Danh sách chủ đề]({md_href(rel, map_index_path())}#chủ-đề-chuyen-de) |
 | **3** | Sửa code → tra **chỉ mục kỹ thuật** | [chi-muc/danh-sach-api]({md_href(rel, chi_muc_path("danh-sach-api"))}) và các chỉ mục cùng cấp |
 
@@ -1740,12 +1742,10 @@ def mermaid_hub_map(from_doc: str) -> str:
     return "\n".join(lines)
 
 
-def write_so_do_tuong_tac_html() -> str:
-    rel = ban_do_so_do_html_path()
-    from_html = rel
+def write_map_portal_index_html() -> str:
     hub_cards: list[str] = []
     for hub in TOPIC_HUBS:
-        href = _html_href(from_html, chuyen_de_path(str(hub["file"])))
+        href = portal_doc_href(chuyen_de_path(str(hub["file"])))
         title = str(hub["title"])
         desc = str(hub["desc"])
         hub_cards.append(
@@ -1762,7 +1762,7 @@ def write_so_do_tuong_tac_html() -> str:
         ("endpoint-http", "Endpoint HTTP"),
     ]
     chi_links = "\n".join(
-        f'    <a class="chip" href="{_html_href(from_html, chi_muc_path(name))}">{label}</a>'
+        f'    <a class="chip" href="{portal_doc_href(chi_muc_path(name))}">{label}</a>'
         for name, label in chi_muc
     )
     nav = [
@@ -1773,7 +1773,7 @@ def write_so_do_tuong_tac_html() -> str:
         ("Workspace LuuNiem", he_thong_path("02-workspace-luu-niem")),
     ]
     nav_links = " · ".join(
-        f'<a href="{_html_href(from_html, target)}">{label}</a>' for label, target in nav
+        f'<a href="{portal_doc_href(target)}">{label}</a>' for label, target in nav
     )
     runtime_links = [
         ("pos-app → Bán hàng POS", trang_path("pos")),
@@ -1783,7 +1783,7 @@ def write_so_do_tuong_tac_html() -> str:
         ("Widget/ESP32", chuyen_de_path("tro-ly-widget")),
     ]
     runtime_html = "\n".join(
-        f'    <a class="card thin" href="{_html_href(from_html, target)}">{label}</a>'
+        f'    <a class="card thin" href="{portal_doc_href(target)}">{label}</a>'
         for label, target in runtime_links
     )
     html = f"""<!DOCTYPE html>
@@ -1863,10 +1863,13 @@ def write_so_do_tuong_tac_html() -> str:
 </body>
 </html>
 """
-    p = ROOT / rel
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(html, encoding="utf-8")
-    return rel
+    repo_root = ROOT.parent
+    out = repo_root / MAP_PORTAL_INDEX
+    out.write_text(html, encoding="utf-8")
+    legacy = ROOT / "ban-do-kien-truc" / "so-do-tuong-tac.html"
+    if legacy.is_file():
+        legacy.unlink()
+    return MAP_PORTAL_INDEX
 
 
 def write_ban_do_hinh() -> str:
@@ -1876,7 +1879,7 @@ def write_ban_do_hinh() -> str:
         f"| [{hub['title']}]({md_href(rel, chuyen_de_path(str(hub['file'])))}) | {hub['desc']} |"
         for hub in TOPIC_HUBS
     )
-    so_do_html_href = md_href(rel, ban_do_so_do_html_path())
+    so_do_html_href = portal_index_href(rel)
     hub_mermaid = mermaid_hub_map(rel)
     mermaid_placeholder = "___VIETPOS_MAP_MERMAID_HUB___"
     body = f"""
@@ -1890,7 +1893,7 @@ def write_ban_do_hinh() -> str:
 
 ## 0. Sơ đồ bấm được (khuyên dùng)
 
-1. **[Mở sơ đồ HTML — bấm từng ô]({so_do_html_href})** (10 hub + runtime + chỉ mục).
+1. **[Mở index.html — sơ đồ bấm được]({so_do_html_href})** (gốc repo VietPOS-Map; 10 hub + runtime + chỉ mục).
 2. **Mermaid hub** (preview Markdown — bấm nút trên sơ đồ nếu viewer hỗ trợ `click`):
 
 {mermaid_placeholder}
@@ -2756,7 +2759,7 @@ def write_index(
         "",
         "**Mô tả:** Trang chủ Map — mỗi chủ đề nằm trong **một thư mục**, file **`README.md`**.",
         "",
-        f"**Bản đồ bấm được (HTML):** [{ban_do_so_do_html_path()}]({ban_do_so_do_html_path()})",
+        f"**Cửa vào (index.html):** [{portal_index_href(map_index_path())}]({portal_index_href(map_index_path())})",
         f"**Bản đồ hình (ASCII + Mermaid):** [{README}]({ban_do_path()})",
         "",
         f"1. [Hướng dẫn đọc (3 bước)]({huong_dan_doc_path()})",
@@ -2849,7 +2852,7 @@ def main() -> None:
     all_paths.extend(mirror_shop())
     all_paths.append(write_huong_dan_doc())
     all_paths.append(write_ban_do_hinh())
-    write_so_do_tuong_tac_html()
+    write_map_portal_index_html()
     all_paths.extend(write_dict_files(HE_THONG_FILES))
     all_paths.extend(write_dict_files(NGHIEP_VU_FILES))
     api_paths, flat_endpoints = write_api_modules()

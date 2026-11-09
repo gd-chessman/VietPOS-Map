@@ -5,7 +5,7 @@ Bản đồ tài liệu **VietPOS** (tiếng Việt) — mỗi chủ đề một
 ## Đọc theo thứ tự
 
 1. **[Bản đồ chính](docs/README.md)** — mục lục và hub chủ đề
-2. **[Sơ đồ bấm được (HTML)](docs/ban-do-kien-truc/so-do-tuong-tac.html)** — bấm ô → mở hub/trang/chỉ mục
+2. **[index.html](index.html)** — sơ đồ bấm được (gốc thư mục VietPOS-Map)
 3. [Bản đồ hình ASCII + Mermaid click](docs/ban-do-kien-truc/README.md)
 4. [Hướng dẫn 3 bước](docs/huong-dan-doc/README.md)
 5. [Kiến trúc Mermaid (click node)](docs/chuyen-de/kien-truc-he-thong/README.md)
