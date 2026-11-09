@@ -3139,6 +3139,7 @@ def main() -> None:
     chi_muc = write_chi_muc(all_paths, flat_endpoints)
     all_paths.extend(chi_muc)
     write_index(all_paths, flat_endpoints)
+    paths_for_html = [*all_paths, map_index_path()]
     write_map_portal_index_html(
         endpoint_count=len(flat_endpoints),
         page_count=sum(1 for p in all_paths if p.startswith("trang/")),
@@ -3147,7 +3148,7 @@ def main() -> None:
     )
     write_doc_assets()
     write_site_nav_json(all_paths)
-    html_pages = write_md_index_pages(all_paths)
+    html_pages = write_md_index_pages(paths_for_html)
     print(
         f"HTML doc pages: {html_pages}; ",
         end="",
