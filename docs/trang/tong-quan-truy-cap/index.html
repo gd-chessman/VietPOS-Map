@@ -4,22 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trang giao diện: `access-overview-section.tsx` — VietPOS-Map</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/trang/tong-quan-truy-cap/README.md">
-  <header class="doc-topbar">
-    <a href="/index.html">← Bản đồ</a>
-    <a href="/docs/index.html">Mục lục</a>
-    <span class="doc-path">/docs/trang/tong-quan-truy-cap/README.md</span>
-  </header>
-  <main class="doc-wrap">
-    <article id="content" class="markdown-body"></article>
-  </main>
+  <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
+  <div class="doc-layout">
+    <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
+    <div class="doc-main">
+      <header class="doc-topbar">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Mở cây tài liệu">☰</button>
+        <a href="/index.html">Bản đồ</a>
+        <a href="/docs">Mục lục</a>
+        <span class="doc-topbar-spacer"></span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi sáng tối">☀ Sáng</button>
+      </header>
+      <nav id="doc-breadcrumb" class="doc-breadcrumb" aria-label="Breadcrumb"></nav>
+      <div class="doc-body-row">
+        <main class="doc-wrap">
+          <article id="content" class="markdown-body"></article>
+        </main>
+        <aside id="doc-toc" class="doc-toc" aria-label="Mục lục trang"></aside>
+      </div>
+    </div>
+  </div>
   <script id="md-b64" type="application/octet-stream">IyBUcmFuZyBnaWFvIGRp4buHbjogYGFjY2Vzcy1vdmVydmlldy1zZWN0aW9uLnRzeGAKCioqTcO0IHThuqM6KiogU2VjdGlvbiBlbWJlZCB04buVbmcgcXVhbiBhY2Nlc3MgdHJvbmcgdHJhbmcgY2jhurduIHRydXkgY+G6rXAuIChVUkwgKihwdWJsaWMgaG/hurdjIHJlZGlyZWN0IOKAlCB4ZW0gQXBwLnRzeCkqLCAqKGRlZmF1bHQgZXhwb3J0KSosIH40NTMgZMOybmcpLgoKKipNw6Mgbmd14buTbiBTaG9wOioqIGBhcnRpZmFjdHMvcG9zLWFwcC9zcmMvcGFnZXMvYWNjZXNzLW92ZXJ2aWV3LXNlY3Rpb24udHN4YAoKKirEkMaw4budbmcgZOG6q24gVVJMOioqIGAqKHB1YmxpYyBob+G6t2MgcmVkaXJlY3Qg4oCUIHhlbSBBcHAudHN4KSpgCioqVMOqbiBjb21wb25lbnQgUmVhY3Q6KiogYCooZGVmYXVsdCBleHBvcnQpKmAKKipRdXkgbcO0OioqIH40NTMgZMOybmcuCgojIyBUaMO0bmcgdGluIGhp4buDbiB0aOG7iwoKTuG7mWkgZHVuZyBuZ8aw4budaSBkw7luZyAqKm5ow6xuIHRo4bqleSoqIHRyw6puIG3DoG4gaMOsbmggKHRyw61jaCBuaMOjbiB04burIFRTWDsgc+G7kSBsaeG7h3UgxJHhu5luZyB04burIEFQSSkuCgojIyMgYGFjY2Vzcy1vdmVydmlldy1zZWN0aW9uLnRzeGAKCioqVGjhursgLyBjaOG7iSBz4buRIChDYXJkVGl0bGUpOioqCi0gVGhp4bq/dCBi4buLICYgSVAgZ+G6p24gxJHDonkKKipD4buZdCBi4bqjbmc6KioKLSBUw6puIHRoaeG6v3QgYuG7iwotIERldmljZSBJRAotIElQCi0gSMO0bSBuYXkKLSA0OGgKLSBM4bqnbiBjdeG7kWkKLSBUaGFvIHTDoWMKCiMjIFRoYW8gdMOhYyBuZ8aw4budaSBkw7luZwoKSMOgbmggxJHhu5luZyBjaMOtbmggKG7DunQsIG1lbnUsIG3hu6VjIGRpYWxvZykg4oCUIGtow7RuZyBsaeG7h3Qga8OqIG3hu41pIG7DunQgaWNvbi1vbmx5LgoKIyMjIGBhY2Nlc3Mtb3ZlcnZpZXctc2VjdGlvbi50c3hgCgoqKlRoYW8gdMOhYzoqKgotIHZvaWQgcmVmZXRjaCgpfSA+IEzDoG0gbeG7m2kKLSDEkMOjIGNo4bq3biBJUAotIHNldENvbmZpcm1CbG9jayggKSB9ID4gQ2jhurduIElQCi0gxJDDoyBjaOG6t24gdGhp4bq/dCBi4buLCi0gc2V0Q29uZmlybUJsb2NrKCApIH0gPiBDaOG6t24gdGhp4bq/dCBi4buLCi0gSHXhu7cKCioqS2jDtG5nIGPDsyByb3V0ZSByacOqbmcqKiDigJQgZW1iZWQgdHJvbmcgdGFiICoqVOG7lW5nIHF1YW4qKiBj4bunYSBgL2FjY2Vzcy1ibG9ja2AuCgojIyBBUEkKCi0gYEdFVCAvYXBpL2FjY2Vzcy1vYnNlcnZhdGlvbnM/bGltaXQ9MjAwYCDigJQgUmVhY3QgUXVlcnkga2V5IGBbImFjY2Vzcy1vYnNlcnZhdGlvbnMiXWAuCi0gQ2jhurduIG5oYW5oOiBgUE9TVCAvYXBpL2Jsb2NrZWQtaXBzYCBob+G6t2MgYFBPU1QgL2FwaS9ibG9ja2VkLWRldmljZXNgIChub3RlIHThu7EgxJHhu5luZyBnaGkgbmd14buTbiBxdWFuIHPDoXQpLgoKIyMgVUkgY2jDrW5oCgotIFRo4bq7IHRo4buRbmcga8OqICoqaMO0bSBuYXk6KiogdOG7lW5nIGhpdCwgc+G7kSBkZXZpY2UsIHPhu5EgSVAsIHPhu5EgY+G6t3AgYWN0aXZlLgotIELhuqNuZzogZGV2aWNlICh0w6puIG7hur91IGPDsyB0cm9uZyBgYWxsb3dlZF9kZXZpY2VzYCksIElQLCBoaXQgdOG7lW5nIC8gaGl0IGjDtG0gbmF5LCBmaXJzdC9sYXN0IHNlZW4uCi0gTsO6dCAqKkzDoG0gbeG7m2kqKiwgKipDaOG6t24gSVAqKiwgKipDaOG6t24gdGhp4bq/dCBi4buLKiogdHLDqm4gdOG7q25nIGTDsm5nIChjb25maXJtIGRpYWxvZykuCi0gVHLhuqFuZyB0aMOhaSDEkcOjIGNo4bq3bjogbsO6dCBkaXNhYmxlZCArIGljb24gY2hlY2suCgojIyBHaGkgY2jDuiBr4bu5IHRodeG6rXQKCi0gROG7ryBsaeG7h3UgcXVhbiBzw6F0ICoqa2jDtG5nKiogbMawdSBQb3N0Z3JlcyDigJQgbeG6pXQga2hpIHJlc3RhcnQgQVBJIChUVEwgdsOgaSBnaeG7nSkuCi0gYGRldmljZU5hbWVgIGpvaW4gdOG7qyBgbG9va3VwRGV2aWNlTmFtZXNCeURldmljZUlkc2AuCgoqKsSQ4buNYyB0aeG6v3A6KiogW0jGsOG7m25nIGThuqtuIMSR4buNYyBNYXBdKC4uLy4uL2h1b25nLWRhbi1kb2MvKQoKIyMgQ29tcG9uZW50IGNvbiBleHBvcnQgdHJvbmcgZmlsZQoKLSBgQWNjZXNzT3ZlcnZpZXdTZWN0aW9uYAoKIyMgUmVhY3QgUXVlcnkga2V5cwoKLSBgWyJhY2Nlc3Mtb2JzZXJ2YXRpb25zIl1gCgojIyBIw6BtIGZldGNoIEFQSSAodHLDrWNoKQoKLSBgZmV0Y2hPYnNlcnZhdGlvbnNgIOKGkiBgL2FwaS9hY2Nlc3Mtb2JzZXJ2YXRpb25zP2xpbWl0PTIwMGAKLSBgYWRkQmxvY2tlZElwYCDihpIgYC9hcGkvYmxvY2tlZC1pcHNgCi0gYGZldGNoQmxvY2tlZElwU2V0YCDihpIgYC9hcGkvYmxvY2tlZC1pcHNgCi0gYGZldGNoQmxvY2tlZERldmljZVNldGAg4oaSIGAvYXBpL2Jsb2NrZWQtZGV2aWNlc2AKLSBgYWRkQmxvY2tlZERldmljZWAg4oaSIGAvYXBpL2Jsb2NrZWQtZGV2aWNlc2AKCiMjIEpTWCBjb21wb25lbnQgZMO5bmcgdHJvbmcgZmlsZSAoUGFzY2FsQ2FzZSkKCi0gYDxBbGVydERpYWxvZyAvPmAKLSBgPEFsZXJ0RGlhbG9nQWN0aW9uIC8+YAotIGA8QWxlcnREaWFsb2dDYW5jZWwgLz5gCi0gYDxBbGVydERpYWxvZ0NvbnRlbnQgLz5gCi0gYDxBbGVydERpYWxvZ0Rlc2NyaXB0aW9uIC8+YAotIGA8QWxlcnREaWFsb2dGb290ZXIgLz5gCi0gYDxBbGVydERpYWxvZ0hlYWRlciAvPmAKLSBgPEFsZXJ0RGlhbG9nVGl0bGUgLz5gCi0gYDxCYW4gLz5gCi0gYDxCbG9ja0NvbmZpcm0gLz5gCi0gYDxCdXR0b24gLz5gCi0gYDxDYXJkIC8+YAotIGA8Q2FyZENvbnRlbnQgLz5gCi0gYDxDYXJkRGVzY3JpcHRpb24gLz5gCi0gYDxDYXJkSGVhZGVyIC8+YAotIGA8Q2FyZFRpdGxlIC8+YAotIGA8Q2hlY2sgLz5gCi0gYDxMaXN0UmVzcG9uc2UgLz5gCi0gYDxSZWZyZXNoQ3cgLz5gCi0gYDxTZXQgLz5gCi0gYDxTbWFydHBob25lIC8+YAotIGA8VGFibGUgLz5gCi0gYDxUYWJsZUJvZHkgLz5gCi0gYDxUYWJsZUNlbGwgLz5gCi0gYDxUYWJsZUhlYWQgLz5gCi0g4oCmIDIgY29tcG9uZW50IGtow6FjCgojIyBEaWFsb2cgLyBtb2RhbCAodGnDqnUgxJHhu4EpCgotIHtjb25maXJtQmxvY2s/LmtpbmQgPT09ICJpcCIgPyAiQ2jhurduIElQIG7DoHk/IiA6ICJDaOG6t24gdGhp4bq/dCBi4buLIG7DoHk/In0KCiMjIEltcG9ydCBjaMOtbmggKMSR4bqndSBmaWxlKQoKLSBgaW1wb3J0IHsgdXNlTWVtbywgdXNlU3RhdGUgfSBmcm9tICJyZWFjdCI7YAotIGBpbXBvcnQgeyB1c2VNdXRhdGlvbiwgdXNlUXVlcnksIHVzZVF1ZXJ5Q2xpZW50IH0gZnJvbSAiQHRhbnN0YWNrL3JlYWN0LXF1ZXJ5IjtgCi0gYGltcG9ydCB7IGZvcm1hdCB9IGZyb20gImRhdGUtZm5zIjtgCi0gYGltcG9ydCB7IHZpIH0gZnJvbSAiZGF0ZS1mbnMvbG9jYWxlIjtgCi0gYGltcG9ydCB7IEJhbiwgQ2hlY2ssIFJlZnJlc2hDdywgU21hcnRwaG9uZSB9IGZyb20gImx1Y2lkZS1yZWFjdCI7YAotIGBpbXBvcnQgeyB3aXRoQXBpQXV0aEhlYWRlcnMgfSBmcm9tICJAL2xpYi9hcGktYXV0aC1mZXRjaCI7YAotIGBpbXBvcnQgeyBjbiB9IGZyb20gIkAvbGliL3V0aWxzIjtgCi0gYGltcG9ydCB7IENhcmQsIENhcmRDb250ZW50LCBDYXJkRGVzY3JpcHRpb24sIENhcmRIZWFkZXIsIENhcmRUaXRsZSB9IGZyb20gIkAvY29tcG9uZW50cy91aS9jYXJkIjtgCi0gYGltcG9ydCB7IEJ1dHRvbiB9IGZyb20gIkAvY29tcG9uZW50cy91aS9idXR0b24iO2AKLSBgaW1wb3J0IHtgCi0gYGltcG9ydCB7IHVzZVRvYXN0IH0gZnJvbSAiQC9ob29rcy91c2UtdG9hc3QiO2AKLSBgaW1wb3J0IHtgCgojIyBNb2R1bGUgYEAvbGliLy4uLmAgxJHGsOG7o2MgaW1wb3J0CgotIGBAL2xpYi9hcGktYXV0aC1mZXRjaGAKLSBgQC9saWIvdXRpbHNgCgojIyBDaHXhu5dpIGAvYXBpLy4uLmAgKHBhZ2UgKyBjb21wb25lbnQgY29uLCAzIG3hu6VjKQoKLSBgL2FwaS9hY2Nlc3Mtb2JzZXJ2YXRpb25zP2xpbWl0PTIwMGAKLSBgL2FwaS9ibG9ja2VkLWRldmljZXNgIOKGkiBbYGJsb2NrZWQtZGV2aWNlc2BdKC4uLy4uL21vZHVsZS1hcGkvY2hhbi10aGlldC1iaS1hcGkvKQotIGAvYXBpL2Jsb2NrZWQtaXBzYCDihpIgW2BibG9ja2VkLWlwc2BdKC4uLy4uL21vZHVsZS1hcGkvY2hhbi1pcC1hcGkvKQoKIyMgTGnDqm4ga+G6v3QgbcOjCgotIEtoYWkgYsOhbyBVUkw6IGBhcnRpZmFjdHMvcG9zLWFwcC9zcmMvQXBwLnRzeGAKLSBNZW51L2xheW91dDogYGNvbXBvbmVudHMvbGF5b3V0L2FwcC1sYXlvdXQudHN4YAotIFBoacOqbiDEkcSDbmcgbmjhuq1wOiBgbGliL3Nlc3Npb24tY2FjaGUudHNgLCBgbGliL3VzZS1zZXNzaW9uLXVzZXIudHNgCg==</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });</script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>

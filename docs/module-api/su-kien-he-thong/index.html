@@ -4,22 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Module API: `system-events` — VietPOS-Map</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/module-api/su-kien-he-thong/README.md">
-  <header class="doc-topbar">
-    <a href="/index.html">← Bản đồ</a>
-    <a href="/docs/index.html">Mục lục</a>
-    <span class="doc-path">/docs/module-api/su-kien-he-thong/README.md</span>
-  </header>
-  <main class="doc-wrap">
-    <article id="content" class="markdown-body"></article>
-  </main>
+  <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
+  <div class="doc-layout">
+    <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
+    <div class="doc-main">
+      <header class="doc-topbar">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Mở cây tài liệu">☰</button>
+        <a href="/index.html">Bản đồ</a>
+        <a href="/docs">Mục lục</a>
+        <span class="doc-topbar-spacer"></span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi sáng tối">☀ Sáng</button>
+      </header>
+      <nav id="doc-breadcrumb" class="doc-breadcrumb" aria-label="Breadcrumb"></nav>
+      <div class="doc-body-row">
+        <main class="doc-wrap">
+          <article id="content" class="markdown-body"></article>
+        </main>
+        <aside id="doc-toc" class="doc-toc" aria-label="Mục lục trang"></aside>
+      </div>
+    </div>
+  </div>
   <script id="md-b64" type="application/octet-stream">IyBNb2R1bGUgQVBJOiBgc3lzdGVtLWV2ZW50c2AKCioqTcO0IHThuqM6KiogTW9kdWxlIEFQSSBzeXN0ZW0tZXZlbnRzLnRzIOKAlCAxIGVuZHBvaW50LiBT4buxIGtp4buHbiAvIGzhu5dpIGjhu4cgdGjhu5FuZy4KCioqTcOjIG5ndeG7k24gU2hvcDoqKiBgYXJ0aWZhY3RzL2FwaS1zZXJ2ZXIvc3JjL3JvdXRlcy9zeXN0ZW0tZXZlbnRzLnRzYAoKU+G7sSBraeG7h24gLyBs4buXaSBo4buHIHRo4buRbmcuCgoqKlPhu5EgZW5kcG9pbnQ6KiogMQoKKipDb250cmFjdCBBUEk6KiogTeG7l2kgZW5kcG9pbnQgY8OzIG3hu6VjICoqVVJMKiosIGJvZHkvcXVlcnkgKHThu6sgY29kZSArIHNjaGVtYSBab2Qgb3J2YWwga2hpIGPDsyksIGLhuqNuZyBs4buXaSBgZXJyb3JgLCB2w6AgcmVzcG9uc2UgKFpvZCBob+G6t2MgdHLGsOG7nW5nIGByZXMuanNvbmApLgoKIyMgQuG6o25nIGVuZHBvaW50ICh0w7NtIHThuq90KQoKfCBNZXRob2QgfCBQYXRoIHwgTcO0IHThuqMgbmfhuq9uIHwKfC0tLS0tLS0tfC0tLS0tLXwtLS0tLS0tLS0tLS18CnwgR0VUIHwgYC9zeXN0ZW0tZXZlbnRzYCB8IMSQxrDhu51uZyBk4bqrbiDEkeG6p3kgxJHhu6cgYC9hcGkvc3lzdGVtLWV2ZW50c2AgfAoKIyMgQ2hpIHRp4bq/dCB04burbmcgZW5kcG9pbnQKCiMjIyBgR0VUIC9zeXN0ZW0tZXZlbnRzYCB7I2dldC1zeXN0ZW0tZXZlbnRzfQoKxJDGsOG7nW5nIGThuqtuIMSR4bqneSDEkeG7pyBgL2FwaS9zeXN0ZW0tZXZlbnRzYC4gTOG7m3Aga2nhu4NtIHRyYTogYHJlcXVpcmVBdXRoYC4KCioqVVJMOioqIGBHRVQgL2FwaS9zeXN0ZW0tZXZlbnRzYAoKKipM4bubcCByb3V0ZToqKiBgcmVxdWlyZUF1dGhgCi0gKipUaMOqbSB0cm9uZyBoYW5kbGVyOioqIHJvbGUgKipgc3VwZXJfYWRtaW5gKiogKDQwMyBu4bq/dSBraMO0bmcgxJHhu6cpLgoKKipRdWVyeToqKiBgY2F0ZWdvcnlgLCBgZnJvbWAsIGBsaW1pdGAsIGBwYWdlYCwgYHNldmVyaXR5YCwgYHNob3BJZGAsIGB0b2AKCioqTOG7l2kgSlNPTioqIChgZXJyb3JgIHN0cmluZyk6Cgp8IEhUVFAgfCBNZXNzYWdlIHwKfC0tLS0tLXwtLS0tLS0tLS18CnwgKio0MDMqKiB8IGBDaOG7iSBzdXBlciBhZG1pbiBt4bubaSB4ZW0gQsOhbyBjw6FvIGjhu4cgdGjhu5FuZ2AgfAoKIyMgR2hpIGNow7ogxJHhu41jIG3DowoKLSBH4bqvbiBwcmVmaXggYC9hcGlgIHRyb25nIGBhcHAudHNgOyBmaWxlIHJvdXRlOiBgcm91dGVzL2luZGV4LnRzYCDihpIgYC4vc3lzdGVtLWV2ZW50cy50c2AuCi0gSGFuZGxlciDEkeG6p3kgxJHhu6c6IG3hu58gZmlsZSBUeXBlU2NyaXB0IHThuqFpIFNob3AgKHTDrG0gdGhlbyBjaHXhu5dpIHBhdGgpLgotIFF1eeG7gW4gcm9sZTogYHRoYW0tY2hpZXUvcGhhbi1xdXllbi1yYmFjL1JFQURNRS5tZGAgKHRp4bq/bmcgQW5oIGfhu5FjKSArIGPDoWMgYHJlcXVpcmUqYCB0cm9uZyB04burbmcgZW5kcG9pbnQuCgoqKsSQ4buNYyB0aeG6v3A6KiogW0jGsOG7m25nIGThuqtuIE1hcF0oLi4vLi4vaHVvbmctZGFuLWRvYy8pIMK3IFtN4bulYyBs4bulY10oLi4vLi4vUkVBRE1FLm1kKQo=</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });</script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import re
 import shutil
 from pathlib import Path
@@ -1942,7 +1943,8 @@ def write_map_portal_index_html(
   <title>VietPOS-Map — Bản đồ tài liệu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺</text></svg>" />
   <style>
-    :root {{
+    :root,
+    [data-theme="dark"] {{
       --bg: #0b0f14;
       --bg2: #111827;
       --panel: #151d2e;
@@ -1951,6 +1953,16 @@ def write_map_portal_index_html(
       --muted: #94a3b8;
       --accent: #60a5fa;
       --glow: rgba(96, 165, 250, 0.15);
+    }}
+    [data-theme="light"] {{
+      --bg: #eef2f6;
+      --bg2: #ffffff;
+      --panel: #ffffff;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --muted: #57606a;
+      --accent: #0969da;
+      --glow: rgba(9, 105, 218, 0.12);
     }}
     * {{ box-sizing: border-box; }}
     body {{
@@ -2068,6 +2080,7 @@ def write_map_portal_index_html(
       Sinh tự động bởi <code>python3 docs/gen.py</code> · Nguồn code: Shop-Manager-System-Offline
     </footer>
   </div>
+  <script src="/assets/portal-theme.js"></script>
   <style>
     .arch-map, .flow-map {{ width: 100%; min-width: 640px; height: auto; display: block; }}
     .svg-h {{ fill: #cbd5e1; font-size: 13px; font-family: inherit; }}
@@ -2167,6 +2180,62 @@ def _md_page_title(md: str) -> str:
     return m.group(1).strip() if m else "VietPOS-Map"
 
 
+def _view_path_from_rel(rel: str) -> str:
+    if rel == README:
+        return "/docs"
+    if rel.endswith(f"/{README}"):
+        base = rel[: -len(f"/{README}")]
+        return f"/docs/{base}" if base else "/docs"
+    return f"/docs/{rel}"
+
+
+def _nav_item_title(rel: str) -> str:
+    if rel == README:
+        return "Trang chủ Map"
+    folder = Path(rel).parent.name
+    if folder in PAGE_SLUG.values():
+        return folder.replace("-", " ").title()
+    return folder.replace("-", " ")
+
+
+def write_site_nav_json(all_paths: list[str]) -> None:
+    hubs = [
+        {"title": str(h["title"]), "href": _view_path_from_rel(chuyen_de_path(str(h["file"])))}
+        for h in TOPIC_HUBS
+    ]
+    quick = [
+        ("API (chi-muc)", _view_path_from_rel(chi_muc_path("danh-sach-api"))),
+        ("Màn hình", _view_path_from_rel(chi_muc_path("danh-sach-trang"))),
+        ("Schema", _view_path_from_rel(chi_muc_path("co-so-du-lieu"))),
+        ("Endpoint HTTP", _view_path_from_rel(chi_muc_path("endpoint-http"))),
+        ("Bản đồ hình", _view_path_from_rel(ban_do_path())),
+    ]
+    groups: dict[str, list[dict[str, str]]] = {}
+    skip_roots = {"chuyen-de"}
+    for rel in sorted(all_paths):
+        if rel != README and not rel.endswith(f"/{README}"):
+            continue
+        if rel == README:
+            continue
+        parts = rel.split("/")
+        if len(parts) < 2:
+            continue
+        sec = parts[0]
+        if sec in skip_roots:
+            continue
+        groups.setdefault(sec, []).append(
+            {"title": _nav_item_title(rel), "href": _view_path_from_rel(rel)},
+        )
+    payload = {
+        "hubs": hubs,
+        "quick": [{"title": t, "href": h} for t, h in quick],
+        "groups": groups,
+    }
+    out = ROOT.parent / "assets" / "site-nav.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def write_md_index_pages(all_paths: list[str]) -> int:
     """Mỗi README.md → index.html cùng thư mục (Vercel đọc giống GitHub README)."""
     repo_root = ROOT.parent
@@ -2180,22 +2249,33 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} — VietPOS-Map</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="{md_web_path}">
-  <header class="doc-topbar">
-    <a href="/index.html">← Bản đồ</a>
-    <a href="/docs/index.html">Mục lục</a>
-    <span class="doc-path">{md_web_path}</span>
-  </header>
-  <main class="doc-wrap">
-    <article id="content" class="markdown-body"></article>
-  </main>
+  <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
+  <div class="doc-layout">
+    <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
+    <div class="doc-main">
+      <header class="doc-topbar">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Mở cây tài liệu">☰</button>
+        <a href="/index.html">Bản đồ</a>
+        <a href="/docs">Mục lục</a>
+        <span class="doc-topbar-spacer"></span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi sáng tối">☀ Sáng</button>
+      </header>
+      <nav id="doc-breadcrumb" class="doc-breadcrumb" aria-label="Breadcrumb"></nav>
+      <div class="doc-body-row">
+        <main class="doc-wrap">
+          <article id="content" class="markdown-body"></article>
+        </main>
+        <aside id="doc-toc" class="doc-toc" aria-label="Mục lục trang"></aside>
+      </div>
+    </div>
+  </div>
   <script id="md-b64" type="application/octet-stream">{b64}</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({{ startOnLoad: false, theme: 'dark', securityLevel: 'loose' }});</script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>
@@ -2224,47 +2304,8 @@ def write_md_index_pages(all_paths: list[str]) -> int:
 
 
 def write_doc_assets() -> None:
-    repo_root = ROOT.parent
-    css = """body {
-  margin: 0;
-  background: #0d1117;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-}
-.doc-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1rem;
-  padding: 0.65rem 1.25rem;
-  background: #0f172a;
-  border-bottom: 1px solid #1e293b;
-  font-size: 0.875rem;
-}
-.doc-topbar a { color: #58a6ff; text-decoration: none; }
-.doc-topbar a:hover { text-decoration: underline; }
-.doc-path { color: #94a3b8; word-break: break-all; flex: 1; min-width: 12rem; }
-.doc-wrap {
-  max-width: 1012px;
-  margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
-}
-.markdown-body { box-sizing: border-box; min-width: 200px; }
-.markdown-body pre { background: #161b22 !important; }
-.markdown-body table { display: block; overflow-x: auto; }
-.markdown-body .mermaid {
-  background: #161b22;
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-.error { color: #f85149; }
-"""
-    assets = repo_root / "assets"
-    assets.mkdir(parents=True, exist_ok=True)
-    (assets / "doc.css").write_text(css, encoding="utf-8")
+    """doc.css + reader.js giữ tay trong repo; gen chỉ đảm bảo thư mục assets/."""
+    (ROOT.parent / "assets").mkdir(parents=True, exist_ok=True)
 
 
 def write_ban_do_hinh() -> str:
@@ -3265,6 +3306,7 @@ def main() -> None:
         schema_count=sum(1 for p in all_paths if p.startswith("co-so-du-lieu/")),
     )
     write_doc_assets()
+    write_site_nav_json(all_paths)
     html_pages = write_md_index_pages(all_paths)
     print(
         f"HTML doc pages: {html_pages}; ",

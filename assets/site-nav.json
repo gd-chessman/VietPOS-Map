@@ -1,0 +1,1108 @@
+{
+  "hubs": [
+    {
+      "title": "Kiến trúc hệ thống",
+      "href": "/docs/chuyen-de/kien-truc-he-thong"
+    },
+    {
+      "title": "Đăng nhập và phiên làm việc",
+      "href": "/docs/chuyen-de/dang-nhap-va-phien"
+    },
+    {
+      "title": "POS và đơn hàng",
+      "href": "/docs/chuyen-de/pos-va-don-hang"
+    },
+    {
+      "title": "Sản phẩm và tồn kho",
+      "href": "/docs/chuyen-de/san-pham-va-kho"
+    },
+    {
+      "title": "Hóa đơn đầu vào (VAT mua vào)",
+      "href": "/docs/chuyen-de/hoa-don-dau-vao"
+    },
+    {
+      "title": "Hóa đơn bán ra (Viettel)",
+      "href": "/docs/chuyen-de/hoa-don-ban-ra"
+    },
+    {
+      "title": "Chuỗi và nhiều cửa hàng",
+      "href": "/docs/chuyen-de/chuoi-cua-hang"
+    },
+    {
+      "title": "An ninh và chặn truy cập",
+      "href": "/docs/chuyen-de/an-ninh-truy-cap"
+    },
+    {
+      "title": "Offline và đồng bộ",
+      "href": "/docs/chuyen-de/offline-dong-bo"
+    },
+    {
+      "title": "Trợ lý AI, widget, đếm khách",
+      "href": "/docs/chuyen-de/tro-ly-widget"
+    }
+  ],
+  "quick": [
+    {
+      "title": "API (chi-muc)",
+      "href": "/docs/chi-muc/danh-sach-api"
+    },
+    {
+      "title": "Màn hình",
+      "href": "/docs/chi-muc/danh-sach-trang"
+    },
+    {
+      "title": "Schema",
+      "href": "/docs/chi-muc/co-so-du-lieu"
+    },
+    {
+      "title": "Endpoint HTTP",
+      "href": "/docs/chi-muc/endpoint-http"
+    },
+    {
+      "title": "Bản đồ hình",
+      "href": "/docs/ban-do-kien-truc"
+    }
+  ],
+  "groups": {
+    "ban-do-kien-truc": [
+      {
+        "title": "ban do kien truc",
+        "href": "/docs/ban-do-kien-truc"
+      }
+    ],
+    "chi-muc": [
+      {
+        "title": "co so du lieu",
+        "href": "/docs/chi-muc/co-so-du-lieu"
+      },
+      {
+        "title": "danh sach api",
+        "href": "/docs/chi-muc/danh-sach-api"
+      },
+      {
+        "title": "danh sach trang",
+        "href": "/docs/chi-muc/danh-sach-trang"
+      },
+      {
+        "title": "endpoint http",
+        "href": "/docs/chi-muc/endpoint-http"
+      },
+      {
+        "title": "thu vien backend",
+        "href": "/docs/chi-muc/thu-vien-backend"
+      }
+    ],
+    "co-so-du-lieu": [
+      {
+        "title": "audit don hang",
+        "href": "/docs/co-so-du-lieu/audit-don-hang"
+      },
+      {
+        "title": "audit gio pos",
+        "href": "/docs/co-so-du-lieu/audit-gio-pos"
+      },
+      {
+        "title": "audit hoa don dau vao",
+        "href": "/docs/co-so-du-lieu/audit-hoa-don-dau-vao"
+      },
+      {
+        "title": "audit san pham",
+        "href": "/docs/co-so-du-lieu/audit-san-pham"
+      },
+      {
+        "title": "bien dong ton",
+        "href": "/docs/co-so-du-lieu/bien-dong-ton"
+      },
+      {
+        "title": "bien the san pham",
+        "href": "/docs/co-so-du-lieu/bien-the-san-pham"
+      },
+      {
+        "title": "ca lam viec db",
+        "href": "/docs/co-so-du-lieu/ca-lam-viec-db"
+      },
+      {
+        "title": "cau hinh thong bao nen tang",
+        "href": "/docs/co-so-du-lieu/cau-hinh-thong-bao-nen-tang"
+      },
+      {
+        "title": "chi tiet don hang",
+        "href": "/docs/co-so-du-lieu/chi-tiet-don-hang"
+      },
+      {
+        "title": "chuyen kho",
+        "href": "/docs/co-so-du-lieu/chuyen-kho"
+      },
+      {
+        "title": "cua hang db",
+        "href": "/docs/co-so-du-lieu/cua-hang-db"
+      },
+      {
+        "title": "danh muc san pham db",
+        "href": "/docs/co-so-du-lieu/danh-muc-san-pham-db"
+      },
+      {
+        "title": "dem khach theo ngay",
+        "href": "/docs/co-so-du-lieu/dem-khach-theo-ngay"
+      },
+      {
+        "title": "don hang db",
+        "href": "/docs/co-so-du-lieu/don-hang-db"
+      },
+      {
+        "title": "giu so in truoc",
+        "href": "/docs/co-so-du-lieu/giu-so-in-truoc"
+      },
+      {
+        "title": "hoa don dau vao db",
+        "href": "/docs/co-so-du-lieu/hoa-don-dau-vao-db"
+      },
+      {
+        "title": "ip bi chan",
+        "href": "/docs/co-so-du-lieu/ip-bi-chan"
+      },
+      {
+        "title": "kho hang",
+        "href": "/docs/co-so-du-lieu/kho-hang"
+      },
+      {
+        "title": "khoa api shop",
+        "href": "/docs/co-so-du-lieu/khoa-api-shop"
+      },
+      {
+        "title": "khoa dong bo don",
+        "href": "/docs/co-so-du-lieu/khoa-dong-bo-don"
+      },
+      {
+        "title": "nguoi dung",
+        "href": "/docs/co-so-du-lieu/nguoi-dung"
+      },
+      {
+        "title": "nha cung cap db",
+        "href": "/docs/co-so-du-lieu/nha-cung-cap-db"
+      },
+      {
+        "title": "nhan vien ban db",
+        "href": "/docs/co-so-du-lieu/nhan-vien-ban-db"
+      },
+      {
+        "title": "nhat ky hoa don",
+        "href": "/docs/co-so-du-lieu/nhat-ky-hoa-don"
+      },
+      {
+        "title": "nhat ky in lai",
+        "href": "/docs/co-so-du-lieu/nhat-ky-in-lai"
+      },
+      {
+        "title": "nhat ky su kien",
+        "href": "/docs/co-so-du-lieu/nhat-ky-su-kien"
+      },
+      {
+        "title": "nhat ky thanh toan",
+        "href": "/docs/co-so-du-lieu/nhat-ky-thanh-toan"
+      },
+      {
+        "title": "nhat ky thay doi",
+        "href": "/docs/co-so-du-lieu/nhat-ky-thay-doi"
+      },
+      {
+        "title": "phan hoi khach hang",
+        "href": "/docs/co-so-du-lieu/phan-hoi-khach-hang"
+      },
+      {
+        "title": "phien thue cqt",
+        "href": "/docs/co-so-du-lieu/phien-thue-cqt"
+      },
+      {
+        "title": "phieu dat hang",
+        "href": "/docs/co-so-du-lieu/phieu-dat-hang"
+      },
+      {
+        "title": "phieu yeu cau kho",
+        "href": "/docs/co-so-du-lieu/phieu-yeu-cau-kho"
+      },
+      {
+        "title": "san pham db",
+        "href": "/docs/co-so-du-lieu/san-pham-db"
+      },
+      {
+        "title": "su kien dang nhap thiet bi",
+        "href": "/docs/co-so-du-lieu/su-kien-dang-nhap-thiet-bi"
+      },
+      {
+        "title": "su kien van hanh shop",
+        "href": "/docs/co-so-du-lieu/su-kien-van-hanh-shop"
+      },
+      {
+        "title": "thiet bi bi chan",
+        "href": "/docs/co-so-du-lieu/thiet-bi-bi-chan"
+      },
+      {
+        "title": "thiet bi duoc phep",
+        "href": "/docs/co-so-du-lieu/thiet-bi-duoc-phep"
+      },
+      {
+        "title": "thong bao nguoi dung",
+        "href": "/docs/co-so-du-lieu/thong-bao-nguoi-dung"
+      },
+      {
+        "title": "to chuc",
+        "href": "/docs/co-so-du-lieu/to-chuc"
+      },
+      {
+        "title": "ton bien the shop",
+        "href": "/docs/co-so-du-lieu/ton-bien-the-shop"
+      },
+      {
+        "title": "ton kho db",
+        "href": "/docs/co-so-du-lieu/ton-kho-db"
+      },
+      {
+        "title": "tro ly ai chat",
+        "href": "/docs/co-so-du-lieu/tro-ly-ai-chat"
+      },
+      {
+        "title": "yeu cau reset pin",
+        "href": "/docs/co-so-du-lieu/yeu-cau-reset-pin"
+      }
+    ],
+    "he-thong": [
+      {
+        "title": "01 kien truc runtime",
+        "href": "/docs/he-thong/01-kien-truc-runtime"
+      },
+      {
+        "title": "02 workspace luu niem",
+        "href": "/docs/he-thong/02-workspace-luu-niem"
+      },
+      {
+        "title": "03 monorepo packages",
+        "href": "/docs/he-thong/03-monorepo-packages"
+      },
+      {
+        "title": "04 docker va cloud sync",
+        "href": "/docs/he-thong/04-docker-va-cloud-sync"
+      }
+    ],
+    "huong-dan-doc": [
+      {
+        "title": "huong dan doc",
+        "href": "/docs/huong-dan-doc"
+      }
+    ],
+    "module-api": [
+      {
+        "title": "audit gio hang pos",
+        "href": "/docs/module-api/audit-gio-hang-pos"
+      },
+      {
+        "title": "bang dieu khiem api",
+        "href": "/docs/module-api/bang-dieu-khiem-api"
+      },
+      {
+        "title": "bao cao api",
+        "href": "/docs/module-api/bao-cao-api"
+      },
+      {
+        "title": "bao cao audit dat hang",
+        "href": "/docs/module-api/bao-cao-audit-dat-hang"
+      },
+      {
+        "title": "bao cao audit don",
+        "href": "/docs/module-api/bao-cao-audit-don"
+      },
+      {
+        "title": "bao cao audit phieu kho",
+        "href": "/docs/module-api/bao-cao-audit-phieu-kho"
+      },
+      {
+        "title": "bao cao audit san pham",
+        "href": "/docs/module-api/bao-cao-audit-san-pham"
+      },
+      {
+        "title": "ca lam viec",
+        "href": "/docs/module-api/ca-lam-viec"
+      },
+      {
+        "title": "cau hinh thong bao api",
+        "href": "/docs/module-api/cau-hinh-thong-bao-api"
+      },
+      {
+        "title": "cau hinh viettel",
+        "href": "/docs/module-api/cau-hinh-viettel"
+      },
+      {
+        "title": "chan ip api",
+        "href": "/docs/module-api/chan-ip-api"
+      },
+      {
+        "title": "chan thiet bi api",
+        "href": "/docs/module-api/chan-thiet-bi-api"
+      },
+      {
+        "title": "chuoi api",
+        "href": "/docs/module-api/chuoi-api"
+      },
+      {
+        "title": "cong cqt",
+        "href": "/docs/module-api/cong-cqt"
+      },
+      {
+        "title": "cua hang",
+        "href": "/docs/module-api/cua-hang"
+      },
+      {
+        "title": "danh muc san pham",
+        "href": "/docs/module-api/danh-muc-san-pham"
+      },
+      {
+        "title": "Dat Hang",
+        "href": "/docs/module-api/dat-hang"
+      },
+      {
+        "title": "don hang api",
+        "href": "/docs/module-api/don-hang-api"
+      },
+      {
+        "title": "dong bo du lieu",
+        "href": "/docs/module-api/dong-bo-du-lieu"
+      },
+      {
+        "title": "Hoa Don Dau Vao",
+        "href": "/docs/module-api/hoa-don-dau-vao"
+      },
+      {
+        "title": "hoa don vat cong khai",
+        "href": "/docs/module-api/hoa-don-vat-cong-khai"
+      },
+      {
+        "title": "khach vang lai",
+        "href": "/docs/module-api/khach-vang-lai"
+      },
+      {
+        "title": "khoa api cua hang",
+        "href": "/docs/module-api/khoa-api-cua-hang"
+      },
+      {
+        "title": "kiem tra suc khoe",
+        "href": "/docs/module-api/kiem-tra-suc-khoe"
+      },
+      {
+        "title": "media api",
+        "href": "/docs/module-api/media-api"
+      },
+      {
+        "title": "nha cung cap api",
+        "href": "/docs/module-api/nha-cung-cap-api"
+      },
+      {
+        "title": "nhan vien ban api",
+        "href": "/docs/module-api/nhan-vien-ban-api"
+      },
+      {
+        "title": "Nhan Vien",
+        "href": "/docs/module-api/nhan-vien"
+      },
+      {
+        "title": "phan hoi api",
+        "href": "/docs/module-api/phan-hoi-api"
+      },
+      {
+        "title": "Phieu Nhap Xuat",
+        "href": "/docs/module-api/phieu-nhap-xuat"
+      },
+      {
+        "title": "quan sat truy cap",
+        "href": "/docs/module-api/quan-sat-truy-cap"
+      },
+      {
+        "title": "san pham api",
+        "href": "/docs/module-api/san-pham-api"
+      },
+      {
+        "title": "su kien he thong",
+        "href": "/docs/module-api/su-kien-he-thong"
+      },
+      {
+        "title": "thong bao",
+        "href": "/docs/module-api/thong-bao"
+      },
+      {
+        "title": "thong ke api",
+        "href": "/docs/module-api/thong-ke-api"
+      },
+      {
+        "title": "ton kho api",
+        "href": "/docs/module-api/ton-kho-api"
+      },
+      {
+        "title": "tro ly ai api",
+        "href": "/docs/module-api/tro-ly-ai-api"
+      },
+      {
+        "title": "widget quay",
+        "href": "/docs/module-api/widget-quay"
+      },
+      {
+        "title": "xac thuc",
+        "href": "/docs/module-api/xac-thuc"
+      }
+    ],
+    "nghiep-vu": [
+      {
+        "title": "01 dang nhap va shop context",
+        "href": "/docs/nghiep-vu/01-dang-nhap-va-shop-context"
+      },
+      {
+        "title": "02 pos ban hang",
+        "href": "/docs/nghiep-vu/02-pos-ban-hang"
+      },
+      {
+        "title": "03 san pham va ton",
+        "href": "/docs/nghiep-vu/03-san-pham-va-ton"
+      },
+      {
+        "title": "04 phieu nhap xuat chuyen kho",
+        "href": "/docs/nghiep-vu/04-phieu-nhap-xuat-chuyen-kho"
+      },
+      {
+        "title": "05 hoa don vat xuat",
+        "href": "/docs/nghiep-vu/05-hoa-don-vat-xuat"
+      },
+      {
+        "title": "06 hoa don dau vao tong quan",
+        "href": "/docs/nghiep-vu/06-hoa-don-dau-vao-tong-quan"
+      },
+      {
+        "title": "07 hd dau vao mst loc",
+        "href": "/docs/nghiep-vu/07-hd-dau-vao-mst-loc"
+      },
+      {
+        "title": "08 hd dau vao cqt sync",
+        "href": "/docs/nghiep-vu/08-hd-dau-vao-cqt-sync"
+      },
+      {
+        "title": "09 chuoi va da chi nhanh",
+        "href": "/docs/nghiep-vu/09-chuoi-va-da-chi-nhanh"
+      },
+      {
+        "title": "10 truy cap an ninh",
+        "href": "/docs/nghiep-vu/10-truy-cap-an-ninh"
+      },
+      {
+        "title": "11 offline va sync client",
+        "href": "/docs/nghiep-vu/11-offline-va-sync-client"
+      },
+      {
+        "title": "12 widget va dem khach",
+        "href": "/docs/nghiep-vu/12-widget-va-dem-khach"
+      }
+    ],
+    "tham-chieu": [
+      {
+        "title": "audit offline",
+        "href": "/docs/tham-chieu/audit-offline"
+      },
+      {
+        "title": "chay local",
+        "href": "/docs/tham-chieu/chay-local"
+      },
+      {
+        "title": "chu thich ma",
+        "href": "/docs/tham-chieu/chu-thich-ma"
+      },
+      {
+        "title": "co so du lieu goc",
+        "href": "/docs/tham-chieu/co-so-du-lieu-goc"
+      },
+      {
+        "title": "code tour api",
+        "href": "/docs/tham-chieu/code-tour-api"
+      },
+      {
+        "title": "code tour db",
+        "href": "/docs/tham-chieu/code-tour-db"
+      },
+      {
+        "title": "code tour pos",
+        "href": "/docs/tham-chieu/code-tour-pos"
+      },
+      {
+        "title": "danh sach api goc",
+        "href": "/docs/tham-chieu/danh-sach-api-goc"
+      },
+      {
+        "title": "docker may chu",
+        "href": "/docs/tham-chieu/docker-may-chu"
+      },
+      {
+        "title": "kien truc",
+        "href": "/docs/tham-chieu/kien-truc"
+      },
+      {
+        "title": "lo trinh offline",
+        "href": "/docs/tham-chieu/lo-trinh-offline"
+      },
+      {
+        "title": "luong nghiep vu goc",
+        "href": "/docs/tham-chieu/luong-nghiep-vu-goc"
+      },
+      {
+        "title": "offline first",
+        "href": "/docs/tham-chieu/offline-first"
+      },
+      {
+        "title": "phan quyen rbac",
+        "href": "/docs/tham-chieu/phan-quyen-rbac"
+      },
+      {
+        "title": "truy cap cong khai",
+        "href": "/docs/tham-chieu/truy-cap-cong-khai"
+      }
+    ],
+    "thu-vien": [
+      {
+        "title": "agent chat persist",
+        "href": "/docs/thu-vien/agent-chat-persist"
+      },
+      {
+        "title": "allowed device names",
+        "href": "/docs/thu-vien/allowed-device-names"
+      },
+      {
+        "title": "api access observations",
+        "href": "/docs/thu-vien/api-access-observations"
+      },
+      {
+        "title": "chain shop scope",
+        "href": "/docs/thu-vien/chain-shop-scope"
+      },
+      {
+        "title": "change log",
+        "href": "/docs/thu-vien/change-log"
+      },
+      {
+        "title": "captcha store",
+        "href": "/docs/thu-vien/cong-cqt/captcha-store"
+      },
+      {
+        "title": "client",
+        "href": "/docs/thu-vien/cong-cqt/client"
+      },
+      {
+        "title": "connect with captcha",
+        "href": "/docs/thu-vien/cong-cqt/connect-with-captcha"
+      },
+      {
+        "title": "export xml",
+        "href": "/docs/thu-vien/cong-cqt/export-xml"
+      },
+      {
+        "title": "fetch inbound",
+        "href": "/docs/thu-vien/cong-cqt/fetch-inbound"
+      },
+      {
+        "title": "http session",
+        "href": "/docs/thu-vien/cong-cqt/http-session"
+      },
+      {
+        "title": "map inbound",
+        "href": "/docs/thu-vien/cong-cqt/map-inbound"
+      },
+      {
+        "title": "org session",
+        "href": "/docs/thu-vien/cong-cqt/org-session"
+      },
+      {
+        "title": "xml lines",
+        "href": "/docs/thu-vien/cong-cqt/xml-lines"
+      },
+      {
+        "title": "cors config",
+        "href": "/docs/thu-vien/cors-config"
+      },
+      {
+        "title": "customer public urls",
+        "href": "/docs/thu-vien/customer-public-urls"
+      },
+      {
+        "title": "dashboard period",
+        "href": "/docs/thu-vien/dashboard-period"
+      },
+      {
+        "title": "dashboard visitor stats",
+        "href": "/docs/thu-vien/dashboard-visitor-stats"
+      },
+      {
+        "title": "device denylist",
+        "href": "/docs/thu-vien/device-denylist"
+      },
+      {
+        "title": "entity status",
+        "href": "/docs/thu-vien/entity-status"
+      },
+      {
+        "title": "build payload",
+        "href": "/docs/thu-vien/hoa-don-viettel/build-payload"
+      },
+      {
+        "title": "client",
+        "href": "/docs/thu-vien/hoa-don-viettel/client"
+      },
+      {
+        "title": "config",
+        "href": "/docs/thu-vien/hoa-don-viettel/config"
+      },
+      {
+        "title": "download pdf",
+        "href": "/docs/thu-vien/hoa-don-viettel/download-pdf"
+      },
+      {
+        "title": "inbound pdf",
+        "href": "/docs/thu-vien/hoa-don-viettel/inbound-pdf"
+      },
+      {
+        "title": "issue",
+        "href": "/docs/thu-vien/hoa-don-viettel/issue"
+      },
+      {
+        "title": "search inbound",
+        "href": "/docs/thu-vien/hoa-don-viettel/search-inbound"
+      },
+      {
+        "title": "inbound stock receive",
+        "href": "/docs/thu-vien/inbound-stock-receive"
+      },
+      {
+        "title": "inventory variant",
+        "href": "/docs/thu-vien/inventory-variant"
+      },
+      {
+        "title": "ip denylist",
+        "href": "/docs/thu-vien/ip-denylist"
+      },
+      {
+        "title": "logger",
+        "href": "/docs/thu-vien/logger"
+      },
+      {
+        "title": "manager order cancel window",
+        "href": "/docs/thu-vien/manager-order-cancel-window"
+      },
+      {
+        "title": "order audit",
+        "href": "/docs/thu-vien/order-audit"
+      },
+      {
+        "title": "order direct cancel",
+        "href": "/docs/thu-vien/order-direct-cancel"
+      },
+      {
+        "title": "order discount",
+        "href": "/docs/thu-vien/order-discount"
+      },
+      {
+        "title": "order fraud",
+        "href": "/docs/thu-vien/order-fraud"
+      },
+      {
+        "title": "order invoice code",
+        "href": "/docs/thu-vien/order-invoice-code"
+      },
+      {
+        "title": "order invoice list filters",
+        "href": "/docs/thu-vien/order-invoice-list-filters"
+      },
+      {
+        "title": "order list period summary",
+        "href": "/docs/thu-vien/order-list-period-summary"
+      },
+      {
+        "title": "order preprint",
+        "href": "/docs/thu-vien/order-preprint"
+      },
+      {
+        "title": "order shop sequence",
+        "href": "/docs/thu-vien/order-shop-sequence"
+      },
+      {
+        "title": "orders scope",
+        "href": "/docs/thu-vien/orders-scope"
+      },
+      {
+        "title": "org agent llm settings",
+        "href": "/docs/thu-vien/org-agent-llm-settings"
+      },
+      {
+        "title": "org gdt settings",
+        "href": "/docs/thu-vien/org-gdt-settings"
+      },
+      {
+        "title": "org smtp settings",
+        "href": "/docs/thu-vien/org-smtp-settings"
+      },
+      {
+        "title": "org viettel settings",
+        "href": "/docs/thu-vien/org-viettel-settings"
+      },
+      {
+        "title": "payment revenue",
+        "href": "/docs/thu-vien/payment-revenue"
+      },
+      {
+        "title": "pin challenge",
+        "href": "/docs/thu-vien/pin-challenge"
+      },
+      {
+        "title": "pin reset requests",
+        "href": "/docs/thu-vien/pin-reset-requests"
+      },
+      {
+        "title": "platform notification settings",
+        "href": "/docs/thu-vien/platform-notification-settings"
+      },
+      {
+        "title": "product audit",
+        "href": "/docs/thu-vien/product-audit"
+      },
+      {
+        "title": "product category",
+        "href": "/docs/thu-vien/product-category"
+      },
+      {
+        "title": "product supplier",
+        "href": "/docs/thu-vien/product-supplier"
+      },
+      {
+        "title": "product variants",
+        "href": "/docs/thu-vien/product-variants"
+      },
+      {
+        "title": "product vat name",
+        "href": "/docs/thu-vien/product-vat-name"
+      },
+      {
+        "title": "product vat",
+        "href": "/docs/thu-vien/product-vat"
+      },
+      {
+        "title": "rate limit",
+        "href": "/docs/thu-vien/rate-limit"
+      },
+      {
+        "title": "record device login",
+        "href": "/docs/thu-vien/record-device-login"
+      },
+      {
+        "title": "report pos staff",
+        "href": "/docs/thu-vien/report-pos-staff"
+      },
+      {
+        "title": "report sales staff performance",
+        "href": "/docs/thu-vien/report-sales-staff-performance"
+      },
+      {
+        "title": "secret box",
+        "href": "/docs/thu-vien/secret-box"
+      },
+      {
+        "title": "session cookie",
+        "href": "/docs/thu-vien/session-cookie"
+      },
+      {
+        "title": "shift sessions",
+        "href": "/docs/thu-vien/shift-sessions"
+      },
+      {
+        "title": "shop display order",
+        "href": "/docs/thu-vien/shop-display-order"
+      },
+      {
+        "title": "shop operational events",
+        "href": "/docs/thu-vien/shop-operational-events"
+      },
+      {
+        "title": "shop presence sweep",
+        "href": "/docs/thu-vien/shop-presence-sweep"
+      },
+      {
+        "title": "shop presence",
+        "href": "/docs/thu-vien/shop-presence"
+      },
+      {
+        "title": "shop vat settings",
+        "href": "/docs/thu-vien/shop-vat-settings"
+      },
+      {
+        "title": "staff role rank",
+        "href": "/docs/thu-vien/staff-role-rank"
+      },
+      {
+        "title": "system error capture",
+        "href": "/docs/thu-vien/system-error-capture"
+      },
+      {
+        "title": "system event log",
+        "href": "/docs/thu-vien/system-event-log"
+      },
+      {
+        "title": "system event query",
+        "href": "/docs/thu-vien/system-event-query"
+      },
+      {
+        "title": "time drift",
+        "href": "/docs/thu-vien/time-drift"
+      },
+      {
+        "title": "agent tool dates",
+        "href": "/docs/thu-vien/tro-ly-ai-lib/agent-tool-dates"
+      },
+      {
+        "title": "chat",
+        "href": "/docs/thu-vien/tro-ly-ai-lib/chat"
+      },
+      {
+        "title": "read business data",
+        "href": "/docs/thu-vien/tro-ly-ai-lib/read-business-data"
+      },
+      {
+        "title": "read deep handlers",
+        "href": "/docs/thu-vien/tro-ly-ai-lib/read-deep-handlers"
+      },
+      {
+        "title": "system info",
+        "href": "/docs/thu-vien/tro-ly-ai-lib/system-info"
+      },
+      {
+        "title": "tools",
+        "href": "/docs/thu-vien/tro-ly-ai-lib/tools"
+      },
+      {
+        "title": "user email",
+        "href": "/docs/thu-vien/user-email"
+      },
+      {
+        "title": "user notifications",
+        "href": "/docs/thu-vien/user-notifications"
+      },
+      {
+        "title": "user pin",
+        "href": "/docs/thu-vien/user-pin"
+      },
+      {
+        "title": "vat inbound audit",
+        "href": "/docs/thu-vien/vat-inbound-audit"
+      },
+      {
+        "title": "vat inbound auto archive mst",
+        "href": "/docs/thu-vien/vat-inbound-auto-archive-mst"
+      },
+      {
+        "title": "vat inbound auto process",
+        "href": "/docs/thu-vien/vat-inbound-auto-process"
+      },
+      {
+        "title": "vat inbound auto sync",
+        "href": "/docs/thu-vien/vat-inbound-auto-sync"
+      },
+      {
+        "title": "vat inbound excluded",
+        "href": "/docs/thu-vien/vat-inbound-excluded"
+      },
+      {
+        "title": "vat inbound mapped products",
+        "href": "/docs/thu-vien/vat-inbound-mapped-products"
+      },
+      {
+        "title": "vat inbound marked mst backfill",
+        "href": "/docs/thu-vien/vat-inbound-marked-mst-backfill"
+      },
+      {
+        "title": "vat inbound product code",
+        "href": "/docs/thu-vien/vat-inbound-product-code"
+      },
+      {
+        "title": "vat inbound tax sync",
+        "href": "/docs/thu-vien/vat-inbound-tax-sync"
+      },
+      {
+        "title": "vat invoice auto issue",
+        "href": "/docs/thu-vien/vat-invoice-auto-issue"
+      },
+      {
+        "title": "vat invoice buyer email",
+        "href": "/docs/thu-vien/vat-invoice-buyer-email"
+      },
+      {
+        "title": "vat invoice public window",
+        "href": "/docs/thu-vien/vat-invoice-public-window"
+      },
+      {
+        "title": "vat invoice",
+        "href": "/docs/thu-vien/vat-invoice"
+      },
+      {
+        "title": "vietnam calendar",
+        "href": "/docs/thu-vien/vietnam-calendar"
+      },
+      {
+        "title": "vn order period",
+        "href": "/docs/thu-vien/vn-order-period"
+      },
+      {
+        "title": "weighted average cost",
+        "href": "/docs/thu-vien/weighted-average-cost"
+      },
+      {
+        "title": "widget home",
+        "href": "/docs/thu-vien/widget-home"
+      }
+    ],
+    "trang": [
+      {
+        "title": "Ban Hang Pos",
+        "href": "/docs/trang/ban-hang-pos"
+      },
+      {
+        "title": "Bang Dieu Khiem Chuoi",
+        "href": "/docs/trang/bang-dieu-khiem-chuoi"
+      },
+      {
+        "title": "Bang Dieu Khiem",
+        "href": "/docs/trang/bang-dieu-khiem"
+      },
+      {
+        "title": "Bao Cao He Thong",
+        "href": "/docs/trang/bao-cao-he-thong"
+      },
+      {
+        "title": "Bao Cao",
+        "href": "/docs/trang/bao-cao"
+      },
+      {
+        "title": "Cau Hinh Camera",
+        "href": "/docs/trang/cau-hinh-camera"
+      },
+      {
+        "title": "Cau Hinh Thong Bao",
+        "href": "/docs/trang/cau-hinh-thong-bao"
+      },
+      {
+        "title": "Chan Ip",
+        "href": "/docs/trang/chan-ip"
+      },
+      {
+        "title": "Chan Thiet Bi",
+        "href": "/docs/trang/chan-thiet-bi"
+      },
+      {
+        "title": "Chan Truy Cap",
+        "href": "/docs/trang/chan-truy-cap"
+      },
+      {
+        "title": "Chuoi Cua Hang",
+        "href": "/docs/trang/chuoi-cua-hang"
+      },
+      {
+        "title": "Dang Nhap",
+        "href": "/docs/trang/dang-nhap"
+      },
+      {
+        "title": "Dat Hang",
+        "href": "/docs/trang/dat-hang"
+      },
+      {
+        "title": "Don Hang",
+        "href": "/docs/trang/don-hang"
+      },
+      {
+        "title": "Form Phan Hoi",
+        "href": "/docs/trang/form-phan-hoi"
+      },
+      {
+        "title": "Hoa Don Dau Vao",
+        "href": "/docs/trang/hoa-don-dau-vao"
+      },
+      {
+        "title": "Hoa Don Xuat Vat",
+        "href": "/docs/trang/hoa-don-xuat-vat"
+      },
+      {
+        "title": "Khoa Api Chuoi",
+        "href": "/docs/trang/khoa-api-chuoi"
+      },
+      {
+        "title": "Khong Tim Thay",
+        "href": "/docs/trang/khong-tim-thay"
+      },
+      {
+        "title": "Kiem Audit Tro Ly",
+        "href": "/docs/trang/kiem-audit-tro-ly"
+      },
+      {
+        "title": "Nha Cung Cap",
+        "href": "/docs/trang/nha-cung-cap"
+      },
+      {
+        "title": "Nhan Vien Ban Hang",
+        "href": "/docs/trang/nhan-vien-ban-hang"
+      },
+      {
+        "title": "Nhan Vien",
+        "href": "/docs/trang/nhan-vien"
+      },
+      {
+        "title": "Phan Hoi Khach",
+        "href": "/docs/trang/phan-hoi-khach"
+      },
+      {
+        "title": "Phieu Nhap Xuat",
+        "href": "/docs/trang/phieu-nhap-xuat"
+      },
+      {
+        "title": "Phim Tat",
+        "href": "/docs/trang/phim-tat"
+      },
+      {
+        "title": "Quan Ly Media",
+        "href": "/docs/trang/quan-ly-media"
+      },
+      {
+        "title": "Quyen Cua Toi",
+        "href": "/docs/trang/quyen-cua-toi"
+      },
+      {
+        "title": "San Pham",
+        "href": "/docs/trang/san-pham"
+      },
+      {
+        "title": "Thiet Bi Mang Lan",
+        "href": "/docs/trang/thiet-bi-mang-lan"
+      },
+      {
+        "title": "Thong Ke",
+        "href": "/docs/trang/thong-ke"
+      },
+      {
+        "title": "Ton Kho",
+        "href": "/docs/trang/ton-kho"
+      },
+      {
+        "title": "Tong Quan Truy Cap",
+        "href": "/docs/trang/tong-quan-truy-cap"
+      },
+      {
+        "title": "Tra Cuu Hoa Don Cong Khai",
+        "href": "/docs/trang/tra-cuu-hoa-don-cong-khai"
+      },
+      {
+        "title": "Trang Thai Trien Khai",
+        "href": "/docs/trang/trang-thai-trien-khai"
+      },
+      {
+        "title": "Tro Ly Ai",
+        "href": "/docs/trang/tro-ly-ai"
+      }
+    ]
+  }
+}

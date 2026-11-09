@@ -4,22 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trang giao diện: `camera-settings.tsx` — VietPOS-Map</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/trang/cau-hinh-camera/README.md">
-  <header class="doc-topbar">
-    <a href="/index.html">← Bản đồ</a>
-    <a href="/docs/index.html">Mục lục</a>
-    <span class="doc-path">/docs/trang/cau-hinh-camera/README.md</span>
-  </header>
-  <main class="doc-wrap">
-    <article id="content" class="markdown-body"></article>
-  </main>
+  <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
+  <div class="doc-layout">
+    <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
+    <div class="doc-main">
+      <header class="doc-topbar">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Mở cây tài liệu">☰</button>
+        <a href="/index.html">Bản đồ</a>
+        <a href="/docs">Mục lục</a>
+        <span class="doc-topbar-spacer"></span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi sáng tối">☀ Sáng</button>
+      </header>
+      <nav id="doc-breadcrumb" class="doc-breadcrumb" aria-label="Breadcrumb"></nav>
+      <div class="doc-body-row">
+        <main class="doc-wrap">
+          <article id="content" class="markdown-body"></article>
+        </main>
+        <aside id="doc-toc" class="doc-toc" aria-label="Mục lục trang"></aside>
+      </div>
+    </div>
+  </div>
   <script id="md-b64" type="application/octet-stream">IyBUcmFuZyBnaWFvIGRp4buHbjogYGNhbWVyYS1zZXR0aW5ncy50c3hgCgoqKk3DtCB04bqjOioqIEPhuqV1IGjDrG5oIGNhbWVyYSAoZGVza3RvcCkgcGjhu6VjIHbhu6UgUE9TL21lZGlhLiAoVVJMIC9jYW1lcmEtc2V0dGluZ3MsIENhbWVyYVNldHRpbmdzUGFnZSwgfjM3MCBkw7JuZykuCgoqKk3DoyBuZ3Xhu5NuIFNob3A6KiogYGFydGlmYWN0cy9wb3MtYXBwL3NyYy9wYWdlcy9jYW1lcmEtc2V0dGluZ3MudHN4YAoKKirEkMaw4budbmcgZOG6q24gVVJMOioqIGAvY2FtZXJhLXNldHRpbmdzYAoqKlTDqm4gY29tcG9uZW50IFJlYWN0OioqIGBDYW1lcmFTZXR0aW5nc1BhZ2VgCioqUXV5IG3DtDoqKiB+MzcwIGTDsm5nLgoKIyMgVGjDtG5nIHRpbiBoaeG7g24gdGjhu4sKCk7hu5lpIGR1bmcgbmfGsOG7nWkgZMO5bmcgKipuaMOsbiB0aOG6pXkqKiB0csOqbiBtw6BuIGjDrG5oICh0csOtY2ggbmjDo24gdOG7qyBUU1g7IHPhu5EgbGnhu4d1IMSR4buZbmcgdOG7qyBBUEkpLgoKIyMjIGBjYW1lcmEtc2V0dGluZ3MudHN4YAoKKipUacOqdSDEkeG7gSB0cmFuZzoqKiDigJxDYW1lcmEgY2jhu6luZyB04bur4oCdCioqVGjhursgLyBjaOG7iSBz4buRIChDYXJkVGl0bGUpOioqCi0gTmd14buTbiBjaOG7pXAg4bqjbmgKKipOaMOjbiBs4buNYyAvIHByZXNldCAvIHBsYWNlaG9sZGVyOioqCi0gV2ViY2FtIGTDuW5nIGtoaSBjaOG7pXAgLyBxdcOpdCBRUgotIMSQaeG7h24gdGhv4bqhaSBuaOG6rW4gbOG7h25oIGNo4bulcAotIMOUIG5o4bqtcDogQ2jhu41uIHdlYmNhbQotIMOUIG5o4bqtcDogQ2jhu41uIHRoaeG6v3QgYuG7iyBXaWRnZXQKCiMjIFRoYW8gdMOhYyBuZ8aw4budaSBkw7luZwoKSMOgbmggxJHhu5luZyBjaMOtbmggKG7DunQsIG1lbnUsIG3hu6VjIGRpYWxvZykg4oCUIGtow7RuZyBsaeG7h3Qga8OqIG3hu41pIG7DunQgaWNvbi1vbmx5LgoKIyMjIGBjYW1lcmEtc2V0dGluZ3MudHN4YAoKKipUaGFvIHTDoWM6KioKLSB2b2lkIHJlZnJlc2hXZWJjYW1zKCl9ID4gTMOgbSBt4bubaQotIHZvaWQgcnVuV2lkZ2V0Q2FtZXJhQ2hlY2socGhvbmVJZCl9ID4gS2nhu4NtIHRyYSBr4bq/dCBu4buRaQotICkgLmZpbmFsbHkoKCkgPT4gc2V0VHJpYWxDYXB0dXJlQnVzeShmYWxzZSkpOyB9fSA+IE3hu58gY2FtZXJhIHRo4butCi0gdm9pZCByZWZyZXNoUGhvbmVzKCl9ID4gTMOgbSBt4bubaQoKKirEkMaw4budbmcgZOG6q246KiogYC9jYW1lcmEtc2V0dGluZ3NgCgpD4bqldSBow6xuaCBjYW1lcmEgKGRlc2t0b3ApIHBo4bulYyB24bulIFBPUy9tZWRpYS4KCiMjIENvbXBvbmVudCBjb24gKGxvZ2ljIFVJIGNow61uaCkKCi0gYEAvY29tcG9uZW50cy91aS9jYXJkYCDihpIgYGFydGlmYWN0cy9wb3MtYXBwL3NyYy9jb21wb25lbnRzL3VpL2NhcmQudHN4YAotIGBAL2NvbXBvbmVudHMvdWkvbGFiZWxgIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkvbGFiZWwudHN4YAotIGBAL2NvbXBvbmVudHMvdWkvcmFkaW8tZ3JvdXBgIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkvcmFkaW8tZ3JvdXAudHN4YAotIGBAL2NvbXBvbmVudHMvdWkvc2VsZWN0YCDihpIgYGFydGlmYWN0cy9wb3MtYXBwL3NyYy9jb21wb25lbnRzL3VpL3NlbGVjdC50c3hgCi0gYEAvY29tcG9uZW50cy91aS9idXR0b25gIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkvYnV0dG9uLnRzeGAKLSBgQC9jb21wb25lbnRzL3VpL2FsZXJ0YCDihpIgYGFydGlmYWN0cy9wb3MtYXBwL3NyYy9jb21wb25lbnRzL3VpL2FsZXJ0LnRzeGAKLSBgQC9jb21wb25lbnRzL3VpL2tiZGAg4oaSIGBhcnRpZmFjdHMvcG9zLWFwcC9zcmMvY29tcG9uZW50cy91aS9rYmQudHN4YAoKIyMgQ8OhY2ggxJHhu41jIGNvZGUKCi0gQVBJOiB0w6xtIGB1c2VRdWVyeWAsIGB1c2VNdXRhdGlvbmAsIGBhcGlGZXRjaGAsIGhv4bq3YyBt4bulYyAqKkNodeG7l2kgYC9hcGkvLi4uYCoqIGLDqm4gZMaw4bubaS4KLSBRdXnhu4FuOiBgbGliL3Nlc3Npb24tcGVybWlzc2lvbnMudHNgLCBiaeG7g3UgdGjhu6ljIHRyb25nIGBhcHAtbGF5b3V0LnRzeGAgdsOgIGZpbGUgcGFnZS4KLSBPZmZsaW5lOiBjw6FjIHRyYW5nIFBPUyBjw7MgdGjhu4MgZ+G7jWkgRGV4aWUgcXVhIGBAL2xpYi9vZmZsaW5lLy4uLmAuCgoqKsSQ4buNYyB0aeG6v3A6KiogW0jGsOG7m25nIGThuqtuIMSR4buNYyBNYXBdKC4uLy4uL2h1b25nLWRhbi1kb2MvKQoKIyMgSlNYIGNvbXBvbmVudCBkw7luZyB0cm9uZyBmaWxlIChQYXNjYWxDYXNlKQoKLSBgPEFsZXJ0IC8+YAotIGA8QWxlcnREZXNjcmlwdGlvbiAvPmAKLSBgPEFsZXJ0VGl0bGUgLz5gCi0gYDxCdXR0b24gLz5gCi0gYDxDYW1lcmEgLz5gCi0gYDxDYXJkIC8+YAotIGA8Q2FyZENvbnRlbnQgLz5gCi0gYDxDYXJkRGVzY3JpcHRpb24gLz5gCi0gYDxDYXJkSGVhZGVyIC8+YAotIGA8Q2FyZFRpdGxlIC8+YAotIGA8S2JkIC8+YAotIGA8TGFiZWwgLz5gCi0gYDxMYW5XaWRnZXRQaG9uZSAvPmAKLSBgPExpbmsgLz5gCi0gYDxMb2FkZXIyIC8+YAotIGA8UmFkaW9Hcm91cCAvPmAKLSBgPFJhZGlvR3JvdXBJdGVtIC8+YAotIGA8UmVmcmVzaEN3IC8+YAotIGA8U2VsZWN0IC8+YAotIGA8U2VsZWN0Q29udGVudCAvPmAKLSBgPFNlbGVjdEl0ZW0gLz5gCi0gYDxTZWxlY3RUcmlnZ2VyIC8+YAotIGA8U2VsZWN0VmFsdWUgLz5gCi0gYDxTbWFydHBob25lIC8+YAotIGA8VmlkZW9JbnB1dERldmljZSAvPmAKCiMjIEltcG9ydCBjaMOtbmggKMSR4bqndSBmaWxlKQoKLSBgaW1wb3J0IHsgdXNlQ2FsbGJhY2ssIHVzZUVmZmVjdCwgdXNlUmVmLCB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjtgCi0gYGltcG9ydCB7IENhbWVyYSwgTG9hZGVyMiwgUmVmcmVzaEN3LCBTbWFydHBob25lIH0gZnJvbSAibHVjaWRlLXJlYWN0IjtgCi0gYGltcG9ydCB7IENhcmQsIENhcmRDb250ZW50LCBDYXJkRGVzY3JpcHRpb24sIENhcmRIZWFkZXIsIENhcmRUaXRsZSB9IGZyb20gIkAvY29tcG9uZW50cy91aS9jYXJkIjtgCi0gYGltcG9ydCB7IExhYmVsIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2xhYmVsIjtgCi0gYGltcG9ydCB7IFJhZGlvR3JvdXAsIFJhZGlvR3JvdXBJdGVtIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL3JhZGlvLWdyb3VwIjtgCi0gYGltcG9ydCB7YAotIGBpbXBvcnQgeyBCdXR0b24gfSBmcm9tICJAL2NvbXBvbmVudHMvdWkvYnV0dG9uIjtgCi0gYGltcG9ydCB7IEFsZXJ0LCBBbGVydERlc2NyaXB0aW9uLCBBbGVydFRpdGxlIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2FsZXJ0IjtgCi0gYGltcG9ydCB7IExpbmsgfSBmcm9tICJ3b3V0ZXIiO2AKLSBgaW1wb3J0IHsgaXNUYXVyaVJ1bnRpbWUgfSBmcm9tICJAL2xpYi90YXVyaS1ydW50aW1lIjtgCi0gYGltcG9ydCB7YAotIGBpbXBvcnQgeyBsaXN0VmlkZW9JbnB1dERldmljZXMsIHR5cGUgVmlkZW9JbnB1dERldmljZSB9IGZyb20gIkAvbGliL2NhbWVyYS1hY2Nlc3MiO2AKLSBgaW1wb3J0IHtgCi0gYGltcG9ydCB7IGZvcm1hdENob3JkTGFiZWwsIHVzZVBvc1Nob3J0Y3V0QmluZGluZ3MgfSBmcm9tICJAL2xpYi9wb3Mta2V5Ym9hcmQtc2hvcnRjdXRzIjtgCi0gYGltcG9ydCB7IEtiZCB9IGZyb20gIkAvY29tcG9uZW50cy91aS9rYmQiO2AKCiMjIE1vZHVsZSBgQC9saWIvLi4uYCDEkcaw4bujYyBpbXBvcnQKCi0gYEAvbGliL2NhbWVyYS1hY2Nlc3NgCi0gYEAvbGliL2NhbWVyYS1jYXB0dXJlLXNldHRpbmdzYAotIGBAL2xpYi9wb3Mta2V5Ym9hcmQtc2hvcnRjdXRzYAotIGBAL2xpYi90YXVyaS1sYW4tcGVlcnNgCi0gYEAvbGliL3RhdXJpLXJ1bnRpbWVgCgojIyBDb21wb25lbnQgYEAvY29tcG9uZW50cy8uLi5gICjEkcOjIHF1w6l0IEFQSSBs4bubcCAxKQoKLSBgdWkvY2FyZGAg4oaSIGBhcnRpZmFjdHMvcG9zLWFwcC9zcmMvY29tcG9uZW50cy91aS9jYXJkLnRzeGAKLSBgdWkvbGFiZWxgIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkvbGFiZWwudHN4YAotIGB1aS9yYWRpby1ncm91cGAg4oaSIGBhcnRpZmFjdHMvcG9zLWFwcC9zcmMvY29tcG9uZW50cy91aS9yYWRpby1ncm91cC50c3hgCi0gYHVpL3NlbGVjdGAg4oaSIGBhcnRpZmFjdHMvcG9zLWFwcC9zcmMvY29tcG9uZW50cy91aS9zZWxlY3QudHN4YAotIGB1aS9idXR0b25gIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkvYnV0dG9uLnRzeGAKLSBgdWkvYWxlcnRgIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkvYWxlcnQudHN4YAotIGB1aS9rYmRgIOKGkiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL2NvbXBvbmVudHMvdWkva2JkLnRzeGAKCiMjIExpw6puIGvhur90IG3DowoKLSBLaGFpIGLDoW8gVVJMOiBgYXJ0aWZhY3RzL3Bvcy1hcHAvc3JjL0FwcC50c3hgCi0gTWVudS9sYXlvdXQ6IGBjb21wb25lbnRzL2xheW91dC9hcHAtbGF5b3V0LnRzeGAKLSBQaGnDqm4gxJHEg25nIG5o4bqtcDogYGxpYi9zZXNzaW9uLWNhY2hlLnRzYCwgYGxpYi91c2Utc2Vzc2lvbi11c2VyLnRzYAo=</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });</script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>

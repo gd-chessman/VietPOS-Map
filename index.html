@@ -6,7 +6,8 @@
   <title>VietPOS-Map — Bản đồ tài liệu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺</text></svg>" />
   <style>
-    :root {
+    :root,
+    [data-theme="dark"] {
       --bg: #0b0f14;
       --bg2: #111827;
       --panel: #151d2e;
@@ -15,6 +16,16 @@
       --muted: #94a3b8;
       --accent: #60a5fa;
       --glow: rgba(96, 165, 250, 0.15);
+    }
+    [data-theme="light"] {
+      --bg: #eef2f6;
+      --bg2: #ffffff;
+      --panel: #ffffff;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --muted: #57606a;
+      --accent: #0969da;
+      --glow: rgba(9, 105, 218, 0.12);
     }
     * { box-sizing: border-box; }
     body {
@@ -310,6 +321,7 @@
       Sinh tự động bởi <code>python3 docs/gen.py</code> · Nguồn code: Shop-Manager-System-Offline
     </footer>
   </div>
+  <script src="/assets/portal-theme.js"></script>
   <style>
     .arch-map, .flow-map { width: 100%; min-width: 640px; height: auto; display: block; }
     .svg-h { fill: #cbd5e1; font-size: 13px; font-family: inherit; }

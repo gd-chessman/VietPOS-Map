@@ -4,22 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Module API: `suppliers` — VietPOS-Map</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/module-api/nha-cung-cap-api/README.md">
-  <header class="doc-topbar">
-    <a href="/index.html">← Bản đồ</a>
-    <a href="/docs/index.html">Mục lục</a>
-    <span class="doc-path">/docs/module-api/nha-cung-cap-api/README.md</span>
-  </header>
-  <main class="doc-wrap">
-    <article id="content" class="markdown-body"></article>
-  </main>
+  <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
+  <div class="doc-layout">
+    <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
+    <div class="doc-main">
+      <header class="doc-topbar">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Mở cây tài liệu">☰</button>
+        <a href="/index.html">Bản đồ</a>
+        <a href="/docs">Mục lục</a>
+        <span class="doc-topbar-spacer"></span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi sáng tối">☀ Sáng</button>
+      </header>
+      <nav id="doc-breadcrumb" class="doc-breadcrumb" aria-label="Breadcrumb"></nav>
+      <div class="doc-body-row">
+        <main class="doc-wrap">
+          <article id="content" class="markdown-body"></article>
+        </main>
+        <aside id="doc-toc" class="doc-toc" aria-label="Mục lục trang"></aside>
+      </div>
+    </div>
+  </div>
   <script id="md-b64" type="application/octet-stream">IyBNb2R1bGUgQVBJOiBgc3VwcGxpZXJzYAoKKipNw7QgdOG6ozoqKiBNb2R1bGUgQVBJIHN1cHBsaWVycy50cyDigJQgNCBlbmRwb2ludC4gTmjDoCBjdW5nIGPhuqVwLgoKKipNw6Mgbmd14buTbiBTaG9wOioqIGBhcnRpZmFjdHMvYXBpLXNlcnZlci9zcmMvcm91dGVzL3N1cHBsaWVycy50c2AKCk5ow6AgY3VuZyBj4bqlcC4KCioqU+G7kSBlbmRwb2ludDoqKiA0CgoqKkNvbnRyYWN0IEFQSToqKiBN4buXaSBlbmRwb2ludCBjw7MgbeG7pWMgKipVUkwqKiwgYm9keS9xdWVyeSAodOG7qyBjb2RlICsgc2NoZW1hIFpvZCBvcnZhbCBraGkgY8OzKSwgYuG6o25nIGzhu5dpIGBlcnJvcmAsIHbDoCByZXNwb25zZSAoWm9kIGhv4bq3YyB0csaw4budbmcgYHJlcy5qc29uYCkuCgojIyBC4bqjbmcgZW5kcG9pbnQgKHTDs20gdOG6r3QpCgp8IE1ldGhvZCB8IFBhdGggfCBNw7QgdOG6oyBuZ+G6r24gfAp8LS0tLS0tLS18LS0tLS0tfC0tLS0tLS0tLS0tLXwKfCBHRVQgfCBgL3N1cHBsaWVyc2AgfCDEkMaw4budbmcgZOG6q24gxJHhuqd5IMSR4bunIGAvYXBpL3N1cHBsaWVyc2AgfAp8IEdFVCB8IGAvc3VwcGxpZXJzLzppZGAgfCDEkMaw4budbmcgZOG6q24gxJHhuqd5IMSR4bunIGAvYXBpL3N1cHBsaWVycy86aWRgIHwKfCBQT1NUIHwgYC9zdXBwbGllcnNgIHwgxJDGsOG7nW5nIGThuqtuIMSR4bqneSDEkeG7pyBgL2FwaS9zdXBwbGllcnNg4oCmIHwKfCBQQVRDSCB8IGAvc3VwcGxpZXJzLzppZGAgfCDEkMaw4budbmcgZOG6q24gxJHhuqd5IMSR4bunIGAvYXBpL3N1cHBsaWVycy86aWRg4oCmIHwKCiMjIENoaSB0aeG6v3QgdOG7q25nIGVuZHBvaW50CgojIyMgYEdFVCAvc3VwcGxpZXJzYCB7I2dldC1zdXBwbGllcnN9CgrEkMaw4budbmcgZOG6q24gxJHhuqd5IMSR4bunIGAvYXBpL3N1cHBsaWVyc2AuIEzhu5twIGtp4buDbSB0cmE6IGByZXF1aXJlQXV0aGAuCgoqKlVSTDoqKiBgR0VUIC9hcGkvc3VwcGxpZXJzYAoKKipM4bubcCByb3V0ZToqKiBgcmVxdWlyZUF1dGhgCi0gKipUaMOqbSB0cm9uZyBoYW5kbGVyOioqIHJvbGUgKipgc3VwZXJfYWRtaW5gKiogKDQwMyBu4bq/dSBraMO0bmcgxJHhu6cpLgoKKipRdWVyeToqKiBgbGltaXRgLCBgcGFnZWAsIGBxYAoKKipSZXNwb25zZSAyMDAqKiDigJQgdHLGsOG7nW5nIHRvcC1sZXZlbCAodHLDrWNoIGByZXMuanNvbmApOgoKYHRvdGFsYAoKIyMjIGBHRVQgL3N1cHBsaWVycy86aWRgIHsjZ2V0LXN1cHBsaWVycy0taWR9CgrEkMaw4budbmcgZOG6q24gxJHhuqd5IMSR4bunIGAvYXBpL3N1cHBsaWVycy86aWRgLiBM4bubcCBraeG7g20gdHJhOiBgcmVxdWlyZUF1dGgsIHJlcXVpcmVIdWJTaG9wLCByZXF1aXJlTWFuYWdlck9yQWRtaW5gLgoKKipVUkw6KiogYEdFVCAvYXBpL3N1cHBsaWVycy86aWRgCgoqKkzhu5twIHJvdXRlOioqIGByZXF1aXJlQXV0aGAsIGByZXF1aXJlSHViU2hvcGAsIGByZXF1aXJlTWFuYWdlck9yQWRtaW5gCgoqKkzhu5dpIEpTT04qKiAoYGVycm9yYCBzdHJpbmcpOgoKfCBIVFRQIHwgTWVzc2FnZSB8CnwtLS0tLS18LS0tLS0tLS0tfAp8ICoqNDAwKiogfCBgSW52YWxpZCBJRGAgfAp8ICoqNDA0KiogfCBgS2jDtG5nIHTDrG0gdGjhuqV5IG5ow6AgY3VuZyBj4bqlcGAgfAoKIyMjIGBQT1NUIC9zdXBwbGllcnNgIHsjcG9zdC1zdXBwbGllcnN9CgrEkMaw4budbmcgZOG6q24gxJHhuqd5IMSR4bunIGAvYXBpL3N1cHBsaWVyc2AuIEzhu5twIGtp4buDbSB0cmE6IGByZXF1aXJlQXV0aCwgcmVxdWlyZUh1YlNob3AsIHJlcXVpcmVNYW5hZ2VyT3JBZG1pbiwgcmVxdWlyZU9wZXJhdGlvbmFsQ29udGV4dGAuCgoqKlVSTDoqKiBgUE9TVCAvYXBpL3N1cHBsaWVyc2AKCioqTOG7m3Agcm91dGU6KiogYHJlcXVpcmVBdXRoYCwgYHJlcXVpcmVIdWJTaG9wYCwgYHJlcXVpcmVNYW5hZ2VyT3JBZG1pbmAsIGByZXF1aXJlT3BlcmF0aW9uYWxDb250ZXh0YAoKKkhhbmRsZXIga2jDtG5nIHRyw61jaCDEkcaw4bujYyBjb250cmFjdCB04buxIMSR4buZbmcg4oCUIG3hu58gZmlsZSByb3V0ZSBUeXBlU2NyaXB0LioKCiMjIyBgUEFUQ0ggL3N1cHBsaWVycy86aWRgIHsjcGF0Y2gtc3VwcGxpZXJzLS1pZH0KCsSQxrDhu51uZyBk4bqrbiDEkeG6p3kgxJHhu6cgYC9hcGkvc3VwcGxpZXJzLzppZGAuIEzhu5twIGtp4buDbSB0cmE6IGByZXF1aXJlQXV0aCwgcmVxdWlyZUh1YlNob3AsIHJlcXVpcmVNYW5hZ2VyT3JBZG1pbiwgcmVxdWlyZU9wZXJhdGlvbmFsQ29udGV4dGAuCgoqKlVSTDoqKiBgUEFUQ0ggL2FwaS9zdXBwbGllcnMvOmlkYAoKKipM4bubcCByb3V0ZToqKiBgcmVxdWlyZUF1dGhgLCBgcmVxdWlyZUh1YlNob3BgLCBgcmVxdWlyZU1hbmFnZXJPckFkbWluYCwgYHJlcXVpcmVPcGVyYXRpb25hbENvbnRleHRgCgoqKkzhu5dpIEpTT04qKiAoYGVycm9yYCBzdHJpbmcpOgoKfCBIVFRQIHwgTWVzc2FnZSB8CnwtLS0tLS18LS0tLS0tLS0tfAp8ICoqNDAwKiogfCBgSW52YWxpZCBJRGAgfAp8ICoqNDA0KiogfCBgS2jDtG5nIHTDrG0gdGjhuqV5IG5ow6AgY3VuZyBj4bqlcGAgfAoKIyMgR2hpIGNow7ogxJHhu41jIG3DowoKLSBH4bqvbiBwcmVmaXggYC9hcGlgIHRyb25nIGBhcHAudHNgOyBmaWxlIHJvdXRlOiBgcm91dGVzL2luZGV4LnRzYCDihpIgYC4vc3VwcGxpZXJzLnRzYC4KLSBIYW5kbGVyIMSR4bqneSDEkeG7pzogbeG7nyBmaWxlIFR5cGVTY3JpcHQgdOG6oWkgU2hvcCAodMOsbSB0aGVvIGNodeG7l2kgcGF0aCkuCi0gUXV54buBbiByb2xlOiBgdGhhbS1jaGlldS9waGFuLXF1eWVuLXJiYWMvUkVBRE1FLm1kYCAodGnhur9uZyBBbmggZ+G7kWMpICsgY8OhYyBgcmVxdWlyZSpgIHRyb25nIHThu6tuZyBlbmRwb2ludC4KCioqxJDhu41jIHRp4bq/cDoqKiBbSMaw4bubbmcgZOG6q24gTWFwXSguLi8uLi9odW9uZy1kYW4tZG9jLykgwrcgW03hu6VjIGzhu6VjXSguLi8uLi9SRUFETUUubWQpCg==</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });</script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>
