@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đang tải… — VietPOS-Map</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <style>
+    :root {
+      --bar: #0f172a;
+      --border: #1e293b;
+      --muted: #94a3b8;
+    }
+    body {
+      margin: 0;
+      background: #0d1117;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .5rem 1rem;
+      padding: .65rem 1.25rem;
+      background: var(--bar);
+      border-bottom: 1px solid var(--border);
+      font-size: .875rem;
+    }
+    .topbar a { color: #58a6ff; text-decoration: none; }
+    .topbar a:hover { text-decoration: underline; }
+    .topbar .path { color: var(--muted); word-break: break-all; flex: 1; min-width: 200px; }
+    .wrap {
+      max-width: 1012px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+    }
+    .markdown-body pre { background: #161b22 !important; }
+    .markdown-body table { display: block; overflow-x: auto; }
+    .markdown-body .mermaid {
+      background: #161b22;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .error {
+      color: #f85149;
+      padding: 2rem;
+      text-align: center;
+    }
+    .loading { color: var(--muted); padding: 3rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="/index.html">← Bản đồ</a>
+    <a href="/docs/README.md">Mục lục</a>
+    <span class="path" id="path-label"></span>
+  </header>
+  <main class="wrap">
+    <article id="content" class="markdown-body">
+      <p class="loading">Đang tải tài liệu…</p>
+    </article>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+
+    const contentEl = document.getElementById('content');
+    const pathLabel = document.getElementById('path-label');
+
+    function docPath() {
+      const p = decodeURIComponent(window.location.pathname);
+      if (!p.endsWith('.md')) return null;
+      return p;
+    }
+
+    function resolveMdHref(href, basePath) {
+      try {
+        if (/^https?:\/\//i.test(href)) return href;
+        const baseDir = basePath.replace(/\/[^/]+$/, '/');
+        const parts = (baseDir + href).split('/').filter(Boolean);
+        const out = [];
+        for (const part of parts) {
+          if (part === '.') continue;
+          if (part === '..') { out.pop(); continue; }
+          out.push(part);
+        }
+        return '/' + out.join('/');
+      } catch {
+        return href;
+      }
+    }
+
+    marked.setOptions({
+      gfm: true,
+      breaks: false,
+      headerIds: true,
+      mangle: false,
+    });
+
+    function escapeHtml(s) {
+      return s
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function fixLinks(basePath) {
+      contentEl.querySelectorAll('a[href]').forEach((a) => {
+        const href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || /^https?:/i.test(href)) return;
+        if (href.endsWith('.md') || href.includes('.md#')) {
+          a.setAttribute('href', resolveMdHref(href.split('#')[0], basePath) + (href.includes('#') ? '#' + href.split('#').slice(1).join('#') : ''));
+        }
+      });
+    }
+
+    async function renderMermaid() {
+      const codes = contentEl.querySelectorAll('pre > code.language-mermaid');
+      codes.forEach((code) => {
+        const pre = code.parentElement;
+        const el = document.createElement('div');
+        el.className = 'mermaid';
+        el.textContent = code.textContent;
+        pre.replaceWith(el);
+      });
+      const nodes = contentEl.querySelectorAll('.mermaid');
+      if (nodes.length) await mermaid.run({ nodes });
+    }
+
+    async function load() {
+      const path = docPath();
+      if (!path) {
+        contentEl.innerHTML = '<p class="error">URL phải kết thúc bằng <code>.md</code></p>';
+        return;
+      }
+      pathLabel.textContent = path;
+      document.title = path.replace(/^\/docs\//, '').replace(/\/README\.md$/, '') + ' — VietPOS-Map';
+
+      try {
+        const res = await fetch(path + '?raw=1', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        const md = await res.text();
+        contentEl.innerHTML = marked.parse(md);
+        fixLinks(path);
+        await renderMermaid();
+      } catch (err) {
+        contentEl.innerHTML =
+          '<p class="error">Không đọc được <code>' +
+          escapeHtml(path) +
+          '</code><br>' +
+          escapeHtml(String(err.message || err)) +
+          '</p>';
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>

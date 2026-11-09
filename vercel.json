@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/(.*).md",
+      "missing": [{ "type": "query", "key": "raw" }],
+      "destination": "/viewer.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/docs/:path+/",
+      "destination": "/docs/:path+/README.md",
+      "permanent": false
+    }
+  ]
+}
