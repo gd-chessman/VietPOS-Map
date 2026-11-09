@@ -11,9 +11,9 @@ if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches
 var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);})();
 </script>
   <script>
-(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),h=MD[t==="light"?"light":"dark"];document.write('<link id="md-theme-css" rel="stylesheet" href="'+h+'" />');})();
+(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t==="light"?"light":"dark"];document.head.appendChild(l);})();
 </script>
-  <link rel="stylesheet" href="/assets/doc.css" />
+<link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/thu-vien/product-category/README.md">
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
@@ -38,8 +38,8 @@ var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorSchem
   </div>
   <script id="md-b64" type="application/octet-stream">IyBUaMawIHZp4buHbjogYHByb2R1Y3QtY2F0ZWdvcnkudHNgCgoqKk3DtCB04bqjOioqIFtT4bqjbiBwaOG6qW0gJiBraG9dIHByb2R1Y3QtY2F0ZWdvcnkudHMg4oCUIGZpbmRDYXRlZ29yeUJ5TmFtZSwgcmVzb2x2ZVByb2R1Y3RDYXRlZ29yeSwgc3luY1Byb2R1Y3RDYXRlZ29yeU5hbWVGcm9tQ2F0ZWdvcnkuCgoqKkNo4bunIMSR4buBOioqIFtT4bqjbiBwaOG6qW0gJiBraG9dKC4uLy4uL2NodXllbi1kZS9zYW4tcGhhbS12YS1raG8vKQoKKipNw6Mgbmd14buTbiBTaG9wOioqIGBhcnRpZmFjdHMvYXBpLXNlcnZlci9zcmMvbGliL3Byb2R1Y3QtY2F0ZWdvcnkudHNgIMK3ICoqUXV5IG3DtDoqKiB+OTggZMOybmcKCkZpbGUgbsOgeSBsw6AgKip0cmEgY+G7qXUqKiBraGkgxJHDoyDEkeG7jWMgaHViIGNo4bunIMSR4buBIHbDoCBtb2R1bGUgQVBJIHTGsMahbmcg4bupbmcuIFRodeG6rXQgdG/DoW4gxJHhuqd5IMSR4bunIG7hurFtIHRyb25nIG3DoyBUeXBlU2NyaXB0IGfhu5FjLgoKIyMgSMOgbS9o4bqxbmcgZXhwb3J0ICgzKQoKLSBgZmluZENhdGVnb3J5QnlOYW1lYAotIGByZXNvbHZlUHJvZHVjdENhdGVnb3J5YAotIGBzeW5jUHJvZHVjdENhdGVnb3J5TmFtZUZyb21DYXRlZ29yeWAKCiMjIEltcG9ydCBjxqEgc+G7nyBk4buvIGxp4buHdQoKLSBgaW1wb3J0IHsgZGIsIHByb2R1Y3RzVGFibGUsIHByb2R1Y3RDYXRlZ29yaWVzVGFibGUgfSBmcm9tICJAd29ya3NwYWNlL2RiIjtgCgrihpAgW0No4buJIG3hu6VjIGxpYl0oLi4vLi4vY2hpLW11Yy90aHUtdmllbi1iYWNrZW5kLykgwrcgW0h1YiBT4bqjbiBwaOG6qW0gJiBraG9dKC4uLy4uL2NodXllbi1kZS9zYW4tcGhhbS12YS1raG8vKQo=</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>

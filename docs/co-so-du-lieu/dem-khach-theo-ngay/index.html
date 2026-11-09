@@ -11,9 +11,9 @@ if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches
 var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);})();
 </script>
   <script>
-(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),h=MD[t==="light"?"light":"dark"];document.write('<link id="md-theme-css" rel="stylesheet" href="'+h+'" />');})();
+(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t==="light"?"light":"dark"];document.head.appendChild(l);})();
 </script>
-  <link rel="stylesheet" href="/assets/doc.css" />
+<link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/co-so-du-lieu/dem-khach-theo-ngay/README.md">
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
@@ -38,8 +38,8 @@ var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorSchem
   </div>
   <script id="md-b64" type="application/octet-stream">IyBTY2hlbWE6IGBzaG9wRGFpbHlWaXNpdG9yQ291bnRzYAoKKipNw7QgdOG6ozoqKiBEcml6emxlIHNob3BEYWlseVZpc2l0b3JDb3VudHMudHMg4oCUIDEgYuG6o25nLCA1IGPhu5l0IChzaG9wX2RhaWx5X3Zpc2l0b3JfY291bnRzKS4KCioqTcOjIG5ndeG7k24gU2hvcDoqKiBgbGliL2RiL3NyYy9zY2hlbWEvc2hvcERhaWx5VmlzaXRvckNvdW50cy50c2AKCiMjIEPDoWNoIMSR4buNYyB0cmFuZyBuw6B5CgpN4buXaSAqKmLhuqNuZyBQb3N0Z3JlcyoqIGPDsyBi4bqjbmcgY+G7mXQ6IGtp4buDdSBEcml6emxlLCBgTk9UIE5VTExgIC8gKipQSyoqLCBraMOzYSBuZ2/huqFpIChj4buZdCBGSyDihpIgdMOqbiBi4bqjbmcgxJHDrWNoKSwgdsOgIGdoaSBjaMO6IEpTRG9jIHThu6sgbcOjIG5ndeG7k24uIEVudW0gdsOgIGluZGV4IMSRxrDhu6NjIGxp4buHdCBrw6ogcmnDqm5nIGtoaSBjw7MgdHJvbmcgZmlsZS4KCiMjIExpw6puIGvhur90IG5oYW5oCgotICoqSFRUUCBBUEk6KiogW2toYWNoLXZhbmctbGFpXSguLi8uLi9tb2R1bGUtYXBpL2toYWNoLXZhbmctbGFpLykgKGByb3V0ZXMvd2Fsay1pbi1jdXN0b21lcnMudHNgKQoKIyMgQuG6o25nIGBzaG9wX2RhaWx5X3Zpc2l0b3JfY291bnRzYAoKLSAqKkJp4bq/biBEcml6emxlOioqIGBzaG9wRGFpbHlWaXNpdG9yQ291bnRzVGFibGVgCgp8IEPhu5l0IFNRTCB8IFRodeG7mWMgdMOtbmggVFMgfCBLaeG7g3UgfCBSw6BuZyBideG7mWMgfCBGSyDihpIgYuG6o25nIHwgR2hpIGNow7ogfAp8LS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLXwtLS0tLS18LS0tLS0tLS0tLS18LS0tLS0tLS0tLS18LS0tLS0tLS0tfAp8IGBzaG9wX2lkYCB8IGBzaG9wSWRgIHwgaW50ZWdlciB8IE5PVCBOVUxMIHwgYHNob3BzYCB8IOKAlCB8CnwgYHZpc2l0X2RhdGVgIHwgYHZpc2l0RGF0ZWAgfCBkYXRlIHwgTk9UIE5VTEwgfCDigJQgfCDigJQgfAp8IGB2aXNpdG9yX2NvdW50YCB8IGB2aXNpdG9yQ291bnRgIHwgaW50ZWdlciB8IE5PVCBOVUxMLCBkZWZhdWx0IGAwYCB8IOKAlCB8IOKAlCB8CnwgYGJlYW1fY291bnRgIHwgYGJlYW1Db3VudGAgfCBpbnRlZ2VyIHwgTk9UIE5VTEwsIGRlZmF1bHQgYDBgIHwg4oCUIHwg4oCUIHwKfCBgdXBkYXRlZF9hdGAgfCBgdXBkYXRlZEF0YCB8IHRpbWVzdGFtcCgidXBkYXRlZF9hdCIsIHsgd2l0aFRpbWV6b25lOiB0cnVlIH0pIHwgTk9UIE5VTEwsIGRlZmF1bHQgYG5vdygpYCB8IOKAlCB8IOKAlCB8CgpU4buVbmcgcXVhbiBFUiAvIG5hbWluZzogWy4uLy4uL3RoYW0tY2hpZXUvY28tc28tZHUtbGlldS1nb2MvXSguLi8uLi90aGFtLWNoaWV1L2NvLXNvLWR1LWxpZXUtZ29jLykuCg==</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>

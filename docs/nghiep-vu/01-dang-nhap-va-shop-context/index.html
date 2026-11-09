@@ -11,9 +11,9 @@ if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches
 var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);})();
 </script>
   <script>
-(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),h=MD[t==="light"?"light":"dark"];document.write('<link id="md-theme-css" rel="stylesheet" href="'+h+'" />');})();
+(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t==="light"?"light":"dark"];document.head.appendChild(l);})();
 </script>
-  <link rel="stylesheet" href="/assets/doc.css" />
+<link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/nghiep-vu/01-dang-nhap-va-shop-context/README.md">
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
@@ -38,8 +38,8 @@ var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorSchem
   </div>
   <script id="md-b64" type="application/octet-stream">IyDEkMSDbmcgbmjhuq1wIHbDoCBuZ+G7ryBj4bqjbmggc2hvcAoKKipNw7QgdOG6ozoqKiDEkMSDbmcgbmjhuq1wLCBKV1QgZ+G6r24gc2hvcC9yb2xlLCBodWIgc2hvcCB2w6Agbmfhu68gY+G6o25oIHbhuq1uIGjDoG5oIEFQSS4KCi0gVXNlciDEkcSDbmcgbmjhuq1wIGVtYWlsL23huq10IGto4bqpdSAoYFBPU1QgL2FwaS9hdXRoL2xvZ2luYCkuCi0gSldUIGfhuq9uICoqc2hvcF9pZCoqLCAqKnJvbGUqKiwgKipvcmdhbml6YXRpb25faWQqKiAobuG6v3UgY8OzKS4KLSBI4bqndSBo4bq/dCBBUEkgZMO5bmcgYHJlcXVpcmVPcGVyYXRpb25hbENvbnRleHRgIOKAlCBt4buNaSB0aGFvIHTDoWMgZ+G6r24gc2hvcCDEkWFuZyBjaOG7jW4uCi0gKipIdWIgc2hvcCoqIChjaGkgbmjDoW5oIGNow61uaCk6IEjEkCDEkeG6p3UgdsOgbywgbeG7mXQgc+G7kSBj4bqldSBow6xuaCBjaHXhu5dpLgotIE9mZmxpbmU6IGtow7RuZyBsb2dpbiB1c2VyIG3hu5tpOyBjaGVja291dCB24bqrbiBnaGkgbG9jYWwgbuG6v3UgxJHDoyBjw7Mgc2Vzc2lvbi4KCioqQ29kZToqKiBgbWlkZGxld2FyZXMvYXV0aC50c2AsIGBwYWdlcy9sb2dpbi50c3hgLCBgbGliL3Nlc3Npb24tY2FjaGUudHNgLgo=</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>

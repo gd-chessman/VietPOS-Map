@@ -122,7 +122,22 @@
     if (content) rerenderMermaid(content);
   }
 
+  function waitForMermaid() {
+    if (typeof mermaid !== "undefined") return Promise.resolve();
+    return new Promise((resolve) => {
+      const done = () => resolve();
+      const script = document.querySelector('script[src*="mermaid"]');
+      if (script && !script.complete) {
+        script.addEventListener("load", done, { once: true });
+        script.addEventListener("error", done, { once: true });
+      }
+      window.addEventListener("load", done, { once: true });
+      setTimeout(done, 6000);
+    });
+  }
+
   async function renderMermaid(root) {
+    await waitForMermaid();
     if (typeof mermaid === "undefined") return;
     root.querySelectorAll("pre > code.language-mermaid").forEach((code) => {
       const pre = code.parentElement;

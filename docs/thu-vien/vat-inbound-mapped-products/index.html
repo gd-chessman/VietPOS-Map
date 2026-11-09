@@ -11,9 +11,9 @@ if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches
 var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);})();
 </script>
   <script>
-(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),h=MD[t==="light"?"light":"dark"];document.write('<link id="md-theme-css" rel="stylesheet" href="'+h+'" />');})();
+(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t==="light"?"light":"dark"];document.head.appendChild(l);})();
 </script>
-  <link rel="stylesheet" href="/assets/doc.css" />
+<link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/thu-vien/vat-inbound-mapped-products/README.md">
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
@@ -38,8 +38,8 @@ var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorSchem
   </div>
   <script id="md-b64" type="application/octet-stream">IyBUaMawIHZp4buHbjogYHZhdC1pbmJvdW5kLW1hcHBlZC1wcm9kdWN0cy50c2AKCioqTcO0IHThuqM6KiogW0jDs2EgxJHGoW4gxJHhuqd1IHbDoG9dIHZhdC1pbmJvdW5kLW1hcHBlZC1wcm9kdWN0cy50cyDigJQgaXNWYXRJbnZvaWNlSW5ib3VuZE1hcHBlZE9ubHlGb3JTaG9wLCBJTkJPVU5EX01BUFBFRF9OT19FTElHSUJMRV9MSU5FU19NU0csIGZpbHRlclByb2R1Y3RJZHNGb3JJbmJvdW5kTWFwcGVkSXNzdWUsIHZhbGlkYXRlT3JkZXJGb3JJbmJvdW5kTWFwcGVkT25seeKApgoKKipDaOG7pyDEkeG7gToqKiBbSMOzYSDEkcahbiDEkeG6p3UgdsOgb10oLi4vLi4vY2h1eWVuLWRlL2hvYS1kb24tZGF1LXZhby8pCgoqKk3DoyBuZ3Xhu5NuIFNob3A6KiogYGFydGlmYWN0cy9hcGktc2VydmVyL3NyYy9saWIvdmF0LWluYm91bmQtbWFwcGVkLXByb2R1Y3RzLnRzYCDCtyAqKlF1eSBtw7Q6KiogfjE2MyBkw7JuZwoKRmlsZSBuw6B5IGzDoCAqKnRyYSBj4bupdSoqIGtoaSDEkcOjIMSR4buNYyBodWIgY2jhu6cgxJHhu4EgdsOgIG1vZHVsZSBBUEkgdMawxqFuZyDhu6luZy4gVGh14bqtdCB0b8OhbiDEkeG6p3kgxJHhu6cgbuG6sW0gdHJvbmcgbcOjIFR5cGVTY3JpcHQgZ+G7kWMuCgojIyBIw6BtL2jhurFuZyBleHBvcnQgKDQpCgotIGBpc1ZhdEludm9pY2VJbmJvdW5kTWFwcGVkT25seUZvclNob3BgCi0gYElOQk9VTkRfTUFQUEVEX05PX0VMSUdJQkxFX0xJTkVTX01TR2AKLSBgZmlsdGVyUHJvZHVjdElkc0ZvckluYm91bmRNYXBwZWRJc3N1ZWAKLSBgdmFsaWRhdGVPcmRlckZvckluYm91bmRNYXBwZWRPbmx5SXNzdWVgCgojIyBJbXBvcnQgY8ahIHPhu58gZOG7ryBsaeG7h3UKCi0gYH0gZnJvbSAiQHdvcmtzcGFjZS9kYiI7YAoK4oaQIFtDaOG7iSBt4bulYyBsaWJdKC4uLy4uL2NoaS1tdWMvdGh1LXZpZW4tYmFja2VuZC8pIMK3IFtIdWIgSMOzYSDEkcahbiDEkeG6p3UgdsOgb10oLi4vLi4vY2h1eWVuLWRlL2hvYS1kb24tZGF1LXZhby8pCg==</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>

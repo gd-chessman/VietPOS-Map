@@ -54,8 +54,9 @@ var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorSchem
 </script>"""
 
 THEME_MD_LINK_SHELL = """<script>
-(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),h=MD[t==="light"?"light":"dark"];document.write('<link id="md-theme-css" rel="stylesheet" href="'+h+'" />');})();
-</script>"""
+(function(){if(!document.querySelector('meta[name="vietpos-doc"]'))return;var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t==="light"?"light":"dark"];document.head.appendChild(l);})();
+</script>
+<link rel="stylesheet" href="/assets/doc.css" />"""
 
 THEME_HEAD_INLINE = THEME_ATTR_INLINE
 ROUTES_DIR = SHOP / "artifacts/api-server/src/routes"
@@ -2105,7 +2106,6 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <meta name="vietpos-doc" content="1" />
   {theme_attr_inline}
   {theme_md_link_shell}
-  <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="{md_web_path}">
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
@@ -2130,9 +2130,9 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   </div>
   <script id="md-b64" type="application/octet-stream">{b64}</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>
 """
