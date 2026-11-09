@@ -17,7 +17,7 @@
       "source": "/:folder(trang|chuyen-de|co-so-du-lieu|module-api|nghiep-vu|he-thong|chi-muc|tham-chieu|thu-vien|ban-do-kien-truc|huong-dan-doc)/:path*",
       "destination": "/docs/:folder/:path*",
       "permanent": false
-    },
+    }
   ],
   "headers": [
     {
