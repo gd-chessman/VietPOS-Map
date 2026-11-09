@@ -3,121 +3,394 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VietPOS-Map — Sơ đồ bấm được</title>
+  <title>VietPOS-Map — Bản đồ tài liệu</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺</text></svg>" />
   <style>
     :root {
-      --bg: #0f1419;
-      --panel: #1a2332;
-      --border: #2d3a4f;
-      --text: #e7ecf3;
-      --muted: #9aa8bc;
-      --accent: #3b82f6;
-      --accent-hover: #60a5fa;
+      --bg: #0b0f14;
+      --bg2: #111827;
+      --panel: #151d2e;
+      --border: #2a3548;
+      --text: #eef2f7;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --glow: rgba(96, 165, 250, 0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, #1e293b 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #93c5fd; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+    header.hero {
+      padding: 2rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.75rem;
+    }
+    .hero h1 {
+      margin: 0 0 .5rem;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+    .hero .lead { margin: 0; color: var(--muted); max-width: 52ch; }
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin: 1.25rem 0 .75rem;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .5rem .85rem;
+      font-size: .85rem;
+    }
+    .stat b { color: var(--accent); font-size: 1.05rem; margin-right: .25rem; }
+    .nav-pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .nav-pill {
+      padding: .4rem .75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text);
+      font-size: .88rem;
+    }
+    .nav-pill:hover { border-color: var(--accent); text-decoration: none; }
+    section { margin-bottom: 2.25rem; }
+    section h2 {
+      font-size: 1.05rem;
+      margin: 0 0 .35rem;
+      font-weight: 600;
+    }
+    section .hint { margin: 0 0 .85rem; color: var(--muted); font-size: .9rem; }
+    .map-frame {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: .75rem;
+      overflow-x: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
     }
   </style>
 </head>
-<body style="margin:0;font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;">
-  <header style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);background:var(--panel);">
-    <h1 style="margin:0 0 .35rem;font-size:1.35rem;">VietPOS-Map — Sơ đồ bấm được</h1>
-    <p style="margin:0;color:var(--muted);font-size:.95rem;">Bấm từng ô để mở README tương ứng (trong Cursor: Open with Live Preview hoặc mở file .md).</p>
-    <p style="margin:.75rem 0 0;font-size:.9rem;"><a href="docs/README.md">Trang chủ Map</a> · <a href="docs/huong-dan-doc/README.md">Hướng dẫn 3 bước</a> · <a href="docs/chuyen-de/kien-truc-he-thong/README.md">Kiến trúc Mermaid</a> · <a href="docs/he-thong/01-kien-truc-runtime/README.md">Runtime he-thong</a> · <a href="docs/he-thong/02-workspace-luu-niem/README.md">Workspace LuuNiem</a></p>
-  </header>
-  <main style="max-width:960px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;">
-    <section style="margin-bottom:2rem;">
-      <h2 style="font-size:1.1rem;margin:0 0 .75rem;">10 hub chủ đề</h2>
-      <div class="grid" style="display:grid;gap:.65rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
-    <a class="card hub" href="docs/chuyen-de/kien-truc-he-thong/README.md">
-      <strong>Kiến trúc hệ thống</strong>
-      <span>Sơ đồ tổng thể: pos-app, api-server, Postgres, offline, cloud-sync — đọc đầu tiên.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/dang-nhap-va-phien/README.md">
-      <strong>Đăng nhập và phiên làm việc</strong>
-      <span>JWT, shop đang chọn, hub shop, quyền menu.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/pos-va-don-hang/README.md">
-      <strong>POS và đơn hàng</strong>
-      <span>Quầy bán, giỏ hàng, thanh toán, ca làm việc, hủy đơn.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/san-pham-va-kho/README.md">
-      <strong>Sản phẩm và tồn kho</strong>
-      <span>Danh mục SP, tồn shop, phiếu nhập/xuất, PO.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/hoa-don-dau-vao/README.md">
-      <strong>Hóa đơn đầu vào (VAT mua vào)</strong>
-      <span>Import PDF/Excel, kéo CQT, MST lọc, ghép hàng, nhập kho.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/hoa-don-ban-ra/README.md">
-      <strong>Hóa đơn bán ra (Viettel)</strong>
-      <span>Phát hành HĐ VAT từ POS, tra cứu, form công khai.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/chuoi-cua-hang/README.md">
-      <strong>Chuỗi và nhiều cửa hàng</strong>
-      <span>Tổ chức, shop, kho, điều chuyển, dashboard chuỗi.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/an-ninh-truy-cap/README.md">
-      <strong>An ninh và chặn truy cập</strong>
-      <span>Chặn IP/thiết bị, quan sát truy cập, super_admin.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/offline-dong-bo/README.md">
-      <strong>Offline và đồng bộ</strong>
-      <span>IndexedDB, checkout offline, API sync.</span>
-    </a>
-    <a class="card hub" href="docs/chuyen-de/tro-ly-widget/README.md">
-      <strong>Trợ lý AI, widget, đếm khách</strong>
-      <span>Agent chat, widget Android, ESP32 visitor-counts.</span>
-    </a>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>VietPOS-Map</h1>
+      <p class="lead">Bản đồ tài liệu tiếng Việt — bấm trên sơ đồ hoặc thẻ hub để mở đúng README (nghiệp vụ → màn hình → API → DB).</p>
+      <div class="stats">
+        <div class="stat"><b>10</b> hub chủ đề</div>
+        <div class="stat"><b>36</b> trang UI</div>
+        <div class="stat"><b>39</b> module API</div>
+        <div class="stat"><b>235</b> endpoint</div>
+        <div class="stat"><b>43</b> schema</div>
       </div>
-    </section>
-    <section style="margin-bottom:2rem;">
-      <h2 style="font-size:1.1rem;margin:0 0 .75rem;">Runtime VietPOS</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-    <a class="card thin" href="docs/trang/ban-hang-pos/README.md">pos-app → Bán hàng POS</a>
-    <a class="card thin" href="docs/he-thong/01-kien-truc-runtime/README.md">api-server → Runtime</a>
-    <a class="card thin" href="docs/chuyen-de/offline-dong-bo/README.md">IndexedDB → Offline</a>
-    <a class="card thin" href="docs/chi-muc/co-so-du-lieu/README.md">PostgreSQL → Schema</a>
-    <a class="card thin" href="docs/chuyen-de/tro-ly-widget/README.md">Widget/ESP32</a>
-      </div>
-    </section>
+      <nav class="nav-pills" aria-label="Liên kết nhanh"><a class="nav-pill" href="docs/README.md">Mục lục Markdown</a><a class="nav-pill" href="docs/huong-dan-doc/README.md">Hướng dẫn 3 bước</a><a class="nav-pill" href="docs/ban-do-kien-truc/README.md">Bản đồ ASCII</a><a class="nav-pill" href="docs/he-thong/02-workspace-luu-niem/README.md">Workspace</a></nav>
+    </header>
+
     <section>
-      <h2 style="font-size:1.1rem;margin:0 0 .75rem;">Chỉ mục kỹ thuật (chi-muc)</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-    <a class="chip" href="docs/chi-muc/danh-sach-api/README.md">Module API</a>
-    <a class="chip" href="docs/chi-muc/danh-sach-trang/README.md">Màn hình UI</a>
-    <a class="chip" href="docs/chi-muc/co-so-du-lieu/README.md">Schema DB</a>
-    <a class="chip" href="docs/chi-muc/thu-vien-backend/README.md">Thư viện backend</a>
-    <a class="chip" href="docs/chi-muc/endpoint-http/README.md">Endpoint HTTP</a>
+      <h2>Bản đồ runtime</h2>
+      <p class="hint">Luồng chạy thật của VietPOS — mỗi khối mở tài liệu liên quan.</p>
+      <div class="map-frame"><svg class="arch-map" viewBox="0 0 900 300" role="img" aria-label="Bản đồ runtime VietPOS">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect x="8" y="8" width="884" height="284" rx="14" fill="#121a27" stroke="#334155"/>
+  <text x="24" y="32" class="svg-h">Bản đồ hệ thống (bấm từng khối → tài liệu)</text>
+  <rect x="24" y="48" width="200" height="200" rx="12" fill="#0f172a" stroke="#334155" stroke-dasharray="4 3"/>
+  <text x="124" y="68" text-anchor="middle" class="svg-s" font-weight="600">Máy quầy / admin</text>
+
+  <a class="map-node" href="docs/trang/ban-hang-pos/README.md">
+    <rect x="40" y="82" width="168" height="52" rx="10" fill="#1e3a5f" stroke="#475569" stroke-width="1.2"/>
+    <text x="124.0" y="104" text-anchor="middle" class="svg-t" font-weight="600">pos-app</text>
+    <text x="124.0" y="122" text-anchor="middle" class="svg-s">React · Tauri · PWA</text>
+  </a>
+
+  <a class="map-node" href="docs/chuyen-de/offline-dong-bo/README.md">
+    <rect x="40" y="144" width="168" height="52" rx="10" fill="#312e81" stroke="#475569" stroke-width="1.2"/>
+    <text x="124.0" y="166" text-anchor="middle" class="svg-t" font-weight="600">IndexedDB</text>
+    <text x="124.0" y="184" text-anchor="middle" class="svg-s">Đơn &amp; HĐ chờ sync</text>
+  </a>
+  <line x1="208" y1="108" x2="268" y2="108" stroke="#64748b" marker-end="url(#arr)"/>
+  <text x="238" y="98" text-anchor="middle" class="svg-s">HTTPS /api</text>
+  <line x1="172" y1="170" x2="248" y2="140" stroke="#64748b" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <text x="195" y="162" class="svg-s">pull / push</text>
+
+  <a class="map-node" href="docs/he-thong/01-kien-truc-runtime/README.md">
+    <rect x="268" y="86" width="176" height="64" rx="10" fill="#14532d" stroke="#475569" stroke-width="1.2"/>
+    <text x="356.0" y="108" text-anchor="middle" class="svg-t" font-weight="600">api-server</text>
+    <text x="356.0" y="126" text-anchor="middle" class="svg-s">Express · JWT · nghiệp vụ</text>
+  </a>
+  <line x1="444" y1="118" x2="504" y2="118" stroke="#64748b" marker-end="url(#arr)"/>
+  <text x="474" y="108" text-anchor="middle" class="svg-s">Drizzle</text>
+
+  <a class="map-node" href="docs/chi-muc/co-so-du-lieu/README.md">
+    <rect x="504" y="86" width="160" height="64" rx="10" fill="#422006" stroke="#475569" stroke-width="1.2"/>
+    <text x="584.0" y="108" text-anchor="middle" class="svg-t" font-weight="600">PostgreSQL</text>
+    <text x="584.0" y="126" text-anchor="middle" class="svg-s">DB tại shop</text>
+  </a>
+  <line x1="376" y1="150" x2="376" y2="200" stroke="#64748b" marker-end="url(#arr)"/>
+  <line x1="376" y1="200" x2="568" y2="200" stroke="#64748b"/>
+  <line x1="568" y1="200" x2="568" y2="168" stroke="#64748b" marker-end="url(#arr)"/>
+  <text x="470" y="192" text-anchor="middle" class="svg-s">cloud-sync (tùy chọn)</text>
+
+  <a class="map-node" href="docs/he-thong/04-docker-va-cloud-sync/README.md">
+    <rect x="648" y="86" width="148" height="64" rx="10" fill="#3b0764" stroke="#475569" stroke-width="1.2"/>
+    <text x="722.0" y="108" text-anchor="middle" class="svg-t" font-weight="600">Postgres cloud</text>
+    <text x="722.0" y="126" text-anchor="middle" class="svg-s">Railway · ops</text>
+  </a>
+
+  <a class="map-node" href="docs/chuyen-de/tro-ly-widget/README.md">
+    <rect x="268" y="200" width="176" height="52" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1.2"/>
+    <text x="356.0" y="222" text-anchor="middle" class="svg-t" font-weight="600">Widget / ESP32</text>
+    <text x="356.0" y="240" text-anchor="middle" class="svg-s">API key · đếm khách</text>
+  </a>
+  <line x1="356" y1="200" x2="356" y2="150" stroke="#64748b" marker-end="url(#arr)"/>
+</svg></div>
+    </section>
+
+    <section>
+      <h2>Cách đọc Map</h2>
+      <p class="hint">Đi từ cửa vào → hub → nghiệp vụ → UI → API → schema (ví dụ nhánh POS).</p>
+      <div class="map-frame"><svg class="flow-map" viewBox="0 0 920 100" role="img" aria-label="Cách đọc tài liệu Map">
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <text x="20" y="16" class="svg-h">Lộ trình đọc (ví dụ nhánh POS)</text>
+  <a class="flow-step active" href="index.html">
+    <rect x="20" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <text x="84" y="46" text-anchor="middle" class="svg-t">Cửa vào</text>
+    <text x="84" y="64" text-anchor="middle" class="svg-s">#</text>
+  </a>
+<line x1="148" y1="52" x2="166" y2="52" stroke="#64748b" marker-end="url(#arr2)"/>
+  <a class="flow-step" href="docs/chuyen-de/pos-va-don-hang/README.md">
+    <rect x="166" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <text x="230" y="46" text-anchor="middle" class="svg-t">① Hub chủ đề</text>
+    <text x="230" y="64" text-anchor="middle" class="svg-s">Chọn việc cần làm</text>
+  </a>
+<line x1="294" y1="52" x2="312" y2="52" stroke="#64748b" marker-end="url(#arr2)"/>
+  <a class="flow-step" href="docs/nghiep-vu/02-pos-ban-hang/README.md">
+    <rect x="312" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <text x="376" y="46" text-anchor="middle" class="svg-t">② Nghiệp vụ</text>
+    <text x="376" y="64" text-anchor="middle" class="svg-s">Luồng / quy trình</text>
+  </a>
+<line x1="440" y1="52" x2="458" y2="52" stroke="#64748b" marker-end="url(#arr2)"/>
+  <a class="flow-step" href="docs/trang/ban-hang-pos/README.md">
+    <rect x="458" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <text x="522" y="46" text-anchor="middle" class="svg-t">③ Màn hình</text>
+    <text x="522" y="64" text-anchor="middle" class="svg-s">UI người dùng</text>
+  </a>
+<line x1="586" y1="52" x2="604" y2="52" stroke="#64748b" marker-end="url(#arr2)"/>
+  <a class="flow-step" href="docs/module-api/don-hang-api/README.md">
+    <rect x="604" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <text x="668" y="46" text-anchor="middle" class="svg-t">④ Module API</text>
+    <text x="668" y="64" text-anchor="middle" class="svg-s">HTTP /api</text>
+  </a>
+<line x1="732" y1="52" x2="750" y2="52" stroke="#64748b" marker-end="url(#arr2)"/>
+  <a class="flow-step" href="docs/co-so-du-lieu/don-hang-db/README.md">
+    <rect x="750" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <text x="814" y="46" text-anchor="middle" class="svg-t">⑤ Schema</text>
+    <text x="814" y="64" text-anchor="middle" class="svg-s">Bảng Postgres</text>
+  </a>
+</svg></div>
+    </section>
+
+    <section>
+      <h2>Luồng HĐ đầu vào</h2>
+      <p class="hint">Tóm tắt một trong các luồng phức tạp nhất — bấm để vào hub HĐ mua vào.</p>
+      <div class="map-frame"><svg class="flow-map" viewBox="0 0 880 88" role="img" aria-label="Luồng hóa đơn đầu vào">
+  <defs>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <text x="20" y="18" class="svg-h">Luồng HĐ đầu vào (tóm tắt)</text>
+  <a href="docs/chuyen-de/hoa-don-dau-vao/README.md"><rect x="20" y="30" width="120" height="44" rx="8" fill="#431407" stroke="#fb923c"/><text x="80" y="56" text-anchor="middle" class="svg-t">PDF / CQT</text></a>
+  <line x1="140" y1="52" x2="168" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
+  <a href="docs/chuyen-de/hoa-don-dau-vao/README.md"><rect x="168" y="30" width="150" height="44" rx="8" fill="#1c1917" stroke="#78716c"/><text x="243" y="56" text-anchor="middle" class="svg-t">vat_inbound DB</text></a>
+  <line x1="318" y1="52" x2="346" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
+  <a href="docs/chuyen-de/hoa-don-dau-vao/README.md"><rect x="346" y="30" width="130" height="44" rx="8" fill="#1e293b" stroke="#475569"/><text x="411" y="56" text-anchor="middle" class="svg-t">Ghép SP</text></a>
+  <line x1="476" y1="52" x2="504" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
+  <a href="docs/chuyen-de/hoa-don-dau-vao/README.md"><rect x="504" y="30" width="130" height="44" rx="8" fill="#14532d" stroke="#34d399"/><text x="569" y="56" text-anchor="middle" class="svg-t">Nhập kho</text></a>
+  <line x1="634" y1="52" x2="662" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
+  <a href="docs/chuyen-de/hoa-don-dau-vao/README.md"><rect x="662" y="30" width="110" height="44" rx="8" fill="#134e4a" stroke="#2dd4bf"/><text x="717" y="56" text-anchor="middle" class="svg-t">Tồn + giá vốn</text></a>
+</svg></div>
+    </section>
+
+    <section>
+      <h2>10 hub chủ đề</h2>
+      <p class="hint">Chọn đúng việc anh đang làm — mỗi hub gom link đầy đủ theo tầng.</p>
+      <div class="hub-grid">
+      <a class="hub-card" href="docs/chuyen-de/kien-truc-he-thong/README.md" style="--tone:#818cf8">
+        <span class="hub-icon" aria-hidden="true">◈</span>
+        <span class="hub-group">Nền tảng</span>
+        <strong>Kiến trúc hệ thống</strong>
+        <p>Sơ đồ tổng thể: pos-app, api-server, Postgres, offline, cloud-sync — đọc đầu tiên.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/dang-nhap-va-phien/README.md" style="--tone:#38bdf8">
+        <span class="hub-icon" aria-hidden="true">⦿</span>
+        <span class="hub-group">Nền tảng</span>
+        <strong>Đăng nhập và phiên làm việc</strong>
+        <p>JWT, shop đang chọn, hub shop, quyền menu.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/pos-va-don-hang/README.md" style="--tone:#34d399">
+        <span class="hub-icon" aria-hidden="true">₿</span>
+        <span class="hub-group">Bán hàng</span>
+        <strong>POS và đơn hàng</strong>
+        <p>Quầy bán, giỏ hàng, thanh toán, ca làm việc, hủy đơn.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/san-pham-va-kho/README.md" style="--tone:#2dd4bf">
+        <span class="hub-icon" aria-hidden="true">▤</span>
+        <span class="hub-group">Kho &amp; hàng</span>
+        <strong>Sản phẩm và tồn kho</strong>
+        <p>Danh mục SP, tồn shop, phiếu nhập/xuất, PO.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/hoa-don-dau-vao/README.md" style="--tone:#fb923c">
+        <span class="hub-icon" aria-hidden="true">↓</span>
+        <span class="hub-group">Thuế VAT</span>
+        <strong>Hóa đơn đầu vào (VAT mua vào)</strong>
+        <p>Import PDF/Excel, kéo CQT, MST lọc, ghép hàng, nhập kho.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/hoa-don-ban-ra/README.md" style="--tone:#f472b6">
+        <span class="hub-icon" aria-hidden="true">↑</span>
+        <span class="hub-group">Thuế VAT</span>
+        <strong>Hóa đơn bán ra (Viettel)</strong>
+        <p>Phát hành HĐ VAT từ POS, tra cứu, form công khai.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/chuoi-cua-hang/README.md" style="--tone:#fbbf24">
+        <span class="hub-icon" aria-hidden="true">⛓</span>
+        <span class="hub-group">Chuỗi</span>
+        <strong>Chuỗi và nhiều cửa hàng</strong>
+        <p>Tổ chức, shop, kho, điều chuyển, dashboard chuỗi.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/an-ninh-truy-cap/README.md" style="--tone:#f87171">
+        <span class="hub-icon" aria-hidden="true">⛨</span>
+        <span class="hub-group">Nền tảng</span>
+        <strong>An ninh và chặn truy cập</strong>
+        <p>Chặn IP/thiết bị, quan sát truy cập, super_admin.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/offline-dong-bo/README.md" style="--tone:#a78bfa">
+        <span class="hub-icon" aria-hidden="true">⇄</span>
+        <span class="hub-group">Nền tảng</span>
+        <strong>Offline và đồng bộ</strong>
+        <p>IndexedDB, checkout offline, API sync.</p>
+      </a>
+      <a class="hub-card" href="docs/chuyen-de/tro-ly-widget/README.md" style="--tone:#94a3b8">
+        <span class="hub-icon" aria-hidden="true">◇</span>
+        <span class="hub-group">Thiết bị &amp; AI</span>
+        <strong>Trợ lý AI, widget, đếm khách</strong>
+        <p>Agent chat, widget Android, ESP32 visitor-counts.</p>
+      </a>
       </div>
     </section>
-  </main>
+
+    <section>
+      <h2>Tra cứu kỹ thuật</h2>
+      <p class="hint">Danh sách dài — dùng khi sửa code hoặc cần URL / file cụ thể.</p>
+      <div class="chip-row">
+        <a class="chip" href="docs/chi-muc/danh-sach-api/README.md"><span>39 module</span>Module API</a>
+        <a class="chip" href="docs/chi-muc/danh-sach-trang/README.md"><span>Màn hình</span>Danh sách trang UI</a>
+        <a class="chip" href="docs/chi-muc/co-so-du-lieu/README.md"><span>Schema</span>Bảng Postgres</a>
+        <a class="chip" href="docs/chi-muc/thu-vien-backend/README.md"><span>Lib</span>Thư viện backend</a>
+        <a class="chip" href="docs/chi-muc/endpoint-http/README.md"><span>URL</span>Endpoint HTTP</a>
+      </div>
+    </section>
+
+    <footer class="foot">
+      Sinh tự động bởi <code>python3 docs/gen.py</code> · Nguồn code: Shop-Manager-System-Offline
+    </footer>
+  </div>
   <style>
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: var(--accent-hover); text-decoration: underline; }
-    .card {
+    .arch-map, .flow-map { width: 100%; min-width: 640px; height: auto; display: block; }
+    .svg-h { fill: #cbd5e1; font-size: 13px; font-family: inherit; }
+    .svg-t { fill: #f1f5f9; font-size: 12px; font-family: inherit; }
+    .svg-s { fill: #94a3b8; font-size: 11px; font-family: inherit; }
+    .map-node { cursor: pointer; }
+    .map-node rect { transition: filter .15s, stroke .15s; }
+    .map-node:hover rect { filter: brightness(1.15); stroke: #60a5fa; }
+    .flow-step rect { transition: stroke .15s; }
+    .flow-step:hover rect { stroke: #60a5fa; }
+    .flow-step.active rect { stroke: #34d399; stroke-width: 2; }
+    .hub-grid {
+      display: grid;
+      gap: .75rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    .hub-card {
       display: block;
-      padding: .85rem 1rem;
-      background: var(--panel);
+      padding: 1rem 1.05rem 1.05rem;
+      background: linear-gradient(145deg, var(--panel) 0%, var(--bg2) 100%);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-left: 4px solid var(--tone);
+      border-radius: 12px;
       color: var(--text);
-      transition: border-color .15s, transform .1s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+      transition: transform .12s, box-shadow .12s, border-color .12s;
     }
-    .card:hover {
-      border-color: var(--accent);
+    .hub-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow);
+      border-color: var(--tone);
       text-decoration: none;
-      transform: translateY(-1px);
     }
-    .card strong { display: block; font-size: .98rem; margin-bottom: .25rem; }
-    .card span { display: block; font-size: .82rem; color: var(--muted); line-height: 1.35; }
-    .card.thin { font-size: .9rem; padding: .55rem .85rem; }
+    .hub-icon {
+      float: right;
+      font-size: 1.35rem;
+      color: var(--tone);
+      opacity: .9;
+    }
+    .hub-group {
+      display: inline-block;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+    .hub-card strong { display: block; font-size: 1rem; margin-bottom: .35rem; }
+    .hub-card p {
+      margin: 0;
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .chip-row { display: flex; flex-wrap: wrap; gap: .55rem; }
     .chip {
-      padding: .45rem .75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .5rem .85rem;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 999px;
       font-size: .88rem;
       color: var(--text);
     }
+    .chip span {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
     .chip:hover { border-color: var(--accent); text-decoration: none; }
+    .foot {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    .foot code { color: #cbd5e1; }
   </style>
 </body>
 </html>
