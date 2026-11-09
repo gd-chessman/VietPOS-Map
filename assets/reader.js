@@ -96,7 +96,11 @@
   }
 
   function applyTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme);
+    const root = document.documentElement;
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;
+    root.classList.remove("theme-light", "theme-dark");
+    root.classList.add(theme === "light" ? "theme-light" : "theme-dark");
     const link = document.getElementById("md-theme-css");
     if (link) link.href = MD_CSS[theme];
     const btn = document.getElementById("theme-toggle");

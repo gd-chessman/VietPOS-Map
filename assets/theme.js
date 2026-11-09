@@ -1,4 +1,4 @@
-/* VietPOS-Map — sáng/tối (nút, Mermaid); boot sớm: theme-boot.js */
+/* VietPOS-Map — sáng/tối (nút, Mermaid); boot sớm: inline head trong index.html */
 window.VietPOSTheme = (function () {
   const KEY = "vietpos-map-theme";
   const MD_CSS = {
@@ -21,7 +21,9 @@ window.VietPOSTheme = (function () {
       mdLink = document.createElement("link");
       mdLink.id = "md-theme-css";
       mdLink.rel = "stylesheet";
-      document.head.appendChild(mdLink);
+      const docCss = document.querySelector('link[href="/assets/doc.css"]');
+      if (docCss) docCss.before(mdLink);
+      else document.head.appendChild(mdLink);
     }
     if (mdLink) mdLink.href = MD_CSS[theme];
   }
