@@ -18,41 +18,6 @@
       "destination": "/docs/:folder/:path*",
       "permanent": false
     },
-    {
-      "source": "/docs/co-so-du-lieu",
-      "destination": "/docs/chi-muc/co-so-du-lieu",
-      "permanent": false
-    },
-    {
-      "source": "/docs/trang",
-      "destination": "/docs/chi-muc/danh-sach-trang",
-      "permanent": false
-    },
-    {
-      "source": "/docs/module-api",
-      "destination": "/docs/chi-muc/danh-sach-api",
-      "permanent": false
-    },
-    {
-      "source": "/docs/thu-vien",
-      "destination": "/docs/chi-muc/thu-vien-backend",
-      "permanent": false
-    },
-    {
-      "source": "/docs/chuyen-de",
-      "destination": "/docs",
-      "permanent": false
-    },
-    {
-      "source": "/docs/nghiep-vu",
-      "destination": "/docs",
-      "permanent": false
-    },
-    {
-      "source": "/docs/he-thong",
-      "destination": "/docs/he-thong/01-kien-truc-runtime",
-      "permanent": false
-    }
   ],
   "headers": [
     {

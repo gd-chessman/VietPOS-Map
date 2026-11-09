@@ -2090,6 +2090,80 @@ def write_site_nav_json(all_paths: list[str]) -> None:
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def _direct_section_readmes(section: str, all_paths: list[str]) -> list[str]:
+    prefix = f"{section}/"
+    return sorted(
+        p
+        for p in all_paths
+        if p.startswith(prefix)
+        and p.endswith(f"/{README}")
+        and p[len(prefix) :].count("/") == 1
+    )
+
+
+def write_section_hub_indexes(all_paths: list[str]) -> list[str]:
+    """README + index.html tại gốc nhánh (tránh 404 khi không có redirect Vercel)."""
+    created: list[str] = []
+
+    catalog_links = [
+        ("co-so-du-lieu", "Schema Postgres", chi_muc_path("co-so-du-lieu")),
+        ("trang", "Màn hình UI", chi_muc_path("danh-sach-trang")),
+        ("module-api", "Module API", chi_muc_path("danh-sach-api")),
+        ("thu-vien", "Thư viện backend", chi_muc_path("thu-vien-backend")),
+    ]
+    for section, title, chi_muc in catalog_links:
+        rel = f"{section}/{README}"
+        child_count = sum(1 for p in all_paths if p.startswith(f"{section}/"))
+        body = [
+            f"# {title}",
+            "",
+            f"**Mô tả:** Mục lục nhánh `{section}/` — {child_count} trang chi tiết.",
+            "",
+            f"→ [{title} (danh sách đầy đủ)]({md_href(rel, chi_muc)})",
+            "",
+        ]
+        register_desc(rel, f"Mục lục nhánh {section}; mở chi-muc để lọc và tra cứu.")
+        (ROOT / rel).write_text("\n".join(body), encoding="utf-8")
+        created.append(rel)
+
+    rel_cd = f"chuyen-de/{README}"
+    cd_lines = [
+        "# Hub chủ đề",
+        "",
+        "**Mô tả:** Mười hub gom link theo việc cần làm (POS, kho, API…).",
+        "",
+    ]
+    for hub in TOPIC_HUBS:
+        hp = chuyen_de_path(str(hub["file"]))
+        cd_lines.append(
+            f"- [{hub['title']}]({md_href(rel_cd, hp)}) — {one_line(str(hub['desc']), 120)}"
+        )
+    register_desc(rel_cd, "Danh sách hub chủ đề VietPOS-Map.")
+    (ROOT / rel_cd).write_text("\n".join(cd_lines) + "\n", encoding="utf-8")
+    created.append(rel_cd)
+
+    section_listings = [
+        ("nghiep-vu", "Mười hai chương nghiệp vụ", "Luồng nghiệp vụ POS theo chương."),
+        ("he-thong", "Hệ thống", "Kiến trúc, runtime và vận hành."),
+        ("tham-chieu", "Tham chiếu Shop", "File mirror từ codebase Shop."),
+        ("chi-muc", "Tra cứu kỹ thuật", "Bảng tra API, trang, schema, endpoint."),
+    ]
+    for section, heading, hub_desc in section_listings:
+        rel = f"{section}/{README}"
+        lines = [f"# {heading}", "", f"**Mô tả:** {hub_desc}", ""]
+        for p in _direct_section_readmes(section, all_paths):
+            slug = Path(p).parent.name
+            label = slug.replace("-", " ")
+            desc = one_line(DOC_DESCRIPTIONS.get(p, ""), 100)
+            suffix = f" — {desc}" if desc else ""
+            lines.append(f"- [{label}]({md_href(rel, p)}){suffix}")
+        register_desc(rel, hub_desc)
+        (ROOT / rel).write_text("\n".join(lines) + "\n", encoding="utf-8")
+        created.append(rel)
+
+    return created
+
+
 def write_md_index_pages(all_paths: list[str]) -> int:
     """Mỗi README.md → index.html cùng thư mục (Vercel đọc giống GitHub README)."""
     repo_root = ROOT.parent
@@ -3160,6 +3234,8 @@ def main() -> None:
     chi_muc = write_chi_muc(all_paths, flat_endpoints)
     all_paths.extend(chi_muc)
     write_index(all_paths, flat_endpoints)
+    section_hubs = write_section_hub_indexes(all_paths)
+    all_paths.extend(section_hubs)
     paths_for_html = [*all_paths, map_index_path()]
     write_map_portal_index_html(
         endpoint_count=len(flat_endpoints),

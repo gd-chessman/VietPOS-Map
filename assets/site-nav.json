@@ -72,6 +72,10 @@
     ],
     "chi-muc": [
       {
+        "title": "chi muc",
+        "href": "/docs/chi-muc"
+      },
+      {
         "title": "co so du lieu",
         "href": "/docs/chi-muc/co-so-du-lieu"
       },
@@ -93,6 +97,10 @@
       }
     ],
     "co-so-du-lieu": [
+      {
+        "title": "co so du lieu",
+        "href": "/docs/co-so-du-lieu"
+      },
       {
         "title": "audit don hang",
         "href": "/docs/co-so-du-lieu/audit-don-hang"
@@ -282,6 +290,10 @@
       {
         "title": "04 docker va cloud sync",
         "href": "/docs/he-thong/04-docker-va-cloud-sync"
+      },
+      {
+        "title": "he thong",
+        "href": "/docs/he-thong"
       }
     ],
     "huong-dan-doc": [
@@ -291,6 +303,10 @@
       }
     ],
     "module-api": [
+      {
+        "title": "module api",
+        "href": "/docs/module-api"
+      },
       {
         "title": "audit gio hang pos",
         "href": "/docs/module-api/audit-gio-hang-pos"
@@ -496,9 +512,17 @@
       {
         "title": "12 widget va dem khach",
         "href": "/docs/nghiep-vu/12-widget-va-dem-khach"
+      },
+      {
+        "title": "nghiep vu",
+        "href": "/docs/nghiep-vu"
       }
     ],
     "tham-chieu": [
+      {
+        "title": "tham chieu",
+        "href": "/docs/tham-chieu"
+      },
       {
         "title": "audit offline",
         "href": "/docs/tham-chieu/audit-offline"
@@ -561,6 +585,10 @@
       }
     ],
     "thu-vien": [
+      {
+        "title": "thu vien",
+        "href": "/docs/thu-vien"
+      },
       {
         "title": "agent chat persist",
         "href": "/docs/thu-vien/agent-chat-persist"
@@ -959,6 +987,10 @@
       }
     ],
     "trang": [
+      {
+        "title": "trang",
+        "href": "/docs/trang"
+      },
       {
         "title": "Ban Hang Pos",
         "href": "/docs/trang/ban-hang-pos"
