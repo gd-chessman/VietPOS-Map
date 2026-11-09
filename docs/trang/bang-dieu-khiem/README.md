@@ -1,6 +1,6 @@
 # Trang giao diện: `dashboard.tsx`
 
-**Mô tả:** Tổng quan doanh thu, đơn, tồn thấp theo shop. (URL /dashboard, Dashboard, ~1221 dòng).
+**Mô tả:** Tổng quan doanh thu, đơn, tồn thấp theo shop.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/dashboard.tsx`
 

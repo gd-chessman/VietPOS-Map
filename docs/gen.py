@@ -1620,9 +1620,18 @@ def extract_routes(text: str) -> list[tuple[str, str]]:
 def one_line(text: str, max_len: int = 200) -> str:
     s = re.sub(r"\s+", " ", text.strip())
     s = re.sub(r"\*\*|__|`", "", s)
-    if len(s) > max_len:
-        return s[: max_len - 1].rstrip() + "…"
-    return s
+    if len(s) <= max_len:
+        return s
+    cut = s[: max_len - 1].rstrip()
+    for sep in (" — ", "; ", ", ", " "):
+        idx = cut.rfind(sep)
+        if idx >= int(max_len * 0.5):
+            cut = cut[:idx].rstrip()
+            break
+    cut = re.sub(r"\s*\(URL\b.*$", "", cut).rstrip(" ,;—.")
+    if not cut:
+        cut = s[: max_len - 1].rstrip()
+    return cut + "…"
 
 
 def register_desc(rel: str, desc: str) -> str:
@@ -2839,9 +2848,9 @@ def write_pages() -> list[str]:
         imports = [ln.strip() for ln in text.splitlines()[:55] if ln.strip().startswith("import ")]
         desc = register_desc(
             rel,
-            f"{one} (URL `{route}`, `{comp_name}`, ~{line_count} dòng)."
+            one
             if one
-            else f"Trang React `{route}` — `{comp_name}`, ~{line_count} dòng.",
+            else f"Trang React `{route}` — component `{comp_name}`.",
         )
         ui_md = build_page_ui_markdown(name, text, embedded)
         lines = [

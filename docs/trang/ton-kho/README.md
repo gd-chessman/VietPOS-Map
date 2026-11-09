@@ -1,6 +1,6 @@
 # Trang giao diện: `inventory.tsx`
 
-**Mô tả:** Tồn kho shop, điều chỉnh số lượng, cảnh báo sắp hết. (URL /inventory, Inventory, ~1066 dòng).
+**Mô tả:** Tồn kho shop, điều chỉnh số lượng, cảnh báo sắp hết.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/inventory.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `not-found.tsx`
 
-**Mô tả:** Trang 404 SPA. (URL *(public hoặc redirect — xem App.tsx)*, NotFound, ~22 dòng).
+**Mô tả:** Trang 404 SPA.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/not-found.tsx`
 

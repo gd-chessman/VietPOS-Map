@@ -64,7 +64,7 @@ Kho vật lý, phiếu nhập/xuất, chuyển kho, PO.
 - [kho-hang](../../co-so-du-lieu/kho-hang/) — Drizzle warehouses.ts — 1 bảng, 7 cột (warehouses).
 - [phieu-yeu-cau-kho](../../co-so-du-lieu/phieu-yeu-cau-kho/) — Drizzle stockRequests.ts — 3 bảng, 32 cột (stock_requests, stock_request_logs, stock_request_items).
 - [chuyen-kho](../../co-so-du-lieu/chuyen-kho/) — Drizzle stockTransfers.ts — 2 bảng, 17 cột (stock_transfers, stock_transfer_items).
-- [phieu-dat-hang](../../co-so-du-lieu/phieu-dat-hang/) — Drizzle purchaseOrders.ts — 3 bảng, 32 cột, 5 index (purchase_orders, purchase_order_items, purchase_order_lo…
+- [phieu-dat-hang](../../co-so-du-lieu/phieu-dat-hang/) — Drizzle purchaseOrders.ts — 3 bảng, 32 cột, 5 index (purchase_orders, purchase_order_items…
 
 ### Hóa đơn đầu vào & CQT
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `camera-settings.tsx`
 
-**Mô tả:** Cấu hình camera (desktop) phục vụ POS/media. (URL /camera-settings, CameraSettingsPage, ~370 dòng).
+**Mô tả:** Cấu hình camera (desktop) phục vụ POS/media.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/camera-settings.tsx`
 

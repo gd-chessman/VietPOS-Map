@@ -1,6 +1,6 @@
 # Trang giao diện: `chain.tsx`
 
-**Mô tả:** Sửa tổ chức: shop, Viettel, CQT, Trợ lý AI, URL feedback. (URL /chain, Chain, ~4155 dòng).
+**Mô tả:** Sửa tổ chức: shop, Viettel, CQT, Trợ lý AI, URL feedback.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/chain.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `stock-requests.tsx`
 
-**Mô tả:** Phiếu yêu cầu nhập/xuất nội bộ giữa shop. (URL /stock-requests, StockRequestsPage, ~1874 dòng).
+**Mô tả:** Phiếu yêu cầu nhập/xuất nội bộ giữa shop.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/stock-requests.tsx`
 

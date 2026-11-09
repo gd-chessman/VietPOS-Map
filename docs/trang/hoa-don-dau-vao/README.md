@@ -1,6 +1,6 @@
 # Trang giao diện: `vat-inbound.tsx`
 
-**Mô tả:** HĐ đầu vào VAT: import, kéo CQT, MST lọc, ghép SP, nhập kho. (URL /vat-inbound, VatInboundInvoices, ~5847 dòng).
+**Mô tả:** HĐ đầu vào VAT: import, kéo CQT, MST lọc, ghép SP, nhập kho.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/vat-inbound.tsx`
 

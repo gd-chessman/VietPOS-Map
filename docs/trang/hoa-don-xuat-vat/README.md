@@ -1,6 +1,6 @@
 # Trang giao diện: `vat-invoices.tsx`
 
-**Mô tả:** Phát hành và quản lý HĐ VAT bán ra (Viettel). (URL /vat-invoices, VatInvoices, ~395 dòng).
+**Mô tả:** Phát hành và quản lý HĐ VAT bán ra (Viettel).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/vat-invoices.tsx`
 

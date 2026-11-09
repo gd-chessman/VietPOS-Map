@@ -1,6 +1,6 @@
 # Trang giao diện: `customer-feedback.tsx`
 
-**Mô tả:** Quản lý phản hồi khách đã gửi từ form công khai. (URL /customer-feedback, CustomerFeedbackPage, ~369 dòng).
+**Mô tả:** Quản lý phản hồi khách đã gửi từ form công khai.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/customer-feedback.tsx`
 

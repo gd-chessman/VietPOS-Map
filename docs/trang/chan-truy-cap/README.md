@@ -1,6 +1,6 @@
 # Trang giao diện: `access-block.tsx`
 
-**Mô tả:** Chặn IP/thiết bị và tab tổng quan truy cập bất thường. (URL /access-block, AccessBlockPage, ~78 dòng).
+**Mô tả:** Chặn IP/thiết bị và tab tổng quan truy cập bất thường.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/access-block.tsx`
 

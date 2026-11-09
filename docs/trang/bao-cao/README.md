@@ -1,6 +1,6 @@
 # Trang giao diện: `reports.tsx`
 
-**Mô tả:** Báo cáo nhân viên, in lại bill, doanh số. (URL /reports, Reports, ~2178 dòng).
+**Mô tả:** Báo cáo nhân viên, in lại bill, doanh số.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/reports.tsx`
 

@@ -1,6 +1,6 @@
 # Thư viện: `platform-notification-settings.ts`
 
-**Mô tả:** [Kiến trúc / dùng chung] platform-notification-settings.ts — RECIPIENT_ROLE_OPTIONS, invalidateNotificationSettingsCache, defaultRecipientRolesForType, effectiveRecipientRoles, getRecipientRolesForNo…
+**Mô tả:** [Kiến trúc / dùng chung] platform-notification-settings.ts — RECIPIENT_ROLE_OPTIONS, invalidateNotificationSettingsCache, defaultRecipientRolesForType, effectiveRecipientRoles…
 
 **Chủ đề:** [Kiến trúc / dùng chung](../../chuyen-de/kien-truc-he-thong/)
 

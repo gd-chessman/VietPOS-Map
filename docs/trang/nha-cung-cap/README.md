@@ -1,6 +1,6 @@
 # Trang giao diện: `suppliers.tsx`
 
-**Mô tả:** Danh mục nhà cung cấp. (URL /suppliers, SuppliersPage, ~593 dòng).
+**Mô tả:** Danh mục nhà cung cấp.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/suppliers.tsx`
 

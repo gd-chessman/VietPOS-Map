@@ -1,6 +1,6 @@
 # Trang giao diện: `sales-staff.tsx`
 
-**Mô tả:** Nhân viên bán hàng (sales staff) gắn POS. (URL /sales-staff, SalesStaffPage, ~470 dòng).
+**Mô tả:** Nhân viên bán hàng (sales staff) gắn POS.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/sales-staff.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `access-overview-section.tsx`
 
-**Mô tả:** Section embed tổng quan access trong trang chặn truy cập. (URL *(public hoặc redirect — xem App.tsx)*, *(default export)*, ~453 dòng).
+**Mô tả:** Section embed tổng quan access trong trang chặn truy cập.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/access-overview-section.tsx`
 

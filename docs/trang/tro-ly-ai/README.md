@@ -1,6 +1,6 @@
 # Trang giao diện: `agent-assistant.tsx`
 
-**Mô tả:** Trợ lý AI chat + panel trạng thái hệ thống (DB, cloud sync, shop online). (URL /agent-assistant, AgentAssistantPage, ~419 dòng).
+**Mô tả:** Trợ lý AI chat + panel trạng thái hệ thống (DB, cloud sync, shop online).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/agent-assistant.tsx`
 

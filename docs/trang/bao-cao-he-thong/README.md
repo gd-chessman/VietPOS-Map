@@ -1,6 +1,6 @@
 # Trang giao diện: `system-reports.tsx`
 
-**Mô tả:** Báo cáo hệ thống, sự kiện, lỗi. (URL /system-reports, SystemReportsPage, ~269 dòng).
+**Mô tả:** Báo cáo hệ thống, sự kiện, lỗi.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/system-reports.tsx`
 

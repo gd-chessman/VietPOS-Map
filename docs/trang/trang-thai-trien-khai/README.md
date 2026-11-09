@@ -1,6 +1,6 @@
 # Trang giao diện: `page-status.tsx`
 
-**Mô tả:** Trạng thái triển khai từng trang (dev/ops). (URL /page-status, PageStatus, ~338 dòng).
+**Mô tả:** Trạng thái triển khai từng trang (dev/ops).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/page-status.tsx`
 

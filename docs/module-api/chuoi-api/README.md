@@ -1,6 +1,6 @@
 # Module API: `chain`
 
-**Mô tả:** Module API chain.ts — 29 endpoint. Tổ chức, shop, kho, điều chuyển (transfers). Cấu hình org (Viettel, CQT, feedback URL, agent LLM). Giao diện: pages/cha…
+**Mô tả:** Module API chain.ts — 29 endpoint. Tổ chức, shop, kho, điều chuyển (transfers). Cấu hình org (Viettel, CQT, feedback URL…
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/chain.ts`
 

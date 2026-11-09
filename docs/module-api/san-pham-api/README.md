@@ -1,6 +1,6 @@
 # Module API: `products`
 
-**Mô tả:** Module API products.ts — 11 endpoint. Quản lý sản phẩm (thêm/sửa/xóa), import Excel, biến thể, ẩn/hiện SP, giá/giá vốn theo role. Giao diện: pages/products.t…
+**Mô tả:** Module API products.ts — 11 endpoint. Quản lý sản phẩm (thêm/sửa/xóa), import Excel, biến thể, ẩn/hiện SP…
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/products.ts`
 

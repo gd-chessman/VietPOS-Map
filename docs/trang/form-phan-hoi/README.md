@@ -1,6 +1,6 @@
 # Trang giao diện: `feedback-form.tsx`
 
-**Mô tả:** Form công khai /feedback cho khách gửi ý kiến. (URL /feedback, FeedbackFormPage, ~360 dòng).
+**Mô tả:** Form công khai /feedback cho khách gửi ý kiến.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/feedback-form.tsx`
 

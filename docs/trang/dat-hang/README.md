@@ -1,6 +1,6 @@
 # Trang giao diện: `purchase-orders.tsx`
 
-**Mô tả:** Phiếu đặt mua (PO) và trạng thái nhận hàng. (URL /purchase-orders, PurchaseOrdersPage, ~2359 dòng).
+**Mô tả:** Phiếu đặt mua (PO) và trạng thái nhận hàng.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/purchase-orders.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `my-permissions.tsx`
 
-**Mô tả:** Giải thích quyền role và menu hiện tại. (URL /my-permissions, MyPermissions, ~767 dòng).
+**Mô tả:** Giải thích quyền role và menu hiện tại.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/my-permissions.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `lan-devices.tsx`
 
-**Mô tả:** Thiết bị LAN peer (in, widget nội bộ). (URL /lan-devices, LanDevicesPage, ~382 dòng).
+**Mô tả:** Thiết bị LAN peer (in, widget nội bộ).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/lan-devices.tsx`
 

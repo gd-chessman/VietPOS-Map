@@ -1,6 +1,6 @@
 # Thư viện: `vat-inbound-mapped-products.ts`
 
-**Mô tả:** [Hóa đơn đầu vào] vat-inbound-mapped-products.ts — isVatInvoiceInboundMappedOnlyForShop, INBOUND_MAPPED_NO_ELIGIBLE_LINES_MSG, filterProductIdsForInboundMappedIssue, validateOrderForInboundMappedOnly…
+**Mô tả:** [Hóa đơn đầu vào] vat-inbound-mapped-products.ts — isVatInvoiceInboundMappedOnlyForShop, INBOUND_MAPPED_NO_ELIGIBLE_LINES_MSG, filterProductIdsForInboundMappedIssue…
 
 **Chủ đề:** [Hóa đơn đầu vào](../../chuyen-de/hoa-don-dau-vao/)
 

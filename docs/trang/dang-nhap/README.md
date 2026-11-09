@@ -1,6 +1,6 @@
 # Trang giao diện: `login.tsx`
 
-**Mô tả:** Đăng nhập email/PIN, lưu phiên thiết bị. (URL /login, Login, ~1080 dòng).
+**Mô tả:** Đăng nhập email/PIN, lưu phiên thiết bị.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/login.tsx`
 

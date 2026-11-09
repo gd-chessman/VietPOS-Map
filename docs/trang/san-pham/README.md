@@ -1,6 +1,6 @@
 # Trang giao diện: `products.tsx`
 
-**Mô tả:** Danh mục sản phẩm, variant, import Excel, giá. (URL /products, Products, ~2689 dòng).
+**Mô tả:** Danh mục sản phẩm, variant, import Excel, giá.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/products.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `vat-invoice-public.tsx`
 
-**Mô tả:** Form công khai tra cứu/xem HĐ VAT /vat-invoice. (URL /vat-invoice, VatInvoicePublicForm, ~689 dòng).
+**Mô tả:** Form công khai tra cứu/xem HĐ VAT /vat-invoice.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/vat-invoice-public.tsx`
 

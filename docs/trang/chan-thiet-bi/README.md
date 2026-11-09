@@ -1,6 +1,6 @@
 # Trang giao diện: `device-ban.tsx`
 
-**Mô tả:** Redirect legacy → access-block tab thiết bị. (URL *(public hoặc redirect — xem App.tsx)*, *(default export)*, ~282 dòng).
+**Mô tả:** Redirect legacy → access-block tab thiết bị.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/device-ban.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `notification-settings.tsx`
 
-**Mô tả:** Cấu hình thông báo platform/org. (URL /notification-settings, NotificationSettingsPage, ~487 dòng).
+**Mô tả:** Cấu hình thông báo platform/org.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/notification-settings.tsx`
 

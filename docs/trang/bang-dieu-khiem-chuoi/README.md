@@ -1,6 +1,6 @@
 # Trang giao diện: `chain-dashboard.tsx`
 
-**Mô tả:** Dashboard tổng hợp chuỗi cửa hàng theo quyền. (URL /chain-dashboard, ChainDashboard, ~2011 dòng).
+**Mô tả:** Dashboard tổng hợp chuỗi cửa hàng theo quyền.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/chain-dashboard.tsx`
 

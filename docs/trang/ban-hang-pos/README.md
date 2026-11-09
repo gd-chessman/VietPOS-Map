@@ -1,6 +1,6 @@
 # Trang giao diện: `pos.tsx`
 
-**Mô tả:** Màn bán hàng: giỏ, thanh toán, in bill, checkout offline. (URL /pos, POS, ~1988 dòng).
+**Mô tả:** Màn bán hàng: giỏ, thanh toán, in bill, checkout offline.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/pos.tsx`
 

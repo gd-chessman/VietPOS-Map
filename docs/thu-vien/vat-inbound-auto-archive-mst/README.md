@@ -1,6 +1,6 @@
 # Thư viện: `vat-inbound-auto-archive-mst.ts`
 
-**Mô tả:** [Hóa đơn đầu vào] vat-inbound-auto-archive-mst.ts — taxDigitsOnly, parseVatInboundAutoArchiveTaxCodes, normalizeVatInboundAutoArchiveTaxCodesInput, formatVatInboundAutoArchiveTaxCodesForForm, vatInbo…
+**Mô tả:** [Hóa đơn đầu vào] vat-inbound-auto-archive-mst.ts — taxDigitsOnly, parseVatInboundAutoArchiveTaxCodes, normalizeVatInboundAutoArchiveTaxCodesInput, formatVatInboundAutoArchiveTaxCodesForForm…
 
 **Chủ đề:** [Hóa đơn đầu vào](../../chuyen-de/hoa-don-dau-vao/)
 

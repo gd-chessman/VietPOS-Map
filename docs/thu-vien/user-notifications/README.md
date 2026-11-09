@@ -1,6 +1,6 @@
 # Thư viện: `user-notifications.ts`
 
-**Mô tả:** [Đăng nhập & phiên] user-notifications.ts — formatVatInboundInvoiceCode, clearVatInboundReceiptActiveNotifications, notifyVatInboundReceiptMapped, notifyVatInboundReceiptExcluded, notifyVatInboundRec…
+**Mô tả:** [Đăng nhập & phiên] user-notifications.ts — formatVatInboundInvoiceCode, clearVatInboundReceiptActiveNotifications, notifyVatInboundReceiptMapped, notifyVatInboundReceiptExcluded…
 
 **Chủ đề:** [Đăng nhập & phiên](../../chuyen-de/dang-nhap-va-phien/)
 

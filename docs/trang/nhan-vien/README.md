@@ -1,6 +1,6 @@
 # Trang giao diện: `staff.tsx`
 
-**Mô tả:** Quản lý tài khoản nhân viên (admin). (URL /staff, Staff, ~863 dòng).
+**Mô tả:** Quản lý tài khoản nhân viên (admin).
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/staff.tsx`
 

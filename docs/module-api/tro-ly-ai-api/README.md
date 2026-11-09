@@ -1,6 +1,6 @@
 # Module API: `agent`
 
-**Mô tả:** Module API agent.ts — 10 endpoint. Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud, shop online), cấp quyền agent_assistant_enabled. Giao diện: pag…
+**Mô tả:** Module API agent.ts — 10 endpoint. Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud, shop online)…
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/agent.ts`
 

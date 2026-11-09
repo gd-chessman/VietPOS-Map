@@ -1,6 +1,6 @@
 # Trang giao diện: `agent-chat-audit.tsx`
 
-**Mô tả:** Xem lịch sử hội thoại Trợ lý AI đã lưu. (URL /agent-chat-audit, AgentChatAuditPage, ~269 dòng).
+**Mô tả:** Xem lịch sử hội thoại Trợ lý AI đã lưu.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/agent-chat-audit.tsx`
 

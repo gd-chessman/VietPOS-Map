@@ -1,6 +1,6 @@
 # Trang giao diện: `orders.tsx`
 
-**Mô tả:** Danh sách đơn, hủy/duyệt hủy, in lại. (URL /orders, Orders, ~22 dòng).
+**Mô tả:** Danh sách đơn, hủy/duyệt hủy, in lại.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/orders.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `statistics.tsx`
 
-**Mô tả:** Thống kê bán theo sản phẩm/kỳ. (URL /statistics, Statistics, ~1225 dòng).
+**Mô tả:** Thống kê bán theo sản phẩm/kỳ.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/statistics.tsx`
 

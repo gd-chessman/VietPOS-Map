@@ -1,6 +1,6 @@
 # Trang giao diện: `ip-ban.tsx`
 
-**Mô tả:** Redirect legacy → access-block tab IP. (URL *(public hoặc redirect — xem App.tsx)*, *(default export)*, ~266 dòng).
+**Mô tả:** Redirect legacy → access-block tab IP.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/ip-ban.tsx`
 

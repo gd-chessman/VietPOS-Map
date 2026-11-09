@@ -1,6 +1,6 @@
 # Trang giao diện: `chain-api-keys.tsx`
 
-**Mô tả:** Tạo API key shop cho widget và thiết bị ESP32. (URL *(public hoặc redirect — xem App.tsx)*, ChainApiKeysTab, ~405 dòng).
+**Mô tả:** Tạo API key shop cho widget và thiết bị ESP32.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/chain-api-keys.tsx`
 

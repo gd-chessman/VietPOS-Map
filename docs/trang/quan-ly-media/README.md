@@ -1,6 +1,6 @@
 # Trang giao diện: `media.tsx`
 
-**Mô tả:** Thư viện media/upload ảnh sản phẩm. (URL /media, MediaPage, ~603 dòng).
+**Mô tả:** Thư viện media/upload ảnh sản phẩm.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/media.tsx`
 

@@ -1,6 +1,6 @@
 # Trang giao diện: `keyboard-shortcuts.tsx`
 
-**Mô tả:** Bảng phím tắt POS/desktop. (URL /keyboard-shortcuts, KeyboardShortcutsPage, ~396 dòng).
+**Mô tả:** Bảng phím tắt POS/desktop.
 
 **Mã nguồn Shop:** `artifacts/pos-app/src/pages/keyboard-shortcuts.tsx`
 
