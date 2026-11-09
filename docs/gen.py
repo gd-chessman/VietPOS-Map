@@ -46,13 +46,20 @@ from doc_paths import (
 ROOT = Path(__file__).resolve().parent
 SHOP = ROOT.parent.parent / "Shop-Manager-System-Offline"
 
-# Chạy sync trong <head> trước doc.css / portal.css (tránh :root kẹt tối)
-THEME_HEAD_INLINE = """<script>
-(function(){var k="vietpos-map-theme",MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=localStorage.getItem(k);
+# Chạy sync trong <head> trước CSS (tránh :root kẹt tối)
+THEME_ATTR_INLINE = """<script>
+(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
 if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
-var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);
-if(document.querySelector('meta[name="vietpos-doc"]')){var l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t];document.head.appendChild(l);}})();
+var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);})();
 </script>"""
+
+THEME_MD_LINK_SHELL = """
+<link id="md-theme-css" rel="stylesheet" href="" />
+<script>
+(function(){var MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=document.documentElement.getAttribute("data-theme"),l=document.getElementById("md-theme-css");if(l)l.href=MD[t==="light"?"light":"dark"];})();
+</script>"""
+
+THEME_HEAD_INLINE = THEME_ATTR_INLINE
 ROUTES_DIR = SHOP / "artifacts/api-server/src/routes"
 PAGES_DIR = SHOP / "artifacts/pos-app/src/pages"
 SCHEMA_DIR = SHOP / "lib/db/src/schema"
@@ -2098,7 +2105,8 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} — VietPOS-Map</title>
   <meta name="vietpos-doc" content="1" />
-  {theme_head_inline}
+  {theme_attr_inline}
+  {theme_md_link_shell}
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="{md_web_path}">
@@ -2147,7 +2155,8 @@ def write_md_index_pages(all_paths: list[str]) -> int:
             title=title,
             md_web_path=_esc_html(md_web_path),
             b64=b64,
-            theme_head_inline=THEME_HEAD_INLINE,
+            theme_attr_inline=THEME_ATTR_INLINE,
+            theme_md_link_shell=THEME_MD_LINK_SHELL,
         )
         (md_path.parent / "index.html").write_text(html, encoding="utf-8")
         count += 1
