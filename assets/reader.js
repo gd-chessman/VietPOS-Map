@@ -115,7 +115,7 @@
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     applyTheme(next);
     const content = document.getElementById("content");
-    if (content) renderMermaid(content);
+    if (content) rerenderMermaid(content);
   }
 
   async function renderMermaid(root) {
@@ -124,7 +124,9 @@
       const pre = code.parentElement;
       const el = document.createElement("div");
       el.className = "mermaid";
-      el.textContent = code.textContent;
+      const src = code.textContent || "";
+      el.textContent = src;
+      el.setAttribute("data-mermaid-src", src);
       pre.replaceWith(el);
     });
     const nodes = root.querySelectorAll(".mermaid");
@@ -133,6 +135,35 @@
         await mermaid.run({ nodes });
       } catch (_) {
         /* ignore parse errors */
+      }
+    }
+  }
+
+  async function rerenderMermaid(root) {
+    if (typeof mermaid === "undefined") return;
+    const sources = [];
+    root.querySelectorAll(".mermaid").forEach((el) => {
+      sources.push({
+        src: el.getAttribute("data-mermaid-src") || el.textContent || "",
+        next: el.nextSibling,
+        parent: el.parentNode,
+      });
+      el.remove();
+    });
+    const freshNodes = [];
+    for (const { src, next, parent } of sources) {
+      const el = document.createElement("div");
+      el.className = "mermaid";
+      el.textContent = src;
+      el.setAttribute("data-mermaid-src", src);
+      parent.insertBefore(el, next);
+      freshNodes.push(el);
+    }
+    if (freshNodes.length) {
+      try {
+        await mermaid.run({ nodes: freshNodes });
+      } catch (_) {
+        /* ignore */
       }
     }
   }
@@ -282,8 +313,22 @@
   }
 
   async function boot() {
-    applyTheme(getTheme());
-    document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+    if (window.VietPOSTheme) {
+      window.VietPOSTheme.apply(window.VietPOSTheme.get());
+    } else {
+      applyTheme(getTheme());
+    }
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      if (window.VietPOSTheme) {
+        window.VietPOSTheme.toggle();
+      } else {
+        toggleTheme();
+      }
+    });
+    document.addEventListener("vietpos-theme", () => {
+      const content = document.getElementById("content");
+      if (content) rerenderMermaid(content);
+    });
     setupSidebarToggle();
 
     const content = document.getElementById("content");

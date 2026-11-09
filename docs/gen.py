@@ -1776,13 +1776,15 @@ def _portal_svg_runtime() -> str:
     u_cloud = h(he_thong_path("04-docker-va-cloud-sync"))
     u_wid = h(chuyen_de_path("tro-ly-widget"))
 
-    def box(x: int, y: int, w: int, ht: int, title: str, sub: str, href: str, fill: str) -> str:
+    def box(
+        x: int, y: int, w: int, ht: int, title: str, sub: str, href: str, tone: str
+    ) -> str:
         t = _esc_html(title)
         s = _esc_html(sub)
         hr = _esc_html(href)
         return f"""
   <a class="map-node" href="{hr}">
-    <rect x="{x}" y="{y}" width="{w}" height="{ht}" rx="10" fill="{fill}" stroke="#475569" stroke-width="1.2"/>
+    <rect x="{x}" y="{y}" width="{w}" height="{ht}" rx="10" class="svg-node svg-node-{tone}" stroke="var(--svg-stroke)" stroke-width="1.2"/>
     <text x="{x + w/2}" y="{y + 22}" text-anchor="middle" class="svg-t" font-weight="600">{t}</text>
     <text x="{x + w/2}" y="{y + 40}" text-anchor="middle" class="svg-s">{s}</text>
   </a>"""
@@ -1790,30 +1792,30 @@ def _portal_svg_runtime() -> str:
     return f"""<svg class="arch-map" viewBox="0 0 900 300" role="img" aria-label="Bản đồ runtime VietPOS">
   <defs>
     <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+      <path d="M0,0 L6,3 L0,6 Z" class="svg-arrow"/>
     </marker>
   </defs>
-  <rect x="8" y="8" width="884" height="284" rx="14" fill="#121a27" stroke="#334155"/>
+  <rect x="8" y="8" width="884" height="284" rx="14" class="svg-canvas" stroke-width="1"/>
   <text x="24" y="32" class="svg-h">Bản đồ hệ thống (bấm từng khối → tài liệu)</text>
-  <rect x="24" y="48" width="200" height="200" rx="12" fill="#0f172a" stroke="#334155" stroke-dasharray="4 3"/>
+  <rect x="24" y="48" width="200" height="200" rx="12" class="svg-zone" stroke-dasharray="4 3" stroke-width="1"/>
   <text x="124" y="68" text-anchor="middle" class="svg-s" font-weight="600">Máy quầy / admin</text>
-{box(40, 82, 168, 52, "pos-app", "React · Tauri · PWA", u_pos, "#1e3a5f")}
-{box(40, 144, 168, 52, "IndexedDB", "Đơn & HĐ chờ sync", u_off, "#312e81")}
-  <line x1="208" y1="108" x2="268" y2="108" stroke="#64748b" marker-end="url(#arr)"/>
+{box(40, 82, 168, 52, "pos-app", "React · Tauri · PWA", u_pos, "blue")}
+{box(40, 144, 168, 52, "IndexedDB", "Đơn & HĐ chờ sync", u_off, "indigo")}
+  <line x1="208" y1="108" x2="268" y2="108" class="svg-line" stroke-width="1.2" marker-end="url(#arr)"/>
   <text x="238" y="98" text-anchor="middle" class="svg-s">HTTPS /api</text>
-  <line x1="172" y1="170" x2="248" y2="140" stroke="#64748b" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <line x1="172" y1="170" x2="248" y2="140" class="svg-line" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
   <text x="195" y="162" class="svg-s">pull / push</text>
-{box(268, 86, 176, 64, "api-server", "Express · JWT · nghiệp vụ", u_api, "#14532d")}
-  <line x1="444" y1="118" x2="504" y2="118" stroke="#64748b" marker-end="url(#arr)"/>
+{box(268, 86, 176, 64, "api-server", "Express · JWT · nghiệp vụ", u_api, "green")}
+  <line x1="444" y1="118" x2="504" y2="118" class="svg-line" stroke-width="1.2" marker-end="url(#arr)"/>
   <text x="474" y="108" text-anchor="middle" class="svg-s">Drizzle</text>
-{box(504, 86, 160, 64, "PostgreSQL", "DB tại shop", u_pg, "#422006")}
-  <line x1="376" y1="150" x2="376" y2="200" stroke="#64748b" marker-end="url(#arr)"/>
-  <line x1="376" y1="200" x2="568" y2="200" stroke="#64748b"/>
-  <line x1="568" y1="200" x2="568" y2="168" stroke="#64748b" marker-end="url(#arr)"/>
+{box(504, 86, 160, 64, "PostgreSQL", "DB tại shop", u_pg, "amber")}
+  <line x1="376" y1="150" x2="376" y2="200" class="svg-line" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="376" y1="200" x2="568" y2="200" class="svg-line" stroke-width="1.2"/>
+  <line x1="568" y1="200" x2="568" y2="168" class="svg-line" stroke-width="1.2" marker-end="url(#arr)"/>
   <text x="470" y="192" text-anchor="middle" class="svg-s">cloud-sync (tùy chọn)</text>
-{box(648, 86, 148, 64, "Postgres cloud", "Railway · ops", u_cloud, "#3b0764")}
-{box(268, 200, 176, 52, "Widget / ESP32", "API key · đếm khách", u_wid, "#1e293b")}
-  <line x1="356" y1="200" x2="356" y2="150" stroke="#64748b" marker-end="url(#arr)"/>
+{box(648, 86, 148, 64, "Postgres cloud", "Railway · ops", u_cloud, "purple")}
+{box(268, 200, 176, 52, "Widget / ESP32", "API key · đếm khách", u_wid, "slate")}
+  <line x1="356" y1="200" x2="356" y2="150" class="svg-line" stroke-width="1.2" marker-end="url(#arr)"/>
 </svg>"""
 
 
@@ -1831,7 +1833,7 @@ def _portal_svg_doc_flow() -> str:
     for i, (href, title, sub) in enumerate(steps):
         if i > 0:
             chunks.append(
-                f'<line x1="{x - 18}" y1="52" x2="{x}" y2="52" stroke="#64748b" marker-end="url(#arr2)"/>'
+                f'<line x1="{x - 18}" y1="52" x2="{x}" y2="52" class="svg-line" stroke-width="1.2" marker-end="url(#arr2)"/>'
             )
         hr = _esc_html(href)
         t = _esc_html(title)
@@ -1839,7 +1841,7 @@ def _portal_svg_doc_flow() -> str:
         active = ' class="flow-step active"' if i == 0 else ' class="flow-step"'
         chunks.append(
             f"""  <a{active} href="{hr}">
-    <rect x="{x}" y="24" width="128" height="56" rx="8" fill="#1e293b" stroke="#475569"/>
+    <rect x="{x}" y="24" width="128" height="56" rx="8" class="svg-node svg-node-slate" stroke="var(--svg-stroke)" stroke-width="1.2"/>
     <text x="{x + 64}" y="46" text-anchor="middle" class="svg-t">{t}</text>
     <text x="{x + 64}" y="64" text-anchor="middle" class="svg-s">{s}</text>
   </a>"""
@@ -1849,7 +1851,7 @@ def _portal_svg_doc_flow() -> str:
     return f"""<svg class="flow-map" viewBox="0 0 920 100" role="img" aria-label="Cách đọc tài liệu Map">
   <defs>
     <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+      <path d="M0,0 L6,3 L0,6 Z" class="svg-arrow"/>
     </marker>
   </defs>
   <text x="20" y="16" class="svg-h">Lộ trình đọc (ví dụ nhánh POS)</text>
@@ -1863,19 +1865,19 @@ def _portal_svg_inbound() -> str:
     return f"""<svg class="flow-map" viewBox="0 0 880 88" role="img" aria-label="Luồng hóa đơn đầu vào">
   <defs>
     <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+      <path d="M0,0 L6,3 L0,6 Z" class="svg-arrow"/>
     </marker>
   </defs>
   <text x="20" y="18" class="svg-h">Luồng HĐ đầu vào (tóm tắt)</text>
-  <a href="{hr}"><rect x="20" y="30" width="120" height="44" rx="8" fill="#431407" stroke="#fb923c"/><text x="80" y="56" text-anchor="middle" class="svg-t">PDF / CQT</text></a>
-  <line x1="140" y1="52" x2="168" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
-  <a href="{hr}"><rect x="168" y="30" width="150" height="44" rx="8" fill="#1c1917" stroke="#78716c"/><text x="243" y="56" text-anchor="middle" class="svg-t">vat_inbound DB</text></a>
-  <line x1="318" y1="52" x2="346" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
-  <a href="{hr}"><rect x="346" y="30" width="130" height="44" rx="8" fill="#1e293b" stroke="#475569"/><text x="411" y="56" text-anchor="middle" class="svg-t">Ghép SP</text></a>
-  <line x1="476" y1="52" x2="504" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
-  <a href="{hr}"><rect x="504" y="30" width="130" height="44" rx="8" fill="#14532d" stroke="#34d399"/><text x="569" y="56" text-anchor="middle" class="svg-t">Nhập kho</text></a>
-  <line x1="634" y1="52" x2="662" y2="52" stroke="#64748b" marker-end="url(#arr3)"/>
-  <a href="{hr}"><rect x="662" y="30" width="110" height="44" rx="8" fill="#134e4a" stroke="#2dd4bf"/><text x="717" y="56" text-anchor="middle" class="svg-t">Tồn + giá vốn</text></a>
+  <a class="map-node" href="{hr}"><rect x="20" y="30" width="120" height="44" rx="8" class="svg-node svg-node-orange" stroke="var(--svg-stroke)" stroke-width="1.2"/><text x="80" y="56" text-anchor="middle" class="svg-t">PDF / CQT</text></a>
+  <line x1="140" y1="52" x2="168" y2="52" class="svg-line" stroke-width="1.2" marker-end="url(#arr3)"/>
+  <a class="map-node" href="{hr}"><rect x="168" y="30" width="150" height="44" rx="8" class="svg-node svg-node-stone" stroke="var(--svg-stroke)" stroke-width="1.2"/><text x="243" y="56" text-anchor="middle" class="svg-t">vat_inbound DB</text></a>
+  <line x1="318" y1="52" x2="346" y2="52" class="svg-line" stroke-width="1.2" marker-end="url(#arr3)"/>
+  <a class="map-node" href="{hr}"><rect x="346" y="30" width="130" height="44" rx="8" class="svg-node svg-node-slate" stroke="var(--svg-stroke)" stroke-width="1.2"/><text x="411" y="56" text-anchor="middle" class="svg-t">Ghép SP</text></a>
+  <line x1="476" y1="52" x2="504" y2="52" class="svg-line" stroke-width="1.2" marker-end="url(#arr3)"/>
+  <a class="map-node" href="{hr}"><rect x="504" y="30" width="130" height="44" rx="8" class="svg-node svg-node-green" stroke="var(--svg-active-stroke)" stroke-width="1.2"/><text x="569" y="56" text-anchor="middle" class="svg-t">Nhập kho</text></a>
+  <line x1="634" y1="52" x2="662" y2="52" class="svg-line" stroke-width="1.2" marker-end="url(#arr3)"/>
+  <a class="map-node" href="{hr}"><rect x="662" y="30" width="110" height="44" rx="8" class="svg-node svg-node-teal" stroke="var(--svg-active-stroke)" stroke-width="1.2"/><text x="717" y="56" text-anchor="middle" class="svg-t">Tồn + giá vốn</text></a>
 </svg>"""
 
 
@@ -1942,92 +1944,11 @@ def write_map_portal_index_html(
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VietPOS-Map — Bản đồ tài liệu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺</text></svg>" />
-  <style>
-    :root,
-    [data-theme="dark"] {{
-      --bg: #0b0f14;
-      --bg2: #111827;
-      --panel: #151d2e;
-      --border: #2a3548;
-      --text: #eef2f7;
-      --muted: #94a3b8;
-      --accent: #60a5fa;
-      --glow: rgba(96, 165, 250, 0.15);
-    }}
-    [data-theme="light"] {{
-      --bg: #eef2f6;
-      --bg2: #ffffff;
-      --panel: #ffffff;
-      --border: #d0d7de;
-      --text: #1f2328;
-      --muted: #57606a;
-      --accent: #0969da;
-      --glow: rgba(9, 105, 218, 0.12);
-    }}
-    * {{ box-sizing: border-box; }}
-    body {{
-      margin: 0;
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, #1e293b 0%, var(--bg) 55%);
-      color: var(--text);
-      line-height: 1.5;
-    }}
-    a {{ color: var(--accent); text-decoration: none; }}
-    a:hover {{ color: #93c5fd; }}
-    .wrap {{ max-width: 1100px; margin: 0 auto; padding: 0 1.25rem 3rem; }}
-    header.hero {{
-      padding: 2rem 0 1.5rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 1.75rem;
-    }}
-    .hero h1 {{
-      margin: 0 0 .5rem;
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      letter-spacing: -0.02em;
-    }}
-    .hero .lead {{ margin: 0; color: var(--muted); max-width: 52ch; }}
-    .stats {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: .65rem;
-      margin: 1.25rem 0 .75rem;
-    }}
-    .stat {{
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: .5rem .85rem;
-      font-size: .85rem;
-    }}
-    .stat b {{ color: var(--accent); font-size: 1.05rem; margin-right: .25rem; }}
-    .nav-pills {{ display: flex; flex-wrap: wrap; gap: .5rem; }}
-    .nav-pill {{
-      padding: .4rem .75rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--bg2);
-      color: var(--text);
-      font-size: .88rem;
-    }}
-    .nav-pill:hover {{ border-color: var(--accent); text-decoration: none; }}
-    section {{ margin-bottom: 2.25rem; }}
-    section h2 {{
-      font-size: 1.05rem;
-      margin: 0 0 .35rem;
-      font-weight: 600;
-    }}
-    section .hint {{ margin: 0 0 .85rem; color: var(--muted); font-size: .9rem; }}
-    .map-frame {{
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: .75rem;
-      overflow-x: auto;
-      box-shadow: 0 8px 32px rgba(0,0,0,.25);
-    }}
-  </style>
+  <script src="/assets/theme.js"></script>
+  <link rel="stylesheet" href="/assets/portal.css" />
+  <style>* {{ box-sizing: border-box; }}</style>
 </head>
-<body>
+<body class="portal-page">
   <div class="wrap">
     <header class="hero">
       <h1>VietPOS-Map</h1>
@@ -2080,89 +2001,7 @@ def write_map_portal_index_html(
       Sinh tự động bởi <code>python3 docs/gen.py</code> · Nguồn code: Shop-Manager-System-Offline
     </footer>
   </div>
-  <script src="/assets/portal-theme.js"></script>
-  <style>
-    .arch-map, .flow-map {{ width: 100%; min-width: 640px; height: auto; display: block; }}
-    .svg-h {{ fill: #cbd5e1; font-size: 13px; font-family: inherit; }}
-    .svg-t {{ fill: #f1f5f9; font-size: 12px; font-family: inherit; }}
-    .svg-s {{ fill: #94a3b8; font-size: 11px; font-family: inherit; }}
-    .map-node {{ cursor: pointer; }}
-    .map-node rect {{ transition: filter .15s, stroke .15s; }}
-    .map-node:hover rect {{ filter: brightness(1.15); stroke: #60a5fa; }}
-    .flow-step rect {{ transition: stroke .15s; }}
-    .flow-step:hover rect {{ stroke: #60a5fa; }}
-    .flow-step.active rect {{ stroke: #34d399; stroke-width: 2; }}
-    .hub-grid {{
-      display: grid;
-      gap: .75rem;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }}
-    .hub-card {{
-      display: block;
-      padding: 1rem 1.05rem 1.05rem;
-      background: linear-gradient(145deg, var(--panel) 0%, var(--bg2) 100%);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--tone);
-      border-radius: 12px;
-      color: var(--text);
-      box-shadow: 0 4px 16px rgba(0,0,0,.12);
-      transition: transform .12s, box-shadow .12s, border-color .12s;
-    }}
-    .hub-card:hover {{
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px var(--glow);
-      border-color: var(--tone);
-      text-decoration: none;
-    }}
-    .hub-icon {{
-      float: right;
-      font-size: 1.35rem;
-      color: var(--tone);
-      opacity: .9;
-    }}
-    .hub-group {{
-      display: inline-block;
-      font-size: .72rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--muted);
-      margin-bottom: .35rem;
-    }}
-    .hub-card strong {{ display: block; font-size: 1rem; margin-bottom: .35rem; }}
-    .hub-card p {{
-      margin: 0;
-      font-size: .84rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }}
-    .chip-row {{ display: flex; flex-wrap: wrap; gap: .55rem; }}
-    .chip {{
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      padding: .5rem .85rem;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: .88rem;
-      color: var(--text);
-    }}
-    .chip span {{
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-    }}
-    .chip:hover {{ border-color: var(--accent); text-decoration: none; }}
-    .foot {{
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-      font-size: .85rem;
-      color: var(--muted);
-    }}
-    .foot code {{ color: #cbd5e1; }}
-  </style>
+  <script src="/assets/portal-init.js"></script>
 </body>
 </html>
 """
@@ -2249,6 +2088,7 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} — VietPOS-Map</title>
+  <script src="/assets/theme.js"></script>
   <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
