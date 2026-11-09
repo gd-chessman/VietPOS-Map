@@ -29,14 +29,19 @@
     "he-thong": "Hệ thống",
     "chi-muc": "Chỉ mục",
     "thu-vien": "Thư viện",
-    tham-chieu: "Tham chiếu Shop",
+    "tham-chieu": "Tham chiếu Shop",
     "ban-do-kien-truc": "Bản đồ hình",
     "huong-dan-doc": "Hướng dẫn",
     _root: "Map",
   };
 
-  if (typeof marked !== "undefined") {
-    marked.setOptions({ gfm: true, breaks: false, headerIds: true, mangle: false });
+  function configureMarked() {
+    if (typeof marked === "undefined") return;
+    try {
+      marked.setOptions({ gfm: true, breaks: false });
+    } catch (_) {
+      /* ignore */
+    }
   }
 
   function currentViewPath() {
@@ -358,7 +363,14 @@
 
     if (!content) return;
     try {
+      configureMarked();
+      if (typeof marked === "undefined") {
+        throw new Error("Không tải được thư viện marked (CDN).");
+      }
       const md = decodeMd();
+      if (!md.trim()) {
+        throw new Error("Không đọc được nội dung markdown (md-b64).");
+      }
       content.innerHTML = marked.parse(md);
       fixLinks(content, basePath);
       buildToc(content);
