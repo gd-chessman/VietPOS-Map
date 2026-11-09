@@ -1,6 +1,5 @@
 /* VietPOS-Map — layout doc + sáng/tối */
-:root,
-[data-theme="dark"] {
+html[data-theme="dark"] {
   --doc-bg: #0d1117;
   --doc-panel: #161b22;
   --doc-panel-2: #0f172a;
@@ -12,11 +11,10 @@
   --doc-pre: #161b22;
   --doc-mermaid-bg: #161b22;
   --doc-shadow: rgba(0, 0, 0, 0.35);
-  --sidebar-width: 280px;
-  --toc-width: 220px;
 }
 
-[data-theme="light"] {
+html[data-theme="light"],
+html:not([data-theme]) {
   --doc-bg: #ffffff;
   --doc-panel: #f6f8fa;
   --doc-panel-2: #ffffff;
@@ -28,6 +26,11 @@
   --doc-pre: #f6f8fa;
   --doc-mermaid-bg: #f6f8fa;
   --doc-shadow: rgba(27, 31, 36, 0.08);
+}
+
+:root {
+  --sidebar-width: 280px;
+  --toc-width: 220px;
 }
 
 * {
@@ -347,6 +350,33 @@ body {
 .markdown-body h6 {
   color: var(--doc-text) !important;
   border-bottom-color: var(--doc-border) !important;
+}
+
+html[data-theme="light"] .markdown-body {
+  --fgColor-default: var(--doc-text);
+  --fgColor-muted: var(--doc-muted);
+  --bgColor-default: transparent;
+  --bgColor-muted: var(--doc-panel);
+  --borderColor-default: var(--doc-border);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] .markdown-body {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] .markdown-body pre,
+html[data-theme="light"] .markdown-body pre code {
+  background-color: var(--doc-pre) !important;
+  color: var(--doc-text) !important;
+}
+
+html[data-theme="light"] .markdown-body table tr {
+  background-color: transparent !important;
+}
+
+html[data-theme="light"] .markdown-body table tr:nth-child(2n) {
+  background-color: var(--doc-panel) !important;
 }
 
 .error {

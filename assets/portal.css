@@ -1,6 +1,5 @@
 /* Trang bản đồ index.html */
-:root,
-[data-theme="dark"] {
+html[data-theme="dark"] {
   --bg: #0b0f14;
   --bg2: #111827;
   --panel: #151d2e;
@@ -28,7 +27,8 @@
   --svg-active-stroke: #34d399;
 }
 
-[data-theme="light"] {
+html[data-theme="light"],
+html:not([data-theme]) {
   --bg: #eef2f6;
   --bg2: #ffffff;
   --panel: #ffffff;

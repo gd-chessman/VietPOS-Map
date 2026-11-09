@@ -1,15 +1,29 @@
-/* VietPOS-Map — sáng/tối dùng chung (index + trang doc) */
+/* VietPOS-Map — sáng/tối (nút, Mermaid); boot sớm: theme-boot.js */
 window.VietPOSTheme = (function () {
   const KEY = "vietpos-map-theme";
   const MD_CSS = {
     dark: "https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",
-    light: "https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css",
+    light:
+      "https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css",
   };
 
   function get() {
     const saved = localStorage.getItem(KEY);
     if (saved === "light" || saved === "dark") return saved;
-    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    return window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
+  }
+
+  function ensureMdLink(theme) {
+    let mdLink = document.getElementById("md-theme-css");
+    if (!mdLink && document.body?.getAttribute("data-md-path")) {
+      mdLink = document.createElement("link");
+      mdLink.id = "md-theme-css";
+      mdLink.rel = "stylesheet";
+      document.head.appendChild(mdLink);
+    }
+    if (mdLink) mdLink.href = MD_CSS[theme];
   }
 
   function apply(theme) {
@@ -18,8 +32,7 @@ window.VietPOSTheme = (function () {
     root.style.colorScheme = theme;
     localStorage.setItem(KEY, theme);
 
-    const mdLink = document.getElementById("md-theme-css");
-    if (mdLink) mdLink.href = MD_CSS[theme];
+    ensureMdLink(theme);
 
     const btn = document.getElementById("theme-toggle");
     if (btn) btn.textContent = theme === "dark" ? "☀ Sáng" : "☾ Tối";
@@ -50,11 +63,9 @@ window.VietPOSTheme = (function () {
     return next;
   }
 
-  function initEarly() {
+  function sync() {
     apply(get());
   }
 
-  initEarly();
-
-  return { KEY, get, apply, toggle, MD_CSS };
+  return { KEY, get, apply, toggle, sync, MD_CSS };
 })();

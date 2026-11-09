@@ -4,11 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Đăng nhập và phiên làm việc — VietPOS-Map</title>
-  <script src="/assets/theme.js"></script>
-  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <script>
+(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
+if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
+document.documentElement.setAttribute("data-theme",t);
+document.documentElement.style.colorScheme=t;})();
+</script>
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/chuyen-de/dang-nhap-va-phien/README.md">
+  <script src="/assets/theme-boot.js"></script>
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
   <div class="doc-layout">
     <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
@@ -32,6 +37,7 @@
   <script id="md-b64" type="application/octet-stream">IyDEkMSDbmcgbmjhuq1wIHbDoCBwaGnDqm4gbMOgbSB2aeG7h2MKCioqTcO0IHThuqM6KiogSldULCBzaG9wIMSRYW5nIGNo4buNbiwgaHViIHNob3AsIHF1eeG7gW4gbWVudS4KCioqVuG7gSB0cmFuZyBjaOG7pyBNYXA6KiogW1JFQURNRS5tZF0oLi4vLi4vUkVBRE1FLm1kKSDCtyBbSMaw4bubbmcgZOG6q24gxJHhu41jXSguLi8uLi9odW9uZy1kYW4tZG9jLykKCk3hu41pIEFQSSBn4bqnbiBuaMawIMSR4buBdSBn4bqvbiAqKnNob3BfaWQqKiB2w6AgKipyb2xlKiogc2F1IGtoaSDEkcSDbmcgbmjhuq1wLgoKIyMgMS4gTHXhu5NuZyBuZ2hp4buHcCB24bulICjEkeG7jWMgdHLGsOG7m2MpCgotIFswMS1kYW5nLW5oYXAtdmEtc2hvcC1jb250ZXh0XSguLi8uLi9uZ2hpZXAtdnUvMDEtZGFuZy1uaGFwLXZhLXNob3AtY29udGV4dC8pIOKAlCDEkMSDbmcgbmjhuq1wLCBKV1QgZ+G6r24gc2hvcC9yb2xlLCBodWIgc2hvcCB2w6Agbmfhu68gY+G6o25oIHbhuq1uIGjDoG5oIEFQSS4KCiMjIDIuIE3DoG4gaMOsbmggKGdpYW8gZGnhu4duKQoKLSBbZGFuZy1uaGFwXSguLi8uLi90cmFuZy9kYW5nLW5oYXAvKSDigJQgxJDEg25nIG5o4bqtcCBlbWFpbC9QSU4sIGzGsHUgcGhpw6puIHRoaeG6v3QgYuG7iy4gKFVSTCAvbG9naW4sIExvZ2luLCB+MTA4MCBkw7JuZykuCi0gW3F1eWVuLWN1YS10b2ldKC4uLy4uL3RyYW5nL3F1eWVuLWN1YS10b2kvKSDigJQgR2nhuqNpIHRow61jaCBxdXnhu4FuIHJvbGUgdsOgIG1lbnUgaGnhu4duIHThuqFpLiAoVVJMIC9teS1wZXJtaXNzaW9ucywgTXlQZXJtaXNzaW9ucywgfjc2NyBkw7JuZykuCgojIyAzLiBNb2R1bGUgQVBJCgotIFt4YWMtdGh1Y10oLi4vLi4vbW9kdWxlLWFwaS94YWMtdGh1Yy8pIOKAlCBNb2R1bGUgQVBJIGF1dGgudHMg4oCUIDggZW5kcG9pbnQuIMSQxINuZyBuaOG6rXAsIEpXVCwgUElOLCBwaGnDqm4gbmfGsOG7nWkgZMO5bmcuCi0gW2N1YS1oYW5nXSguLi8uLi9tb2R1bGUtYXBpL2N1YS1oYW5nLykg4oCUIE1vZHVsZSBBUEkgc2hvcHMudHMg4oCUIDMgZW5kcG9pbnQuIERhbmggc8OhY2ggc2hvcCB1c2VyIMSRxrDhu6NjIHRydXkgY+G6rXAuCgojIyA0LiBC4bqjbmcgZOG7ryBsaeG7h3UgKHNjaGVtYSkKCi0gW25ndW9pLWR1bmddKC4uLy4uL2NvLXNvLWR1LWxpZXUvbmd1b2ktZHVuZy8pIOKAlCBEcml6emxlIHVzZXJzLnRzIOKAlCAxIGLhuqNuZywgMTMgY+G7mXQsIDIgZW51bSwgMiBpbmRleCAodXNlcnMpLgotIFtjdWEtaGFuZy1kYl0oLi4vLi4vY28tc28tZHUtbGlldS9jdWEtaGFuZy1kYi8pIOKAlCBEcml6emxlIHNob3BzLnRzIOKAlCAxIGLhuqNuZywgMzEgY+G7mXQgKHNob3BzKS4KCiMjIDUuIFRoxrAgdmnhu4duIGJhY2tlbmQgKG3hu5l0IHPhu5EgZmlsZSBxdWFuIHRy4buNbmcpCgpUcmEgY+G7qXUgxJHhu6c6IFtSRUFETUUubWRdKC4uLy4uL2NoaS1tdWMvdGh1LXZpZW4tYmFja2VuZC8pCgotIFtwaW4tY2hhbGxlbmdlXSguLi8uLi90aHUtdmllbi9waW4tY2hhbGxlbmdlLykg4oCUIFvEkMSDbmcgbmjhuq1wICYgcGhpw6puXSBwaW4tY2hhbGxlbmdlLnRzIOKAlCBQSU5fQ0hBTExFTkdFX1BVUlBPU0UsIHNpZ25QaW5DaGFsbGVuZ2VUb2tlbiwgdmVyaeKApgotIFtwaW4tcmVzZXQtcmVxdWVzdHNdKC4uLy4uL3RodS12aWVuL3Bpbi1yZXNldC1yZXF1ZXN0cy8pIOKAlCBbxJDEg25nIG5o4bqtcCAmIHBoacOqbl0gcGluLXJlc2V0LXJlcXVlc3RzLnRzIOKAlCB1cHNlcnRQZW5kaW5nUGluUmVzZXRSZXF1ZXN0LCBjYW5TZXRQaW5XaXRob3XigKYKLSBbc2Vzc2lvbi1jb29raWVdKC4uLy4uL3RodS12aWVuL3Nlc3Npb24tY29va2llLykg4oCUIFvEkMSDbmcgbmjhuq1wICYgcGhpw6puXSBzZXNzaW9uLWNvb2tpZS50cyDigJQgU0VTU0lPTl9DT09LSUVfTkFNRSwgc2V0U2Vzc2lvbkNvb2tpZSwgY2xlYXJTZXNzaeKApgotIFt1c2VyLXBpbl0oLi4vLi4vdGh1LXZpZW4vdXNlci1waW4vKSDigJQgW8SQxINuZyBuaOG6rXAgJiBwaGnDqm5dIHVzZXItcGluLnRzIOKAlCBQSU5fTEVOR1RILCByb2xlUmVxdWlyZXNQaW4sIG5vcm1hbGl6ZVBpbiwgdmFsaWRhdGVQaW5G4oCmCgotLS0KCipTaW5oIHThu7EgxJHhu5luZyDigJQgYHB5dGhvbjMgZG9jcy9nZW4ucHlgKgo=</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>

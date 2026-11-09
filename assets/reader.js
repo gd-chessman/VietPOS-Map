@@ -314,7 +314,7 @@
 
   async function boot() {
     if (window.VietPOSTheme) {
-      window.VietPOSTheme.apply(window.VietPOSTheme.get());
+      window.VietPOSTheme.sync();
     } else {
       applyTheme(getTheme());
     }

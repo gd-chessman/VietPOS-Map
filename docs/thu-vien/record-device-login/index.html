@@ -4,11 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thư viện: `record-device-login.ts` — VietPOS-Map</title>
-  <script src="/assets/theme.js"></script>
-  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  <script>
+(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
+if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
+document.documentElement.setAttribute("data-theme",t);
+document.documentElement.style.colorScheme=t;})();
+</script>
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/thu-vien/record-device-login/README.md">
+  <script src="/assets/theme-boot.js"></script>
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
   <div class="doc-layout">
     <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
@@ -32,6 +37,7 @@
   <script id="md-b64" type="application/octet-stream">IyBUaMawIHZp4buHbjogYHJlY29yZC1kZXZpY2UtbG9naW4udHNgCgoqKk3DtCB04bqjOioqIFtLaeG6v24gdHLDumMgLyBkw7luZyBjaHVuZ10gcmVjb3JkLWRldmljZS1sb2dpbi50cyDigJQgcmVjb3JkRGV2aWNlTG9naW5FdmVudC4KCioqQ2jhu6cgxJHhu4E6KiogW0tp4bq/biB0csO6YyAvIGTDuW5nIGNodW5nXSguLi8uLi9jaHV5ZW4tZGUva2llbi10cnVjLWhlLXRob25nLykKCioqTcOjIG5ndeG7k24gU2hvcDoqKiBgYXJ0aWZhY3RzL2FwaS1zZXJ2ZXIvc3JjL2xpYi9yZWNvcmQtZGV2aWNlLWxvZ2luLnRzYCDCtyAqKlF1eSBtw7Q6KiogfjM3IGTDsm5nCgpGaWxlIG7DoHkgbMOgICoqdHJhIGPhu6l1Kioga2hpIMSRw6MgxJHhu41jIGh1YiBjaOG7pyDEkeG7gSB2w6AgbW9kdWxlIEFQSSB0xrDGoW5nIOG7qW5nLiBUaHXhuq10IHRvw6FuIMSR4bqneSDEkeG7pyBu4bqxbSB0cm9uZyBtw6MgVHlwZVNjcmlwdCBn4buRYy4KCiMjIEjDoG0vaOG6sW5nIGV4cG9ydCAoMSkKCi0gYHJlY29yZERldmljZUxvZ2luRXZlbnRgCgojIyBJbXBvcnQgY8ahIHPhu58gZOG7ryBsaeG7h3UKCi0gYGltcG9ydCB7IGRiLCBkZXZpY2VMb2dpbkV2ZW50c1RhYmxlLCB0eXBlIFVzZXIgfSBmcm9tICJAd29ya3NwYWNlL2RiIjtgCgojIyBUcsOtY2ggbcOjICh0aGFtIGto4bqjbykKCmBgYHR5cGVzY3JpcHQKaW1wb3J0IHR5cGUgeyBSZXF1ZXN0IH0gZnJvbSAiZXhwcmVzcyI7CmltcG9ydCB7IGRiLCBkZXZpY2VMb2dpbkV2ZW50c1RhYmxlLCB0eXBlIFVzZXIgfSBmcm9tICJAd29ya3NwYWNlL2RiIjsKaW1wb3J0IHsgZGV2aWNlSWRGcm9tUmVxdWVzdCB9IGZyb20gIi4vZGV2aWNlLWRlbnlsaXN0IjsKaW1wb3J0IHsgY2xpZW50SXBGcm9tUmVxdWVzdCB9IGZyb20gIi4vaXAtZGVueWxpc3QiOwoKZXhwb3J0IHR5cGUgRGV2aWNlTG9naW5NZXRob2QgPSAicGFzc3dvcmQiIHwgInBpbl9zZXR1cCIgfCAicGluX3ZlcmlmeSIgfCAicGluX2RldmljZSI7CgpmdW5jdGlvbiB0cnVuY2F0ZVVzZXJBZ2VudChyYXc6IHN0cmluZyB8IHVuZGVmaW5lZCk6IHN0cmluZyB8IG51bGwgewogIGlmICghcmF3KSByZXR1cm4gbnVsbDsKICBjb25zdCB0ID0gcmF3LnRyaW0oKTsKICBpZiAoIXQpIHJldHVybiBudWxsOwogIHJldHVybiB0LnNsaWNlKDAsIDUxMik7Cn0KCi8qKiBHaGkgbOG7i2NoIHPhu60gxJHEg25nIG5o4bqtcCBraGkgY8OzIFgtRGV2aWNlLUlkOyBs4buXaSBnaGkgbG9nIGtow7RuZyBjaOG6t24gcGhpw6puLiAqLwpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcmVjb3JkRGV2aWNlTG9naW5FdmVudCgKICByZXE6IFJlcXVlc3QsCiAgdXNlcjogUGljazxVc2VyLCAiaWQiIHwgInNob3BJZCI+LAogIG1ldGhvZDogRGV2aWNlTG9naW5NZXRob2QsCik6IFByb21pc2U8dm9pZD4gewogIGNvbnN0IGRldmljZUlkID0gZGV2aWNlSWRGcm9tUmVxdWVzdChyZXEpOwogIGlmICghZGV2aWNlSWQpIHJldHVybjsKCiAgY29uc3QgaXAgPSBjbGllbnRJcEZyb21SZXF1ZXN0KHJlcSkgfHwgbnVsbDsKICBjb25zdCB1YUhlYWRlciA9IHJlcS5oZWFkZXJzWyJ1c2VyLWFnZW50Il07CiAgY29uc3QgdXNlckFnZW50ID0gdHJ1bmNhdGVVc2VyQWdlbnQodHlwZW9mIHVhSGVhZGVyID09PSAic3RyaW5nIiA/IHVhSGVhZGVyIDogdW5kZWZpbmVkKTsKCiAgYXdhaXQgZGIuaW5zZXJ0KGRldmljZUxvZ2luRXZlbnRzVGFibGUpLnZhbHVlcyh7CiAgICBzaG9wSWQ6IHVzZXIuc2hvcElkLAogICAgZGV2aWNlSWQsCiAgICB1c2VySWQ6IHVzZXIuaWQsCiAgICBtZXRob2QsCiAgICBpcCwKICAgIHVzZXJBZ2VudCwKICB9KTsKfQpgYGAKCuKGkCBbQ2jhu4kgbeG7pWMgbGliXSguLi8uLi9jaGktbXVjL3RodS12aWVuLWJhY2tlbmQvKSDCtyBbSHViIEtp4bq/biB0csO6YyAvIGTDuW5nIGNodW5nXSguLi8uLi9jaHV5ZW4tZGUva2llbi10cnVjLWhlLXRob25nLykK</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>

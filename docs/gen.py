@@ -45,6 +45,14 @@ from doc_paths import (
 
 ROOT = Path(__file__).resolve().parent
 SHOP = ROOT.parent.parent / "Shop-Manager-System-Offline"
+
+# Chạy sync trong <head> trước doc.css / portal.css (tránh :root kẹt tối)
+THEME_HEAD_INLINE = """<script>
+(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
+if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
+document.documentElement.setAttribute("data-theme",t);
+document.documentElement.style.colorScheme=t;})();
+</script>"""
 ROUTES_DIR = SHOP / "artifacts/api-server/src/routes"
 PAGES_DIR = SHOP / "artifacts/pos-app/src/pages"
 SCHEMA_DIR = SHOP / "lib/db/src/schema"
@@ -1944,7 +1952,7 @@ def write_map_portal_index_html(
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VietPOS-Map — Bản đồ tài liệu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺</text></svg>" />
-  <script src="/assets/theme.js"></script>
+  {THEME_HEAD_INLINE}
   <link rel="stylesheet" href="/assets/portal.css" />
   <style>* {{ box-sizing: border-box; }}</style>
 </head>
@@ -2001,6 +2009,7 @@ def write_map_portal_index_html(
       Sinh tự động bởi <code>python3 docs/gen.py</code> · Nguồn code: Shop-Manager-System-Offline
     </footer>
   </div>
+  <script src="/assets/theme.js"></script>
   <script src="/assets/portal-init.js"></script>
 </body>
 </html>
@@ -2088,11 +2097,11 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} — VietPOS-Map</title>
-  <script src="/assets/theme.js"></script>
-  <link id="md-theme-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css" />
+  {theme_head_inline}
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="{md_web_path}">
+  <script src="/assets/theme-boot.js"></script>
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
   <div class="doc-layout">
     <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
@@ -2116,6 +2125,7 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <script id="md-b64" type="application/octet-stream">{b64}</script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="/assets/theme.js"></script>
   <script src="/assets/reader.js"></script>
 </body>
 </html>
@@ -2137,6 +2147,7 @@ def write_md_index_pages(all_paths: list[str]) -> int:
             title=title,
             md_web_path=_esc_html(md_web_path),
             b64=b64,
+            theme_head_inline=THEME_HEAD_INLINE,
         )
         (md_path.parent / "index.html").write_text(html, encoding="utf-8")
         count += 1
