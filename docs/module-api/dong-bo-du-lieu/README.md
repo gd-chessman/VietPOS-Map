@@ -1,6 +1,6 @@
 # Module API: `sync`
 
-**Mô tả:** Module API sync.ts — 2 endpoint. API đồng bộ client (kéo/đẩy) cho IndexedDB offline.
+**Mô tả:** Đồng bộ offline IndexedDB ↔ server.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/sync.ts`
 

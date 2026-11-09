@@ -1,6 +1,6 @@
 # Module API: `stock-request-audit-reports`
 
-**Mô tả:** Module API stock-request-audit-reports.ts — 2 endpoint. Báo cáo audit phiếu nhập/xuất.
+**Mô tả:** Báo cáo audit phiếu nhập/xuất.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/stock-request-audit-reports.ts`
 

@@ -1,6 +1,6 @@
 # Module API: `stock-requests`
 
-**Mô tả:** Module API stock-requests.ts — 14 endpoint. Phiếu yêu cầu nhập/xuất nội bộ: tạo → duyệt → hoàn tất → cập nhật tồn. Giao diện: pages/stock-requests.tsx.
+**Mô tả:** Phiếu yêu cầu nhập/xuất nội bộ.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/stock-requests.ts`
 

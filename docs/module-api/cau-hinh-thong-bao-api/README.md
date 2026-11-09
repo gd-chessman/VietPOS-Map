@@ -1,6 +1,6 @@
 # Module API: `notification-settings`
 
-**Mô tả:** Module API notification-settings.ts — 2 endpoint. Cấu hình thông báo platform/org.
+**Mô tả:** Cấu hình thông báo platform/org.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/notification-settings.ts`
 

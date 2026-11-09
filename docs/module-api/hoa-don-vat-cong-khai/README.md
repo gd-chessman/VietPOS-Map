@@ -1,6 +1,6 @@
 # Module API: `public-vat-invoice`
 
-**Mô tả:** Module API public-vat-invoice.ts — 3 endpoint. API/form HĐ VAT công khai.
+**Mô tả:** API/form HĐ VAT công khai.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/public-vat-invoice.ts`
 

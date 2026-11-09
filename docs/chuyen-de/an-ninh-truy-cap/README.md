@@ -16,9 +16,9 @@ Denylist chạy **trước** router API — 403 ngay nếu bị chặn.
 
 ## 3. Module API
 
-- [chan-ip-api](../../module-api/chan-ip-api/) — Module API blocked-ips.ts — 3 endpoint. Danh sách IP bị chặn toàn cục trên mọi request /api/*. -…
-- [chan-thiet-bi-api](../../module-api/chan-thiet-bi-api/) — Module API blocked-devices.ts — 3 endpoint. Danh sách Device ID (header client) bị chặn mọi…
-- [quan-sat-truy-cap](../../module-api/quan-sat-truy-cap/) — Module API access-observations.ts — 1 endpoint. Tổng hợp cặp (deviceId, IP) đã gọi API…
+- [chan-ip-api](../../module-api/chan-ip-api/) — Quản lý IP bị chặn mọi /api.
+- [chan-thiet-bi-api](../../module-api/chan-thiet-bi-api/) — Quản lý danh sách thiết bị bị chặn mọi /api.
+- [quan-sat-truy-cap](../../module-api/quan-sat-truy-cap/) — Quan sát cặp thiết bị + IP gọi API (RAM, TTL).
 
 ## 4. Bảng dữ liệu (schema)
 

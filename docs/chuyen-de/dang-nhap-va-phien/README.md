@@ -17,8 +17,8 @@ Mọi API gần như đều gắn **shop_id** và **role** sau khi đăng nhập
 
 ## 3. Module API
 
-- [xac-thuc](../../module-api/xac-thuc/) — Module API auth.ts — 8 endpoint. Đăng nhập, JWT, PIN, phiên người dùng.
-- [cua-hang](../../module-api/cua-hang/) — Module API shops.ts — 3 endpoint. Danh sách shop user được truy cập.
+- [xac-thuc](../../module-api/xac-thuc/) — Đăng nhập, JWT, PIN, phiên người dùng.
+- [cua-hang](../../module-api/cua-hang/) — Danh sách shop user được truy cập.
 
 ## 4. Bảng dữ liệu (schema)
 

@@ -1,6 +1,6 @@
 # Module API: `shops`
 
-**Mô tả:** Module API shops.ts — 3 endpoint. Danh sách shop user được truy cập.
+**Mô tả:** Danh sách shop user được truy cập.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/shops.ts`
 

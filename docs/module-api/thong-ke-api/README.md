@@ -1,6 +1,6 @@
 # Module API: `statistics`
 
-**Mô tả:** Module API statistics.ts — 6 endpoint. Thống kê bán theo sản phẩm.
+**Mô tả:** Thống kê bán theo sản phẩm.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/statistics.ts`
 

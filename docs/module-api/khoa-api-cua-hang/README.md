@@ -1,6 +1,6 @@
 # Module API: `shop-api-keys`
 
-**Mô tả:** Module API shop-api-keys.ts — 8 endpoint. API key cho widget / thiết bị (ESP32 visitor-counts). Giao diện: pages/chain-api-keys.tsx (nếu có).
+**Mô tả:** API key shop (widget, ESP32).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/shop-api-keys.ts`
 

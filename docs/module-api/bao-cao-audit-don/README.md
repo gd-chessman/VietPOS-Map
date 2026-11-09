@@ -1,6 +1,6 @@
 # Module API: `order-audit-reports`
 
-**Mô tả:** Module API order-audit-reports.ts — 2 endpoint. Báo cáo audit đơn hàng.
+**Mô tả:** Báo cáo audit đơn hàng.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/order-audit-reports.ts`
 

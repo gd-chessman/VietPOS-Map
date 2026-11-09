@@ -1,6 +1,6 @@
 # Module API: `product-categories`
 
-**Mô tả:** Module API product-categories.ts — 3 endpoint. Danh mục sản phẩm.
+**Mô tả:** Danh mục sản phẩm.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/product-categories.ts`
 

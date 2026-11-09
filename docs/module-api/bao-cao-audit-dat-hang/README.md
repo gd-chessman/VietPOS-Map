@@ -1,6 +1,6 @@
 # Module API: `purchase-order-audit-reports`
 
-**Mô tả:** Module API purchase-order-audit-reports.ts — 2 endpoint. Báo cáo audit phiếu mua.
+**Mô tả:** Báo cáo audit phiếu mua.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/purchase-order-audit-reports.ts`
 

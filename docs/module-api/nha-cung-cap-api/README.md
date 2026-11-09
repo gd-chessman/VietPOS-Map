@@ -1,6 +1,6 @@
 # Module API: `suppliers`
 
-**Mô tả:** Module API suppliers.ts — 4 endpoint. Nhà cung cấp.
+**Mô tả:** Nhà cung cấp.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/suppliers.ts`
 

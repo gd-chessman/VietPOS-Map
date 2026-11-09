@@ -18,8 +18,8 @@ Chủ đề phức tạp nhất — đọc **06 → 07 → 08** trước khi m�
 
 ## 3. Module API
 
-- [hoa-don-dau-vao](../../module-api/hoa-don-dau-vao/) — Module API vat-inbound.ts — 28 endpoint. Module lớn nhất về HĐ mua vào VAT: import PDF/Excel…
-- [cong-cqt](../../module-api/cong-cqt/) — Module API org-gdt-portal.ts — 4 endpoint. Session CQT trực tiếp (captcha, connect)…
+- [hoa-don-dau-vao](../../module-api/hoa-don-dau-vao/) — Hóa đơn mua vào VAT (lớn nhất).
+- [cong-cqt](../../module-api/cong-cqt/) — Phiên đăng nhập CQT (captcha).
 
 ## 4. Bảng dữ liệu (schema)
 

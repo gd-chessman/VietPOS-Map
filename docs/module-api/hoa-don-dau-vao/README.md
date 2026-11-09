@@ -1,6 +1,6 @@
 # Module API: `vat-inbound`
 
-**Mô tả:** Module API vat-inbound.ts — 28 endpoint. Module lớn nhất về HĐ mua vào VAT: import PDF/Excel, kéo CQT/Viettel, ghép SP, nhập kho, lưu trữ, MST lọc (tab Khác)…
+**Mô tả:** Hóa đơn mua vào VAT (lớn nhất).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/vat-inbound.ts`
 

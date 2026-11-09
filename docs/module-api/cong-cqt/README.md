@@ -1,6 +1,6 @@
 # Module API: `org-gdt-portal`
 
-**Mô tả:** Module API org-gdt-portal.ts — 4 endpoint. Session CQT trực tiếp (captcha, connect) — dùng chung org với HĐ đầu vào.
+**Mô tả:** Phiên đăng nhập CQT (captcha).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/org-gdt-portal.ts`
 

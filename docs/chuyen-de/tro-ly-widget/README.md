@@ -17,9 +17,9 @@ Tích hợp ngoài quầy — API key shop.
 
 ## 3. Module API
 
-- [tro-ly-ai-api](../../module-api/tro-ly-ai-api/) — Module API agent.ts — 10 endpoint. Trợ lý AI: chat, thông tin hệ thống (DB, đồng bộ cloud…
-- [widget-quay](../../module-api/widget-quay/) — Module API widget.ts — 1 endpoint. API phục vụ app Android widget: thống kê quầy (JWT / shop…
-- [khoa-api-cua-hang](../../module-api/khoa-api-cua-hang/) — Module API shop-api-keys.ts — 8 endpoint. API key cho widget / thiết bị (ESP32 visitor-counts)…
+- [tro-ly-ai-api](../../module-api/tro-ly-ai-api/) — Trợ lý AI: chat và công cụ đọc dữ liệu kinh doanh.
+- [widget-quay](../../module-api/widget-quay/) — API cho app widget Android.
+- [khoa-api-cua-hang](../../module-api/khoa-api-cua-hang/) — API key shop (widget, ESP32).
 
 ## 4. Bảng dữ liệu (schema)
 

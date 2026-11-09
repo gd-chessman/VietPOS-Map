@@ -1687,6 +1687,18 @@ def api_module_intro_text(key: str) -> str:
     return API_MODULE_SHORT_VI.get(key, f"Module HTTP `/api/...` cho nhóm **{key}**.")
 
 
+def api_module_blurb(key: str, route_count: int) -> str:
+    """Một dòng cho mục lục / **Mô tả:** — không lặp tên file + không cắt giữa câu."""
+    if key in API_MODULE_SHORT_VI:
+        return API_MODULE_SHORT_VI[key]
+    intro = API_MODULE_INTRO.get(key, "")
+    if intro:
+        para = re.split(r"\n\s*\n", intro.strip(), maxsplit=1)[0].strip()
+        para = re.sub(r"\*\*", "", para)
+        return one_line(para, 180)
+    return f"Module API — {route_count} endpoint."
+
+
 def write_huong_dan_doc() -> str:
     rel = huong_dan_doc_path()
     body = f"""
@@ -2719,10 +2731,7 @@ def write_api_modules() -> tuple[list[str], list[tuple[str, str, str, str]]]:
         rel_shop = f"artifacts/api-server/src/routes/{f.name}"
         intro = api_module_intro_text(key)
         rel = module_api_path(key)
-        desc = register_desc(
-            rel,
-            f"Module API `{key}.ts` — {len(routes)} endpoint. {one_line(intro, 120)}",
-        )
+        desc = register_desc(rel, api_module_blurb(key, len(routes)))
         lines = [
             f"# Module API: `{key}`",
             "",

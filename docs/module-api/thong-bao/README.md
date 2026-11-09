@@ -1,6 +1,6 @@
 # Module API: `notifications`
 
-**Mô tả:** Module API notifications.ts — 2 endpoint. Thông báo in-app cho user.
+**Mô tả:** Thông báo in-app cho user.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/notifications.ts`
 

@@ -1,6 +1,6 @@
 # Module API: `product-audit-reports`
 
-**Mô tả:** Module API product-audit-reports.ts — 2 endpoint. Báo cáo thay đổi sản phẩm.
+**Mô tả:** Báo cáo thay đổi sản phẩm.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/product-audit-reports.ts`
 

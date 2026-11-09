@@ -18,9 +18,9 @@ Một **organization** nhiều **shop**; hub shop cho HĐ đầu vào.
 
 ## 3. Module API
 
-- [chuoi-api](../../module-api/chuoi-api/) — Module API chain.ts — 29 endpoint. Tổ chức, shop, kho…
-- [bang-dieu-khiem-api](../../module-api/bang-dieu-khiem-api/) — Module API dashboard.ts — 17 endpoint. Số liệu tổng quan: doanh thu, đơn, tồn thấp.
-- [khoa-api-cua-hang](../../module-api/khoa-api-cua-hang/) — Module API shop-api-keys.ts — 8 endpoint. API key cho widget / thiết bị (ESP32 visitor-counts)…
+- [chuoi-api](../../module-api/chuoi-api/) — Tổ chức, shop, kho, điều chuyển hàng.
+- [bang-dieu-khiem-api](../../module-api/bang-dieu-khiem-api/) — Số liệu tổng quan: doanh thu, đơn, tồn thấp.
+- [khoa-api-cua-hang](../../module-api/khoa-api-cua-hang/) — API key shop (widget, ESP32).
 
 ## 4. Bảng dữ liệu (schema)
 

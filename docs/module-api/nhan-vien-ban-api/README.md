@@ -1,6 +1,6 @@
 # Module API: `sales-staff`
 
-**Mô tả:** Module API sales-staff.ts — 4 endpoint. Nhân viên bán hàng gắn quầy.
+**Mô tả:** Nhân viên bán hàng gắn quầy.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/sales-staff.ts`
 

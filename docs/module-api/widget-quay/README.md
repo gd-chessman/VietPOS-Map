@@ -1,6 +1,6 @@
 # Module API: `widget`
 
-**Mô tả:** Module API widget.ts — 1 endpoint. API phục vụ app Android widget: thống kê quầy (JWT / shop context). Repo: VietPOS-Widget/.
+**Mô tả:** API cho app widget Android.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/widget.ts`
 

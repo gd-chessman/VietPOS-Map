@@ -1,6 +1,6 @@
 # Module API: `access-observations`
 
-**Mô tả:** Module API access-observations.ts — 1 endpoint. Tổng hợp cặp (deviceId, IP) đã gọi API — lưu in-memory (TTL giờ…
+**Mô tả:** Quan sát cặp thiết bị + IP gọi API (RAM, TTL).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/access-observations.ts`
 

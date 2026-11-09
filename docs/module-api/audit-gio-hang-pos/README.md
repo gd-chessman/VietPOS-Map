@@ -1,6 +1,6 @@
 # Module API: `pos-cart-audit`
 
-**Mô tả:** Module API pos-cart-audit.ts — 3 endpoint. Audit thao tác giỏ hàng POS.
+**Mô tả:** Audit thao tác giỏ hàng POS.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/pos-cart-audit.ts`
 

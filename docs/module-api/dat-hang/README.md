@@ -1,6 +1,6 @@
 # Module API: `purchase-orders`
 
-**Mô tả:** Module API purchase-orders.ts — 9 endpoint. Phiếu đặt mua (PO).
+**Mô tả:** Phiếu đặt mua (PO).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/purchase-orders.ts`
 

@@ -1,6 +1,6 @@
 # Module API: `orders`
 
-**Mô tả:** Module API orders.ts — 21 endpoint. Đơn hàng POS: tạo, hủy, duyệt hủy, in lại, thông báo reprint. Gắn ca (shift-sessions)…
+**Mô tả:** Đơn POS: tạo, hủy, duyệt, in lại.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/orders.ts`
 

@@ -1,6 +1,6 @@
 # Module API: `reports`
 
-**Mô tả:** Module API reports.ts — 4 endpoint. Báo cáo nhân viên, in lại bill.
+**Mô tả:** Báo cáo nhân viên, in lại bill.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/reports.ts`
 

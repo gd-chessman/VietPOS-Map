@@ -1,6 +1,6 @@
 # Module API: `staff`
 
-**Mô tả:** Module API staff.ts — 7 endpoint. Quản lý tài khoản nhân viên (admin).
+**Mô tả:** Quản lý tài khoản nhân viên (admin).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/staff.ts`
 

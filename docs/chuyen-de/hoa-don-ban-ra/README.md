@@ -17,8 +17,8 @@ Tích hợp Viettel SInvoice — cấu hình tại Chuỗi → Sửa tổ chức
 
 ## 3. Module API
 
-- [cau-hinh-viettel](../../module-api/cau-hinh-viettel/) — Module API org-viettel-settings.ts — 2 endpoint. Cấu hình Viettel SInvoice theo org.
-- [hoa-don-vat-cong-khai](../../module-api/hoa-don-vat-cong-khai/) — Module API public-vat-invoice.ts — 3 endpoint. API/form HĐ VAT công khai.
+- [cau-hinh-viettel](../../module-api/cau-hinh-viettel/) — Cấu hình Viettel SInvoice theo org.
+- [hoa-don-vat-cong-khai](../../module-api/hoa-don-vat-cong-khai/) — API/form HĐ VAT công khai.
 
 ## 4. Bảng dữ liệu (schema)
 

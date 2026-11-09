@@ -1,6 +1,6 @@
 # Module API: `system-events`
 
-**Mô tả:** Module API system-events.ts — 1 endpoint. Sự kiện / lỗi hệ thống.
+**Mô tả:** Sự kiện / lỗi hệ thống.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/system-events.ts`
 

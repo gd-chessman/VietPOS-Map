@@ -21,11 +21,11 @@ Dữ liệu master + tồn trước khi bán hoặc nhập HĐ.
 
 ## 3. Module API
 
-- [san-pham-api](../../module-api/san-pham-api/) — Module API products.ts — 11 endpoint. Quản lý sản phẩm (thêm/sửa/xóa), import Excel, biến thể…
-- [ton-kho-api](../../module-api/ton-kho-api/) — Module API inventory.ts — 2 endpoint. Tồn kho cấp shop (số lượng POS).
-- [phieu-nhap-xuat](../../module-api/phieu-nhap-xuat/) — Module API stock-requests.ts — 14 endpoint. Phiếu yêu cầu nhập/xuất nội bộ: tạo → duyệt → hoàn…
-- [dat-hang](../../module-api/dat-hang/) — Module API purchase-orders.ts — 9 endpoint. Phiếu đặt mua (PO).
-- [nha-cung-cap-api](../../module-api/nha-cung-cap-api/) — Module API suppliers.ts — 4 endpoint. Nhà cung cấp.
+- [san-pham-api](../../module-api/san-pham-api/) — Sản phẩm: thêm/sửa/xóa, import Excel, biến thể.
+- [ton-kho-api](../../module-api/ton-kho-api/) — Tồn kho cấp shop (số lượng POS).
+- [phieu-nhap-xuat](../../module-api/phieu-nhap-xuat/) — Phiếu yêu cầu nhập/xuất nội bộ.
+- [dat-hang](../../module-api/dat-hang/) — Phiếu đặt mua (PO).
+- [nha-cung-cap-api](../../module-api/nha-cung-cap-api/) — Nhà cung cấp.
 
 ## 4. Bảng dữ liệu (schema)
 

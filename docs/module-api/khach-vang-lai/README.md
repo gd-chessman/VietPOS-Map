@@ -1,6 +1,6 @@
 # Module API: `walk-in-customers`
 
-**Mô tả:** Module API walk-in-customers.ts — 2 endpoint. Khách vãng lai (walk-in).
+**Mô tả:** Khách vãng lai (walk-in).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/walk-in-customers.ts`
 

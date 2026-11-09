@@ -1,6 +1,6 @@
 # Module API: `dashboard`
 
-**Mô tả:** Module API dashboard.ts — 17 endpoint. Số liệu tổng quan: doanh thu, đơn, tồn thấp.
+**Mô tả:** Số liệu tổng quan: doanh thu, đơn, tồn thấp.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/dashboard.ts`
 

@@ -1,6 +1,6 @@
 # Module API: `org-viettel-settings`
 
-**Mô tả:** Module API org-viettel-settings.ts — 2 endpoint. Cấu hình Viettel SInvoice theo org.
+**Mô tả:** Cấu hình Viettel SInvoice theo org.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/org-viettel-settings.ts`
 

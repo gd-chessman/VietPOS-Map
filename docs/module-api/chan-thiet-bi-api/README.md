@@ -1,6 +1,6 @@
 # Module API: `blocked-devices`
 
-**Mô tả:** Module API blocked-devices.ts — 3 endpoint. Danh sách Device ID (header client) bị chặn mọi /api/*. - Quyền: super_admin (giống blocked-ips). - Device ID lấy từ…
+**Mô tả:** Quản lý danh sách thiết bị bị chặn mọi /api.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/blocked-devices.ts`
 

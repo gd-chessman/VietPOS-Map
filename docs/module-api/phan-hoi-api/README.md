@@ -1,6 +1,6 @@
 # Module API: `feedback`
 
-**Mô tả:** Module API feedback.ts — 5 endpoint. Phản hồi khách và form công khai.
+**Mô tả:** Phản hồi khách và form công khai.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/feedback.ts`
 

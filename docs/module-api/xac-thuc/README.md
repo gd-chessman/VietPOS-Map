@@ -1,6 +1,6 @@
 # Module API: `auth`
 
-**Mô tả:** Module API auth.ts — 8 endpoint. Đăng nhập, JWT, PIN, phiên người dùng.
+**Mô tả:** Đăng nhập, JWT, PIN, phiên người dùng.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/auth.ts`
 

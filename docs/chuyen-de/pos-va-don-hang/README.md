@@ -17,9 +17,9 @@ Luồng doanh thu chính — từ màn POS đến bảng `orders`.
 
 ## 3. Module API
 
-- [don-hang-api](../../module-api/don-hang-api/) — Module API orders.ts — 21 endpoint. Đơn hàng POS: tạo, hủy, duyệt hủy, in lại…
-- [ca-lam-viec](../../module-api/ca-lam-viec/) — Module API shift-sessions.ts — 3 endpoint. Ca làm việc mở/đóng.
-- [audit-gio-hang-pos](../../module-api/audit-gio-hang-pos/) — Module API pos-cart-audit.ts — 3 endpoint. Audit thao tác giỏ hàng POS.
+- [don-hang-api](../../module-api/don-hang-api/) — Đơn POS: tạo, hủy, duyệt, in lại.
+- [ca-lam-viec](../../module-api/ca-lam-viec/) — Ca làm việc mở/đóng.
+- [audit-gio-hang-pos](../../module-api/audit-gio-hang-pos/) — Audit thao tác giỏ hàng POS.
 
 ## 4. Bảng dữ liệu (schema)
 

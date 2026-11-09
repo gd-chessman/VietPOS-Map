@@ -1,6 +1,6 @@
 # Module API: `blocked-ips`
 
-**Mô tả:** Module API blocked-ips.ts — 3 endpoint. Danh sách IP bị chặn toàn cục trên mọi request /api/*. - Quyền: requireAuth + role super_admin (403 nếu không đủ). -…
+**Mô tả:** Quản lý IP bị chặn mọi /api.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/blocked-ips.ts`
 

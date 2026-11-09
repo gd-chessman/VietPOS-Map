@@ -1,6 +1,6 @@
 # Module API: `inventory`
 
-**Mô tả:** Module API inventory.ts — 2 endpoint. Tồn kho cấp shop (số lượng POS).
+**Mô tả:** Tồn kho cấp shop (số lượng POS).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/inventory.ts`
 

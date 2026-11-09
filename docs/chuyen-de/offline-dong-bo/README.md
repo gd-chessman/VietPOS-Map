@@ -16,8 +16,8 @@ POS ghi local trước; worker đẩy khi có mạng.
 
 ## 3. Module API
 
-- [dong-bo-du-lieu](../../module-api/dong-bo-du-lieu/) — Module API sync.ts — 2 endpoint. API đồng bộ client (kéo/đẩy) cho IndexedDB offline.
-- [don-hang-api](../../module-api/don-hang-api/) — Module API orders.ts — 21 endpoint. Đơn hàng POS: tạo, hủy, duyệt hủy, in lại…
+- [dong-bo-du-lieu](../../module-api/dong-bo-du-lieu/) — Đồng bộ offline IndexedDB ↔ server.
+- [don-hang-api](../../module-api/don-hang-api/) — Đơn POS: tạo, hủy, duyệt, in lại.
 
 ## 4. Bảng dữ liệu (schema)
 

@@ -1,6 +1,6 @@
 # Module API: `shift-sessions`
 
-**Mô tả:** Module API shift-sessions.ts — 3 endpoint. Ca làm việc mở/đóng.
+**Mô tả:** Ca làm việc mở/đóng.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/shift-sessions.ts`
 

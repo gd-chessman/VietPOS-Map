@@ -1,6 +1,6 @@
 # Module API: `health`
 
-**Mô tả:** Module API health.ts — 1 endpoint. Kiểm tra service còn sống (healthz).
+**Mô tả:** Kiểm tra service còn sống (healthz).
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/health.ts`
 

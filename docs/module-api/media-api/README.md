@@ -1,6 +1,6 @@
 # Module API: `media`
 
-**Mô tả:** Module API media.ts — 1 endpoint. Upload và quản lý file media.
+**Mô tả:** Upload và quản lý file media.
 
 **Mã nguồn Shop:** `artifacts/api-server/src/routes/media.ts`
 
