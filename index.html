@@ -6,10 +6,10 @@
   <title>VietPOS-Map — Bản đồ tài liệu</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺</text></svg>" />
   <script>
-(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
+(function(){var k="vietpos-map-theme",MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=localStorage.getItem(k);
 if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
-document.documentElement.setAttribute("data-theme",t);
-document.documentElement.style.colorScheme=t;})();
+var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);
+if(document.querySelector('meta[name="vietpos-doc"]')){var l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t];document.head.appendChild(l);}})();
 </script>
   <link rel="stylesheet" href="/assets/portal.css" />
   <style>* { box-sizing: border-box; }</style>

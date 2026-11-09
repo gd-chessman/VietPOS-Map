@@ -30,6 +30,8 @@ window.VietPOSTheme = (function () {
     const root = document.documentElement;
     root.setAttribute("data-theme", theme);
     root.style.colorScheme = theme;
+    root.classList.remove("theme-light", "theme-dark");
+    root.classList.add(theme === "light" ? "theme-light" : "theme-dark");
     localStorage.setItem(KEY, theme);
 
     ensureMdLink(theme);

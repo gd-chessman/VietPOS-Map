@@ -48,10 +48,10 @@ SHOP = ROOT.parent.parent / "Shop-Manager-System-Offline"
 
 # Chạy sync trong <head> trước doc.css / portal.css (tránh :root kẹt tối)
 THEME_HEAD_INLINE = """<script>
-(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
+(function(){var k="vietpos-map-theme",MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=localStorage.getItem(k);
 if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
-document.documentElement.setAttribute("data-theme",t);
-document.documentElement.style.colorScheme=t;})();
+var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);
+if(document.querySelector('meta[name="vietpos-doc"]')){var l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t];document.head.appendChild(l);}})();
 </script>"""
 ROUTES_DIR = SHOP / "artifacts/api-server/src/routes"
 PAGES_DIR = SHOP / "artifacts/pos-app/src/pages"
@@ -2097,11 +2097,11 @@ def write_md_index_pages(all_paths: list[str]) -> int:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} — VietPOS-Map</title>
+  <meta name="vietpos-doc" content="1" />
   {theme_head_inline}
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="{md_web_path}">
-  <script src="/assets/theme-boot.js"></script>
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
   <div class="doc-layout">
     <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>

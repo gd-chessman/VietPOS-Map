@@ -57,6 +57,87 @@ body {
   line-height: 1.5;
 }
 
+/* Khung doc — ép đồng bộ với theme (tránh chỉ markdown sáng, sidebar còn tối) */
+html.theme-light .doc-sidebar,
+html[data-theme="light"] .doc-sidebar {
+  background-color: #ffffff !important;
+  border-right-color: #d0d7de !important;
+  color: #1f2328 !important;
+}
+
+html.theme-light .doc-topbar,
+html[data-theme="light"] .doc-topbar {
+  background-color: #ffffff !important;
+  border-bottom-color: #d0d7de !important;
+  color: #1f2328 !important;
+}
+
+html.theme-light .doc-breadcrumb,
+html[data-theme="light"] .doc-breadcrumb {
+  background-color: #ffffff !important;
+  border-bottom-color: #d0d7de !important;
+  color: #656d76 !important;
+}
+
+html.theme-light .doc-toc,
+html[data-theme="light"] .doc-toc {
+  background-color: #ffffff !important;
+  border-left-color: #d0d7de !important;
+}
+
+html.theme-light .nav-tree a,
+html[data-theme="light"] .nav-tree a {
+  color: #1f2328 !important;
+}
+
+html.theme-light .nav-tree summary,
+html[data-theme="light"] .nav-tree summary {
+  color: #656d76 !important;
+}
+
+html.theme-light .nav-tree a:hover,
+html[data-theme="light"] .nav-tree a:hover,
+html.theme-light .nav-tree a.active,
+html[data-theme="light"] .nav-tree a.active {
+  background-color: #f6f8fa !important;
+  color: #0969da !important;
+}
+
+html.theme-light .theme-toggle,
+html.theme-light .sidebar-toggle,
+html[data-theme="light"] .theme-toggle,
+html[data-theme="light"] .sidebar-toggle {
+  background-color: #f6f8fa !important;
+  border-color: #d0d7de !important;
+  color: #1f2328 !important;
+}
+
+html.theme-light .doc-wrap,
+html[data-theme="light"] .doc-wrap {
+  background-color: #ffffff;
+}
+
+html.theme-dark .doc-sidebar,
+html[data-theme="dark"] .doc-sidebar {
+  background-color: #0f172a !important;
+  border-right-color: #30363d !important;
+  color: #e6edf3 !important;
+}
+
+html.theme-dark .doc-topbar,
+html[data-theme="dark"] .doc-topbar {
+  background-color: #0f172a !important;
+  border-bottom-color: #30363d !important;
+  color: #e6edf3 !important;
+}
+
+html.theme-dark .doc-breadcrumb,
+html[data-theme="dark"] .doc-breadcrumb {
+  background-color: #0d1117 !important;
+  border-bottom-color: #30363d !important;
+  color: #8b949e !important;
+}
+
 .doc-layout {
   display: flex;
   min-height: 100vh;

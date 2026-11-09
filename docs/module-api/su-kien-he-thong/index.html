@@ -4,16 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Module API: `system-events` — VietPOS-Map</title>
+  <meta name="vietpos-doc" content="1" />
   <script>
-(function(){var k="vietpos-map-theme",t=localStorage.getItem(k);
+(function(){var k="vietpos-map-theme",MD={dark:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-dark.min.css",light:"https://cdn.jsdelivr.net/npm/github-markdown-css@5.6.1/github-markdown-light.min.css"},t=localStorage.getItem(k);
 if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
-document.documentElement.setAttribute("data-theme",t);
-document.documentElement.style.colorScheme=t;})();
+var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;r.classList.remove("theme-light","theme-dark");r.classList.add("theme-"+t);
+if(document.querySelector('meta[name="vietpos-doc"]')){var l=document.createElement("link");l.id="md-theme-css";l.rel="stylesheet";l.href=MD[t];document.head.appendChild(l);}})();
 </script>
   <link rel="stylesheet" href="/assets/doc.css" />
 </head>
 <body data-md-path="/docs/module-api/su-kien-he-thong/README.md">
-  <script src="/assets/theme-boot.js"></script>
   <div id="sidebar-backdrop" class="doc-sidebar-backdrop" aria-hidden="true"></div>
   <div class="doc-layout">
     <nav id="doc-sidebar" class="doc-sidebar" aria-label="Cây tài liệu"></nav>
